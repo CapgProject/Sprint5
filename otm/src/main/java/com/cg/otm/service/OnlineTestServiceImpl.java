@@ -2,11 +2,7 @@ package com.cg.otm.service;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -14,16 +10,14 @@ import java.util.StringTokenizer;
 
 import javax.transaction.Transactional;
 
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
 
 import com.cg.otm.dao.OnlineTestDao;
+import com.cg.otm.dao.UserRepository;
 import com.cg.otm.dto.OnlineTest;
 import com.cg.otm.dto.Question;
 import com.cg.otm.dto.User;
@@ -35,14 +29,18 @@ public class OnlineTestServiceImpl implements OnlineTestService{
 
 	@Autowired
 	OnlineTestDao testdao;
+	@Autowired
+	UserRepository userRepository;
 	
+	//Method to register a student
 	@Override
 	public User registerUser(User user) throws UserException {
-		User returnedUser = testdao.saveUser(user);
+		//Adding the user into the database
+		User returnedUser = userRepository.save(user); 
 		if (returnedUser != null)
-			return user;
+			return user;													//User is added
 		else {
-			throw new UserException(ExceptionMessage.DATABASEMESSAGE);
+			throw new UserException(ExceptionMessage.DATABASEMESSAGE);		//Not added
 		}
 	}
 
@@ -201,13 +199,14 @@ public class OnlineTestServiceImpl implements OnlineTestService{
 		return score;
 	}
 
+	//Method to get User object using the ID
 	@Override
 	public User searchUser(Long userId) throws UserException {
-		User returnedUser = testdao.searchUser(userId);
+		User returnedUser = userRepository.getOne(userId);			//Search user method
 		if (returnedUser != null) {
-			return returnedUser;
+			return returnedUser;									//User found
 		} else {
-			throw new UserException(ExceptionMessage.USERMESSAGE);
+			throw new UserException(ExceptionMessage.USERMESSAGE);	//User Not Found
 		}
 
 	}
@@ -222,20 +221,20 @@ public class OnlineTestServiceImpl implements OnlineTestService{
 		}
 	}
 
-
+	//Update User Method
 	@Override
 	public User updateProfile(User user) throws UserException {
-
-		User returnedUser = testdao.updateUser(user);
+		User returnedUser = userRepository.save(user);				//Update the user
 		if (returnedUser == null) {
-			throw new UserException(ExceptionMessage.USERMESSAGE);
+			throw new UserException(ExceptionMessage.USERMESSAGE); //User not updated
 		}
-		return returnedUser;
+		return returnedUser;										//User Updated
 	}
 
+	//Method to list all the users
 	@Override
 	public List<User> getUsers() {
-		return testdao.getUsers();
+		return userRepository.findAll();							//Listing all the users
 	}
 
 	@Override
@@ -261,7 +260,7 @@ public class OnlineTestServiceImpl implements OnlineTestService{
 	
 	@Override
 	public void readFromExcel(long id, String fileName, long time) throws IOException, UserException {
-		String UPLOAD_DIRECTORY = "E:\\Soft\\Soft 2\\apache-tomcat-8.5.45-windows-x64\\apache-tomcat-8.5.45\\webapps\\Excel_Files";
+		String UPLOAD_DIRECTORY = "E:\\\\apache-tomcat-8.5.5\\\\webapps\\\\Excel_Files";
 		File dataFile = new File(UPLOAD_DIRECTORY + "\\" + time + fileName);
 		FileInputStream fis = new FileInputStream(dataFile);
 		XSSFWorkbook workbook = new XSSFWorkbook(fis);

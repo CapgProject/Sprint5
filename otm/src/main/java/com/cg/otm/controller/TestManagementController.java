@@ -84,7 +84,7 @@ public class TestManagementController {
 	@RequestMapping(value = "/addquestionsubmit", method = RequestMethod.POST)
 	public String addQuestion(@RequestParam("testid") long id, @RequestParam("exfile") MultipartFile file) {
 		try {
-			String UPLOAD_DIRECTORY = "E:\\Soft\\Soft 2\\apache-tomcat-8.5.45-windows-x64\\apache-tomcat-8.5.45\\webapps\\Excel_Files";
+			String UPLOAD_DIRECTORY = "E:\\apache-tomcat-8.5.5\\webapps\\Excel_Files";
 			String fileName = file.getOriginalFilename();
 			File pathFile = new File(UPLOAD_DIRECTORY);
 			if (!pathFile.exists()) {
