@@ -1,12 +1,13 @@
 package com.cg.otm.dao;
+
 import java.util.List;
+
 import com.cg.otm.dto.OnlineTest;
 import com.cg.otm.dto.Question;
 import com.cg.otm.dto.User;
 import com.cg.otm.exception.UserException;
 
 public interface OnlineTestDao {
-
 	public OnlineTest saveTest(OnlineTest onlineTest) throws UserException;
 	public OnlineTest searchTest(Long testId) throws UserException;
 	public OnlineTest removeTest(Long testId) throws UserException;
@@ -22,6 +23,5 @@ public interface OnlineTestDao {
 	public List<User> getUsers();
 	public List<OnlineTest> getTests();
 	public User login(String userName, String pass);
-
 
 }

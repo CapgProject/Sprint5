@@ -1,5 +1,4 @@
 package com.cg.otm.dao;
-
 import java.util.List;
 import java.util.Set;
 
@@ -18,8 +17,10 @@ import com.cg.otm.exception.ExceptionMessage;
 import com.cg.otm.exception.UserException;
 
 @Repository("testdao")
-public class OnlineTestDaoImpl implements OnlineTestDao {
 
+
+
+public class OnlineTestDaoImpl implements OnlineTestDao {
 	@PersistenceContext
 	EntityManager entitymanager;
 //	static {
@@ -224,4 +225,5 @@ public class OnlineTestDaoImpl implements OnlineTestDao {
 		}
 
 	}
+
 }

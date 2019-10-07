@@ -9,6 +9,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.StringTokenizer;
 
@@ -19,6 +20,8 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
@@ -29,12 +32,27 @@ import com.cg.otm.dto.Question;
 import com.cg.otm.dto.User;
 import com.cg.otm.exception.ExceptionMessage;
 import com.cg.otm.exception.UserException;
+import com.cg.otm.repository.OnlineTestRepository;
+import com.cg.otm.repository.QuestionRepository;
+import com.cg.otm.repository.UserRepository;
 @Service("testservice")
 @Transactional
 public class OnlineTestServiceImpl implements OnlineTestService{
+	
+	private static final Logger logger = LoggerFactory.getLogger(OnlineTestServiceImpl.class);
+ 
 
 	@Autowired
 	OnlineTestDao testdao;
+
+	@Autowired
+	UserRepository userRepository;
+	
+	@Autowired
+	OnlineTestRepository onlineTestRepository;
+	
+	@Autowired
+	QuestionRepository questionRepository;
 	
 	@Override
 	public User registerUser(User user) throws UserException {
@@ -72,8 +90,8 @@ public class OnlineTestServiceImpl implements OnlineTestService{
 
 	@Override
 	public Boolean assignTest(Long userId, Long testId) throws UserException {
-		User user = testdao.searchUser(userId);
-		OnlineTest onlineTest = testdao.searchTest(testId);
+		User user = userRepository.findByUserId(userId);
+		OnlineTest onlineTest = onlineTestRepository.findByTestId(testId);
 		if (user == null) {
 			throw new UserException(ExceptionMessage.USERMESSAGE);
 		}
@@ -86,11 +104,11 @@ public class OnlineTestServiceImpl implements OnlineTestService{
 		if (onlineTest.getIsTestAssigned()) {
 			throw new UserException(ExceptionMessage.TESTASSIGNEDMESSAGE);
 		} else {
-			user.setUserTest(onlineTest);
-			onlineTest.setIsTestAssigned(true);
+			
+		user.setUserTest(onlineTest);
+		onlineTest.setIsTestAssigned(true);
 		}
-		testdao.updateTest(onlineTest);
-		testdao.updateUser(user);
+		
 		return true;
 	}
 
@@ -225,12 +243,19 @@ public class OnlineTestServiceImpl implements OnlineTestService{
 
 	@Override
 	public User updateProfile(User user) throws UserException {
-
-		User returnedUser = testdao.updateUser(user);
-		if (returnedUser == null) {
-			throw new UserException(ExceptionMessage.USERMESSAGE);
+		
+		User returnedUser=userRepository.findById(user.getUserId()).orElse(null);
+		if(returnedUser==null) {
+			
+			logger.error("The user does not exist");
+		    throw new UserException(ExceptionMessage.USERMESSAGE);
+			
 		}
-		return returnedUser;
+		else {
+			return userRepository.save(returnedUser);
+		}
+		
+	
 	}
 
 	@Override

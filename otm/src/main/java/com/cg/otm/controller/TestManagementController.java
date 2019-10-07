@@ -12,6 +12,8 @@ import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -35,6 +37,7 @@ public class TestManagementController {
 	OnlineTestService testservice;
 
 	private static int num = 0;
+	Logger logger=LoggerFactory.getLogger(TestManagementController.class);
 
 	/*Mapping for the home page*/
 	@RequestMapping(value = "/", method = RequestMethod.GET)
@@ -342,6 +345,7 @@ public class TestManagementController {
 
 	@RequestMapping(value = "/updateuser", method = RequestMethod.GET)
 	public ModelAndView showUpdateUser(@ModelAttribute("user") User user, HttpSession session) {
+		logger.trace("Update User method accessed");
 		User originalUser = (User) session.getAttribute("user");
 		if (originalUser.getIsAdmin()) {
 			return new ModelAndView("UpdateAdminDetails", "Update", session.getAttribute("user"));
