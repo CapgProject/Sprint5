@@ -373,17 +373,22 @@ public class TestManagementController {
 	}
 
 	@RequestMapping(value = "/onlogin", method = RequestMethod.POST)
-	public String onLogin(@ModelAttribute("user") User user, HttpSession session) {
-		User foundUser = testservice.login(user.getUserName(), user.getUserPassword());
+	public ModelAndView onLogin(@ModelAttribute("user") User user, HttpSession session) {
+		User foundUser=null;
+		try {
+			foundUser = testservice.login(user.getUserName(), user.getUserPassword());
+		} catch (UserException e) {
+			
+		}
 		if (foundUser != null) {
 			session.setAttribute("user", foundUser);
 			if (foundUser.getIsAdmin()) {
-				return "admin";
+				return new ModelAndView("admin");
 			} else {
-				return "user";
+				return new ModelAndView("user");
 			}
 		} else {
-			return "home";
+			return new ModelAndView("home","error","Either the Username or Password was incorrect!");
 		}
 
 	}

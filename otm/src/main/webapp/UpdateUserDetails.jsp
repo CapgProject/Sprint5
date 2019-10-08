@@ -11,72 +11,66 @@
 <meta content="" name="keywords">
 <meta content="" name="description">
 <jsp:include page="include_script.jsp"></jsp:include>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
 <style type="text/css">
 	.error {
 		color: red;
 	}
 	
 </style>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script type="text/javascript"></script>
-<script>
-$(function() {
-    $("#username_error_message").hide();
-    $("#password_error_message").hide();
-   
-    var error_username = false;
-    var error_password = false;
-   
-    $("#name").focusout(function(){
-       check_username();
-    });
-    $("#password").focusout(function() {
-       check_password();
-    });
-    
-    function check_username() {
-       var pattern = "/^[A-Z][A-Za-z 0-9_-]*$/";
-       var username = $("#name").val();
-       if (pattern.test(username) && username !== '') {
-          $("#username_error_message").hide();
-       } else {
-          $("#username_error_message").html("Should contain only Characters and at least ");
-          $("#username_error_message").show();
-          $("#form_username").css("border-bottom","2px solid #F90A0A");
-          error_username = true;
-       }
-    
-      
-    function check_password() {
-       var password_length = $("#password").val().length;
-       if (password_length < 8) {
-          $("#password_error_message").html("Atleast 8 Characters");
-          $("#password_error_message").show();
-          $("#form_password").css("border-bottom","2px solid #F90A0A");
-          error_password = true;
-       } else {
-          $("#password_error_message").hide();
-          $("#form_password").css("border-bottom","2px solid #34F458");
-       }
-    }
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	$("#username_error_message").hide();
+	$("#password_error_message").hide();
+	var error_username = false;
+	var error_password = false;
 
-    $("#updateform").submit(function() {
-        error_username = false;
-        error_password = false;
-        check_username();
-        check_password();
-        check_retype_password();
-        if (error_username === false && error_password === false ) {
-           alert("Updated Successfull");
-           return true;
-        } else {
-           alert("Please Fill the form Correctly");
-           return false;
-        }
-    });
-    });
+	$("#name").focusout(function(){
+		check_username();
+	});
+	$("#password").focusout(function(){
+		check_password();
+	});
+
+	function check_username(){
+		var username_length = $("#name").val().length;
+		if(username_length<5 || username_length>20)	{
+			$("#username_error_message").html("Should be 5-20 characters long");
+			$("#username_error_message").show();
+			error_username = true;
+		}
+		else{
+			$("#username_error_message").hide();	
+		}
+	}
+
+	function check_password(){
+		var pattern =new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/i);
+		if(pattern.test($("#password").val())){
+			$("#password_error_message").hide();
+		}
+		else{
+			$("#password_error_message").html("Password should contain at least one upper case character, one lower case character, one numeric character, one special character and length should be at least eight characters");
+			$("#password_error_message").show();
+			error_password = true;	
+		}
+	}
+
+	$("#updateform").submit(function(){
+		error_username = false;
+		error_password = false;
+		check_username();
+		check_password();
+		if(error_username == false && error_password == false){
+			return true;
+		}
+		else{
+			return false;
+		}
+	});
+	
+});
 </script>
 </head>
 
@@ -124,7 +118,7 @@ $(function() {
 					<div class="text-center col-md-6 col-lg-6">User Name:</div>
 					<div class="col-md-4 col-lg-4">
 						<input id="name" type="text" name="userName" value="${Update.userName}" />
-						<span id="username_error_message"></span>
+						<span id="username_error_message" class = "error"></span>
 					</div>
 				</div>
 				<div class="row">
@@ -132,7 +126,7 @@ $(function() {
 					<div class="col-md-4 col-lg-4">
 						<input id="password" type="text" name="userPassword"
 							value="${Update.userPassword}" />
-						<span id="password_error_message"></span>
+						<span id="password_error_message" class = "error"></span>
 					</div>
 				</div>
 				<div class="row">

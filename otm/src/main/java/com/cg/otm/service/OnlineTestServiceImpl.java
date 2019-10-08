@@ -254,8 +254,14 @@ public class OnlineTestServiceImpl implements OnlineTestService{
 	}
 	
 	@Override
-	public User login(String userName, String pass) {
-		return testdao.login(userName, pass);
+	public User login(String userName, String pass) throws UserException{
+		List<User> userList = userRepository.findByUserNameAndUserPassword(userName, pass);
+		if(userList.isEmpty()) {
+			throw new UserException();
+		}
+		else {
+			return userList.get(0);
+		}
 	}
 	
 	@Override
