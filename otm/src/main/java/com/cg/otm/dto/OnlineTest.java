@@ -17,6 +17,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "onlinetest")
@@ -31,6 +32,7 @@ public class OnlineTest {
 		@Column(name = "test_name")
 		private String testName;
 		
+		@DateTimeFormat(pattern = "HH:mm:ss")
 		@Column(name = "test_duration")
 		private LocalTime testDuration;
 		
@@ -44,9 +46,11 @@ public class OnlineTest {
 		@Column(name = "test_marks_scored")
 		private Double testMarksScored;
 		
+		@DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
 		@Column(name = "test_start_time")
 		private LocalDateTime startTime;
 		
+		@DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
 		@Column(name = "test_end_time")
 		private LocalDateTime endTime;
 		

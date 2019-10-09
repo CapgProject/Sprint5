@@ -11,6 +11,9 @@
   <meta content="" name="keywords">
   <meta content="" name="description">
 <jsp:include page="include_script.jsp"></jsp:include>
+<script type="text/javascript"
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">	
+</script>
 </head>
 
 <body>
@@ -60,13 +63,15 @@
       <p class="section-description">Enter the Question details to be Added here</p>
       </div>
       <fo:form action="addquestionsubmit" method="POST"
-			modelAttribute="question" enctype="multipart/form-data">
+			modelAttribute="question" enctype="multipart/form-data" id="form">
         <div class = "row">
           <div class="text-center col-md-6 col-lg-6">
             Enter the Test Id:
           </div>
           <div class="col-md-4 col-lg-4">
-            <input type="text" name="testid" />
+            <input type="text" name="testid" id="testid" />
+            <span id="id_error" style="color:red"></span>
+            <span style="color:red">${error}</span>
           </div>
         </div>
         <div class = "row">
@@ -74,7 +79,8 @@
             Input File:
           </div>
           <div class="col-md-4 col-lg-4">
-            <input type= "file" name = "exfile" />
+            <input type= "file" name = "exfile" id="file" accept=".xlsx"/>
+            <span id="file_error" style="color:red"></span>
           </div>
         </div>
         <div class = "row">
@@ -105,7 +111,60 @@
 
   <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 
-
+<script type="text/javascript">
+$(function () {
+	$("#id_error").hide();
+	$("#file_error").hide();
+	var error_id = false;
+	var error_file = false;
+	$("#testid").focusout(function () {
+		check_id();
+	});
+	
+	$("#file").focusout(function () {
+		check_file();
+	});
+	
+	function check_id() {
+		var length = $("#testid").val().length;
+		var pattern = new RegExp("^[0-9]+$");
+		if(length<1 || !pattern.test($("#testid").val())){
+			$("#id_error").html("Please enter a number!");
+			$("#id_error").show();
+			error_id = true;
+		}
+		else{
+			$("#id_error").hide();
+		}
+	}
+	
+	function check_file() {
+		var filename = $("#file").val();
+		var extension = filename.substr(filename.lastIndexOf(".")+1);
+		if(extension != "xlsx"){
+			$("#file_error").html("Invalid file format chosen! Please choose a .xlsx  file only!");
+			$("#file_error").show();
+			error_file = true;
+		}
+		else{
+			$("#file_error").hide();
+		}
+	}
+	
+	$("#form").submit(function(){
+		error_id = false;
+		error_file = false;
+		check_id();
+		check_file();
+		if(error_id == false && error_file == false){
+			return true;
+		}
+		else{
+			return false;
+		}
+	});
+});
+</script>
 
 
 </body>

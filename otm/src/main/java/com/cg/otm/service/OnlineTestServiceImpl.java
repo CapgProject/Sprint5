@@ -3,9 +3,7 @@ package com.cg.otm.service;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.StringTokenizer;
 
@@ -20,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cg.otm.dao.OnlineTestDao;
-import com.cg.otm.dao.UserRepository;
 import com.cg.otm.dto.OnlineTest;
 import com.cg.otm.dto.Question;
 import com.cg.otm.dto.User;
@@ -79,7 +76,7 @@ public class OnlineTestServiceImpl implements OnlineTestService{
 
 	@Override
 	public Question showQuestion(OnlineTest onlineTest, Long questionId) throws UserException {
-		Question question = testdao.searchQuestion(questionId);
+		Question question = questionRepository.findByQuestionId(questionId);
 		if (question == null || !onlineTest.getTestQuestions().contains(question)) {
 			throw new UserException(ExceptionMessage.QUESTIONMESSAGE);
 		}
@@ -120,10 +117,7 @@ public class OnlineTestServiceImpl implements OnlineTestService{
 
 	@Override
 	public OnlineTest addTest(OnlineTest onlineTest) throws UserException {
-		Set<Question> mySet = new HashSet<Question>();
-		onlineTest.setTestQuestions(mySet);
-		onlineTest.setIsTestAssigned(false);
-		OnlineTest returnedTest = testdao.saveTest(onlineTest);
+		OnlineTest returnedTest = onlineTestRepository.save(onlineTest);
 		if (returnedTest == null) {
 			throw new UserException(ExceptionMessage.DATABASEMESSAGE);
 		}
@@ -132,11 +126,19 @@ public class OnlineTestServiceImpl implements OnlineTestService{
 
 	@Override
 	public OnlineTest updateTest(Long testId, OnlineTest onlineTest) throws UserException {
-		OnlineTest temp = testdao.searchTest(testId);
+		OnlineTest temp = onlineTestRepository.findByTestId(testId);
 		if (temp != null) {
-			onlineTest.setIsTestAssigned(temp.getIsTestAssigned());
-			onlineTest.setTestTotalMarks(temp.getTestTotalMarks());
-			testdao.updateTest(onlineTest);
+			temp.setTestId(testId);
+			temp.setTestName(onlineTest.getTestName());
+			temp.setTestDuration(onlineTest.getTestDuration());
+			temp.setStartTime(onlineTest.getStartTime());
+			temp.setEndTime(onlineTest.getEndTime());
+			temp.setIsdeleted(onlineTest.getIsdeleted());
+			temp.setIsTestAssigned(onlineTest.getIsTestAssigned());
+			temp.setTestMarksScored(onlineTest.getTestMarksScored());
+			temp.setTestQuestions(onlineTest.getTestQuestions());
+			temp.setTestTotalMarks(onlineTest.getTestMarksScored());
+			onlineTestRepository.save(temp);
 			return onlineTest;
 		} else
 			throw new UserException(ExceptionMessage.TESTMESSAGE);
@@ -144,45 +146,39 @@ public class OnlineTestServiceImpl implements OnlineTestService{
 
 	@Override
 	public OnlineTest deleteTest(Long testId) throws UserException {
-		OnlineTest returnedTest = testdao.removeTest(testId);
-		if (returnedTest == null) {
-			throw new UserException(ExceptionMessage.TESTMESSAGE);
+		OnlineTest returnedTest = onlineTestRepository.findByTestId(testId);
+		if (returnedTest != null && returnedTest.getIsdeleted() == false) {
+			returnedTest.setIsdeleted(true);
+		} else {
+			throw new UserException(ExceptionMessage.TESTNOTFOUNDMESSAGE);
 		}
 		return returnedTest;
 	}
 
 	@Override
-	public Question addQuestion(Long testId, Question question) throws UserException {
-		OnlineTest temp = testdao.searchTest(testId);
-		if (temp != null) {
-			question.setChosenAnswer(-1);
-			question.setMarksScored(0.0);
-			question.setOnlinetest(temp);
-			temp.setTestTotalMarks(temp.getTestTotalMarks() + question.getQuestionMarks());
-			testdao.saveQuestion(question);
-			testdao.updateTest(temp);
-			return question;
-		} else
-			throw new UserException(ExceptionMessage.TESTMESSAGE);
-	}
-
-	@Override
 	public Question updateQuestion(Long testId, Long questionId, Question question) throws UserException {
-		OnlineTest temp = testdao.searchTest(testId);
+		OnlineTest temp = onlineTestRepository.findByTestId(testId);
 		if (temp != null) {
 			Set<Question> quests = temp.getTestQuestions();
-			Question tempQuestion = testdao.searchQuestion(questionId);
+			Question tempQuestion = questionRepository.findByQuestionId(questionId);
 			if (tempQuestion != null && quests.contains(tempQuestion)) {
 				tempQuestion.setChosenAnswer(question.getChosenAnswer());
-				if (tempQuestion.getChosenAnswer() == tempQuestion.getQuestionAnswer())
-				tempQuestion.setMarksScored(question.getQuestionMarks());
+				if (tempQuestion.getChosenAnswer() == tempQuestion.getQuestionAnswer()) {
+					tempQuestion.setMarksScored(question.getQuestionMarks());
+				}
 				question.setQuestionId(questionId);
-				temp.setTestTotalMarks(temp.getTestTotalMarks() - tempQuestion.getQuestionMarks() + question.getQuestionMarks());
-				temp.setTestMarksScored(
-						temp.getTestMarksScored() + tempQuestion.getMarksScored());
+				temp.setTestTotalMarks(
+						temp.getTestTotalMarks() - tempQuestion.getQuestionMarks() + question.getQuestionMarks());
+				temp.setTestMarksScored(temp.getTestMarksScored() + tempQuestion.getMarksScored());
 				tempQuestion.setQuestionMarks(question.getQuestionMarks());
-				testdao.updateQuestion(tempQuestion);
-				testdao.updateTest(temp);
+				tempQuestion.setIsDeleted(question.getIsDeleted());
+				tempQuestion.setOnlinetest(question.getOnlinetest());
+				tempQuestion.setQuestionAnswer(question.getQuestionAnswer());
+				tempQuestion.setQuestionId(questionId);
+				tempQuestion.setQuestionOptions(question.getQuestionOptions());
+				tempQuestion.setQuestionTitle(question.getQuestionTitle());
+				questionRepository.save(tempQuestion);
+				onlineTestRepository.save(temp);
 				return question;
 			} else
 				throw new UserException(ExceptionMessage.QUESTIONMESSAGE);
@@ -192,14 +188,15 @@ public class OnlineTestServiceImpl implements OnlineTestService{
 
 	@Override
 	public Question deleteQuestion(Long testId, Long questionId) throws UserException {
-		OnlineTest temp = testdao.searchTest(testId);
+		OnlineTest temp = onlineTestRepository.findByTestId(testId);
 		if (temp != null) {
 			Set<Question> quests = temp.getTestQuestions();
-			Question tempQuestion = testdao.searchQuestion(questionId);
-			if (tempQuestion != null && quests.contains(tempQuestion)) {
+			Question tempQuestion = questionRepository.findByQuestionId(questionId);
+			if (tempQuestion != null && quests.contains(tempQuestion) && tempQuestion.getIsDeleted() == false) {
 				temp.setTestTotalMarks(temp.getTestTotalMarks() - tempQuestion.getQuestionMarks());
-				testdao.updateTest(temp);
-				return testdao.removeQuestion(questionId);
+				onlineTestRepository.save(temp);
+				tempQuestion.setIsDeleted(true);
+				return tempQuestion;
 			} else
 				throw new UserException(ExceptionMessage.QUESTIONMESSAGE);
 		} else
@@ -239,11 +236,11 @@ public class OnlineTestServiceImpl implements OnlineTestService{
 
 	@Override
 	public OnlineTest searchTest(Long testId) throws UserException {
-		OnlineTest returnedTest = testdao.searchTest(testId);
+		OnlineTest returnedTest = onlineTestRepository.findByTestId(testId);
 		if (returnedTest != null) {
 			return returnedTest;
 		} else {
-			throw new UserException(ExceptionMessage.TESTMESSAGE);
+			throw new UserException(ExceptionMessage.TESTNOTFOUNDMESSAGE);
 		}
 	}
 
@@ -266,16 +263,15 @@ public class OnlineTestServiceImpl implements OnlineTestService{
 
 	@Override
 	public List<OnlineTest> getTests() {
-		return testdao.getTests();
+		return onlineTestRepository.findAllNotAssignedAndNotDeleted();
 	}
 
 	@Override
 	public Question searchQuestion(Long questionId) throws UserException {
-		Question question = testdao.searchQuestion(questionId);
-		if(question != null) {
+		Question question = questionRepository.findByQuestionId(questionId);
+		if (question != null) {
 			return question;
-		}
-		else {
+		} else {
 			throw new UserException(ExceptionMessage.QUESTIONNOTFOUNDMESSAGE);
 		}
 	}
@@ -293,67 +289,65 @@ public class OnlineTestServiceImpl implements OnlineTestService{
 	
 	@Override
 	public void readFromExcel(long id, String fileName, long time) throws IOException, UserException {
-		String UPLOAD_DIRECTORY = "E:\\\\apache-tomcat-8.5.5\\\\webapps\\\\Excel_Files";
+		String UPLOAD_DIRECTORY = "E:\\Soft\\Soft 2\\apache-tomcat-8.5.45\\webapps\\Excel_Files";
 		File dataFile = new File(UPLOAD_DIRECTORY + "\\" + time + fileName);
 		FileInputStream fis = new FileInputStream(dataFile);
 		XSSFWorkbook workbook = new XSSFWorkbook(fis);
 		XSSFSheet sheet = workbook.getSheetAt(0);
 		Row row;
 		Double testMarks = 0.0;
-		for(int i=1; i<=sheet.getLastRowNum(); i++) {
-		row = (Row) sheet.getRow(i);
-		String title;
-		if(row.getCell(0).toString() == null) {
-		throw new UserException(ExceptionMessage.QUESTIONTITLEMESSAGE);
-		}
-		else {
-		title = row.getCell(0).toString();
-		}
-		String marks;
-		if(row.getCell(1).toString() == null) {
-		throw new UserException(ExceptionMessage.QUESTIONMARKSMESSAGE);
-		}
-		else {
-		marks = row.getCell(1).toString();
-		testMarks = testMarks + Double.parseDouble(marks);
-		}
-		String options;
-		if(row.getCell(2).toString() == null) {
-		throw new UserException(ExceptionMessage.QUESTIONOPTIONSMESSAGE);
-		}
-		else {
-		options = row.getCell(2).toString();
-		}
-		String answer;
-		if(row.getCell(3).toString() == null) {
-		throw new UserException(ExceptionMessage.QUESTIONANSWERMESSAGE);
-		}
-		else {
-		answer = row.getCell(3).toString();
-		}
+		for (int i = 1; i <= sheet.getLastRowNum(); i++) {
+			row = (Row) sheet.getRow(i);
+			String title;
+			if (row.getCell(0) == null) {
+				throw new UserException(ExceptionMessage.QUESTIONTITLEMESSAGE);
+			} else {
+				title = row.getCell(0).toString();
+			}
+			String marks;
+			if (row.getCell(1) == null) {
+				throw new UserException(ExceptionMessage.QUESTIONMARKSMESSAGE);
+			} else {
+				marks = row.getCell(1).toString();
+				testMarks = testMarks + Double.parseDouble(marks);
+			}
+			String options;
+			if (row.getCell(2) == null) {
+				throw new UserException(ExceptionMessage.QUESTIONOPTIONSMESSAGE);
+			} else {
+				options = row.getCell(2).toString();
+			}
+			String answer;
+			if (row.getCell(3) == null) {
+				throw new UserException(ExceptionMessage.QUESTIONANSWERMESSAGE);
+			} else {
+				answer = row.getCell(3).toString();
+			}
 
-		Question question = new Question();
-		OnlineTest test = testdao.searchTest(id);
-		test.setTestTotalMarks(testMarks);
-		String option[] = new String[4];
-		question.setQuestionTitle(title);
-		question.setQuestionMarks(Double.parseDouble(marks));
-		StringTokenizer token = new StringTokenizer(options, ",");
-		int k = 0;
-		   while (token.hasMoreTokens()) {
-		    option[k] = token.nextToken();
-		    k++;
-		   }
-		   question.setQuestionOptions(option);
-		   question.setQuestionAnswer((int) Double.parseDouble(answer));
-		   question.setChosenAnswer(0);
-		   question.setIsDeleted(false);
-		   question.setMarksScored(new Double(0));
-		   question.setOnlinetest(test);
-		   testdao.saveQuestion(question);
+			Question question = new Question();
+			OnlineTest test = onlineTestRepository.findByTestId(id);
+			if(test == null) {
+				throw new UserException(ExceptionMessage.TESTNOTFOUNDMESSAGE);
+			}
+			test.setTestTotalMarks(testMarks);
+			String option[] = new String[4];
+			question.setQuestionTitle(title);
+			question.setQuestionMarks(Double.parseDouble(marks));
+			StringTokenizer token = new StringTokenizer(options, ",");
+			int k = 0;
+			while (token.hasMoreTokens()) {
+				option[k] = token.nextToken();
+				k++;
+			}
+			question.setQuestionOptions(option);
+			question.setQuestionAnswer((int) Double.parseDouble(answer));
+			question.setChosenAnswer(0);
+			question.setIsDeleted(false);
+			question.setMarksScored(new Double(0));
+			question.setOnlinetest(test);
+			questionRepository.save(question);
 		}
 		fis.close();
-		}
+	}
 
-	
 }
