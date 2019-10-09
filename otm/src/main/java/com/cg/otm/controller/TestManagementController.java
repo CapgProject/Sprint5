@@ -345,7 +345,6 @@ public class TestManagementController {
 
 	@RequestMapping(value = "/updateuser", method = RequestMethod.GET)
 	public ModelAndView showUpdateUser(@ModelAttribute("user") User user, HttpSession session) {
-		logger.trace("Update User method accessed");
 		User originalUser = (User) session.getAttribute("user");
 		if (originalUser.getIsAdmin()) {
 			return new ModelAndView("UpdateAdminDetails", "Update", session.getAttribute("user"));
@@ -366,13 +365,19 @@ public class TestManagementController {
 
 			userOne.setIsAdmin(originalUser.getIsAdmin());
 			testservice.updateProfile(userOne);
+			logger.info("User details updated");
 		} catch (UserException e) {
 			System.out.println(e.getMessage());
+			logger.warn("User details cannot be updated");
 		}
 		if (originalUser.getIsAdmin()) {
+			logger.info("This user is an admin");
 			return "admin";
+			
 		} else {
+			logger.info("This user is not  an admin");
 			return "user";
+			
 		}
 	}
 

@@ -88,24 +88,32 @@ public class OnlineTestServiceImpl implements OnlineTestService{
 		return question;
 	}
 
+	/* Method to assign a test to user
+    * Author <Priya>
+    */
 	@Override
 	public Boolean assignTest(Long userId, Long testId) throws UserException {
 		User user = userRepository.findByUserId(userId);
 		OnlineTest onlineTest = onlineTestRepository.findByTestId(testId);
 		if (user == null) {
+			logger.error("The user does not exist");
 			throw new UserException(ExceptionMessage.USERMESSAGE);
 		}
 		if (user.getIsAdmin()) {
+			logger.error("Admin cannot be assigned a test");
 			throw new UserException(ExceptionMessage.ADMINMESSAGE);
 		}
 		if (onlineTest == null) {
+			logger.error("The test does not exist");
 			throw new UserException(ExceptionMessage.TESTMESSAGE);
 		}
 		if (onlineTest.getIsTestAssigned()) {
+			logger.info("The test is already assigned");
 			throw new UserException(ExceptionMessage.TESTASSIGNEDMESSAGE);
 		} else {
 			
 		user.setUserTest(onlineTest);
+		logger.info("Test is being assigned to user");
 		onlineTest.setIsTestAssigned(true);
 		}
 		
@@ -240,7 +248,9 @@ public class OnlineTestServiceImpl implements OnlineTestService{
 		}
 	}
 
-
+	/* Method to update the profile of user
+	    * Author <Priya>
+	    */
 	@Override
 	public User updateProfile(User user) throws UserException {
 		

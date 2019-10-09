@@ -41,6 +41,8 @@
 
   <!-- Main Stylesheet File -->
   <link href='<c:url value = "/webjars/css/style.css" />' rel="stylesheet">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 </head>
 
 <body>
@@ -89,13 +91,14 @@
       <h3 class="section-title">Assign Test</h3>
       <p class="section-description">You can use the below form to assign an existing test to a user</p>
       </div>
-      <form action="assigntestsubmit" method="post">
+      <form id="assigntest" action="assigntestsubmit" method="post">
         <div class = "row">
           <div class="text-center col-md-6 col-lg-6">
             Enter the Test Id:
           </div>
           <div class="col-md-4 col-lg-4">
-            <input type="text" name="testid" placeholder="Enter Test Id" class="form-control" >
+            <input type="text" id="test_id" name="testid" placeholder="Enter Test Id" class="form-control" >
+             <span class="error" id="testid_error_message" style="color:red"></span>
           </div>
         </div>
         <div class = "row">
@@ -103,7 +106,8 @@
             Enter the User Id:
           </div>
           <div class="col-md-4 col-lg-4">
-            <input type="text" name="userid" placeholder="Enter User Id" class="form-control" >
+            <input type="text" id="user_id" name="userid" placeholder="Enter User Id" class="form-control" >
+            <span class="error" id="userid_error_message" style="color:red"></span>
           </div>
         </div>
         <div class = "row">
@@ -151,5 +155,62 @@
   <script src='<c:url value = "/webjars/js/main.js" />'></script>
 
 
+<script type="text/javascript">
+$(function(){
+	
+	$("#testid_error_message").hide();
+	$("#userid_error_message").hide();
+	var error_testid=false;
+	var error_userid=false;
+	
+	$("#test_id").focusout(function(){
+		
+		check_testid();
+	});
+	$("#user_id").focusout(function(){
+		
+		check_userid();
+	});
+	function check_testid(){
+		var length = $("#test_id").val().length;
+		var pattern = new RegExp(/^[0-9]+$/i);
+		if(length<1 || !pattern.test($("#test_id").val())){
+			$("#testid_error_message").html("Only numbers are allowed.!");
+			$("#testid_error_message").show();
+			error_testid = true;
+		}
+		else{
+			$("#testid_error_message").hide();
+		}
+	}
+	
+	function check_userid(){
+		var length = $("#user_id").val().length;
+		var pattern = new RegExp(/^[0-9]+$/i);
+		if(length<1 || !pattern.test($("#user_id").val())){
+			$("#userid_error_message").html("Only numbers are allowed.!");
+			$("#userid_error_message").show();
+			error_userid = true;
+		}
+		else{
+			$("#userid_error_message").hide();
+		}
+	}
+	$("#assigntest").submit(function(){
+		error_testid = false;
+		error_userid = false;
+		check_testid();
+		check_userid();
+		if(error_testid == false && error_userid == false){
+			return true;
+		}
+		else{
+			return false;
+		}
+	});
+});
+</script>
+
 </body>
+
 </html>

@@ -11,6 +11,9 @@
   <meta content="" name="keywords">
   <meta content="" name="description">
 <jsp:include page="include_script.jsp"></jsp:include>
+<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+
+
 </head>
 
 <body>
@@ -58,7 +61,8 @@
             User Name:
           </div>
           <div class="col-md-4 col-lg-4">
-            <input type="text" name="userName" value="${Update.userName}" />
+            <input type="text" id="name" name="userName" value="${Update.userName}" />
+           <p> <span  id="name_error" style="color: red"></span></p>
           </div>
         </div>
         <div class = "row">
@@ -98,7 +102,45 @@
   <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 
 
+<script  type="text/javascript">
+$(document).ready(function(){
+	 $("#name_error").hide();
+	    var name_error = false;
 
+	    $("#name").focusout(function(){
+	        check_name();
+	     });
+	    
+	    function check_name() {
+	    var pattern = new RegExp(/^[A-Z][A-Za-z 0-9_-]*$/);
+	    var username = $("#name").val();
+	    var username_length=$("name").val().length;
+	    if ((pattern.test(username) && username !== '') && (username_length>3) && (uername_length<15)){
+	       $("#name_error").hide();
+	       
+	    } else {
+	       $("#name_error").html("Alphabets and numbers are allowed and the first character should be capitalized and must be between 3 and 15 characters long!");
+	       $("name_error").show();
+	    }
+	    name_error = true;
+	    }
+	    
+	    $("#updateusersubmit").submit(function(){
+	    	name_error=false;
+	    	check_name();
+	    	if(error_name==false){
+	    		return true;
+	    	}
+	    	else{
+	    		return false;
+	    	}
+	    		
+	    });
+	    	});  
+	
+  });   
+      
+</script>
 
 </body>
 </html>	

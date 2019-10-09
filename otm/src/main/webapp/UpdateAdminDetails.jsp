@@ -11,6 +11,9 @@
   <meta content="" name="keywords">
   <meta content="" name="description">
 <jsp:include page="include_script.jsp"></jsp:include>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 </head>
 
 <body>
@@ -59,7 +62,7 @@
       <h3 class="section-title">Update User</h3>
       <p class="section-description">Enter the User details to be Updated here</p>
       </div>
-      <fo:form action="updateusersubmit" method="post" modelAttribute="user">
+      <fo:form id="updatedetails" action="updateusersubmit" method="post" modelAttribute="user">
         <div class = "row">
           <div class="text-center col-md-6 col-lg-6">
             User Id:
@@ -73,7 +76,8 @@
             User Name:
           </div>
           <div class="col-md-4 col-lg-4">
-            <input type="text" name="userName" value="${Update.userName}" />
+            <input type="text" name="userName" id="name"value="${Update.userName}" />
+            <span class="error" id="name_error_message" style="color:red"></span>
           </div>
         </div>
         <div class = "row">
@@ -81,7 +85,8 @@
             User Password:
           </div>
           <div class="col-md-4 col-lg-4">
-            <input type="text" name="userPassword" value="${Update.userPassword}" />
+            <input type="text" name="userPassword" id="password" value="${Update.userPassword}" />
+            <span id="password_error_message" class = "error"></span>
           </div>
         </div>
         <div class = "row">
@@ -112,8 +117,65 @@
 
   <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 
+<script type="text/javascript">
+$(function(){
+	$("#name_error_message").hide();
+	$("#password_error_message").hide();
+	var error_name = false;
+	var error_password = false;
+	$("#name").focusout(function(){
+		check_name();
+	});
+	$("#password").focusout(function(){
+		check_password();
+	});
+	function check_name(){
+		var pattern=new RegExp(/^[A-Z][A-Za-z 0-9_-]*$/i);
+		var name_length = $("#name").val().length;
+		
+		<!--else if(!(pattern.test($("#name").val())))
+		$("#name_error_message").html("Alphabets, numbers and special characters are allowed and the first character should be capitalized");
+		$("#name_error_message").show();
+		error_name = true;
+		
+	
+		-->
+		if(name_length<3 || name_length>15) {
+			$("#name_error_message").html("Name should be 3-15 characters long!");
+			$("#name_error_message").show();
+			error_name = true;
+		}
+		else{
+			$("#name_error_message").hide();	
+		}
+	}
 
-
+	function check_password(){
+		var pattern =new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/i);
+		if(pattern.test($("#password").val())){
+			$("#password_error_message").hide();
+		}
+		else{
+			$("#password_error_message").html("Password should contain at least one upper case character, one lower case character, one numeric character, one special character and length should be at least eight characters");
+			$("#password_error_message").show();
+			error_password = true;	
+		}
+	}
+	$("#updatedetails").submit(function(){
+		error_name = false;
+		error_password = false;
+		check_name();
+		check_password();
+		if(error_name == false && error_password == false){
+			return true;
+		}
+		else{
+			return false;
+		}
+	});
+	
+});
+</script>
 
 </body>
 </html>	
