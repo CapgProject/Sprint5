@@ -11,7 +11,6 @@
   <meta content="" name="keywords">
   <meta content="" name="description">
 <jsp:include page="include_script.jsp"></jsp:include>
-
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 </head>
@@ -76,8 +75,8 @@
             User Name:
           </div>
           <div class="col-md-4 col-lg-4">
-            <input type="text" name="userName" id="name"value="${Update.userName}" />
-            <span class="error" id="name_error_message" style="color:red"></span>
+            <input id="name" type="text" name="userName" value="${Update.userName}" />
+            <span id="name_error_message" class = "error" style="color:red"></span>
           </div>
         </div>
         <div class = "row">
@@ -85,8 +84,8 @@
             User Password:
           </div>
           <div class="col-md-4 col-lg-4">
-            <input type="text" name="userPassword" id="password" value="${Update.userPassword}" />
-            <span id="password_error_message" class = "error"></span>
+            <input id="password" type="text" name="userPassword" value="${Update.userPassword}" />
+            <span id="password_error_message" class = "error" style="color:red"></span>
           </div>
         </div>
         <div class = "row">
@@ -97,7 +96,8 @@
           </div>
         </div>
         <br>
-        </fo:form>   
+        </fo:form>  
+        <span>${error}</span> 
     </div>
     </section>
 
@@ -117,6 +117,10 @@
 
   <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 
+
+
+
+</body>
 <script type="text/javascript">
 $(function(){
 	$("#name_error_message").hide();
@@ -130,26 +134,31 @@ $(function(){
 		check_password();
 	});
 	function check_name(){
-		var pattern=new RegExp(/^[A-Z][A-Za-z 0-9_-]*$/i);
+		var pattern=/^[A-Z][A-Za-z 0-9_-]*$/;
 		var name_length = $("#name").val().length;
-		
-		<!--else if(!(pattern.test($("#name").val())))
-		$("#name_error_message").html("Alphabets, numbers and special characters are allowed and the first character should be capitalized");
-		$("#name_error_message").show();
-		error_name = true;
-		
-	
-		-->
-		if(name_length<3 || name_length>15) {
-			$("#name_error_message").html("Name should be 3-15 characters long!");
+		if((name_length>3 || name_length<15) && pattern.test("#name")!='')	{
+		$("#name_error_message").hide();
+			
+		}
+		else if(pattern.test("#name")==''){
+			$("#name_error_message").html("Should not be Empty");
 			$("#name_error_message").show();
-			error_name = true;
+			error_name=true;
+		}
+		else if(name_length<3 || name_length>15){
+			$("#name_error_message").html("Should be 3-15 characters long");
+			$("#name_error_message").show();
+			error_name=true;
+			
 		}
 		else{
-			$("#name_error_message").hide();	
+			$("#name_error_message").html("Alphabets and numbers are alllowed and first character should be capitalised");
+			$("#name_error_message").show();
+			error_name=true;
+			
+			
 		}
 	}
-
 	function check_password(){
 		var pattern =new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/i);
 		if(pattern.test($("#password").val())){
@@ -161,7 +170,7 @@ $(function(){
 			error_password = true;	
 		}
 	}
-	$("#updatedetails").submit(function(){
+	$("#updateform").submit(function(){
 		error_name = false;
 		error_password = false;
 		check_name();
@@ -177,5 +186,4 @@ $(function(){
 });
 </script>
 
-</body>
 </html>	

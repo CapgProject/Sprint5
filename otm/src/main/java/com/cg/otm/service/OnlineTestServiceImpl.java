@@ -9,6 +9,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.StringTokenizer;
@@ -254,17 +255,20 @@ public class OnlineTestServiceImpl implements OnlineTestService{
 	@Override
 	public User updateProfile(User user) throws UserException {
 		
-		User returnedUser=userRepository.findById(user.getUserId()).orElse(null);
+		User returnedUser=userRepository.save(user);
 		if(returnedUser==null) {
 			
 			logger.error("The user does not exist");
 		    throw new UserException(ExceptionMessage.USERMESSAGE);
+		  // model.put("message","User does not exist");
 			
 		}
 		else {
+			logger.info("User details has been updated..!");
 			return userRepository.save(returnedUser);
 		}
 		
+
 	
 	}
 

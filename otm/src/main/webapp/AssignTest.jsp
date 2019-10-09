@@ -174,7 +174,12 @@ $(function(){
 	function check_testid(){
 		var length = $("#test_id").val().length;
 		var pattern = new RegExp(/^[0-9]+$/i);
-		if(length<1 || !pattern.test($("#test_id").val())){
+		
+		if($("#test_id").val()==''){
+			$("#testid_error_message").html("Should not be Empty");
+			$("#testid_error_message").show();
+			error_testid=true;
+		}else if(!pattern.test($("#test_id").val())){
 			$("#testid_error_message").html("Only numbers are allowed.!");
 			$("#testid_error_message").show();
 			error_testid = true;
@@ -187,7 +192,11 @@ $(function(){
 	function check_userid(){
 		var length = $("#user_id").val().length;
 		var pattern = new RegExp(/^[0-9]+$/i);
-		if(length<1 || !pattern.test($("#user_id").val())){
+		if($("#user_id").val()==''){
+			$("#userid_error_message").html("Should not be Empty");
+			$("#userid_error_message").show();
+			error_name=true;
+		}else if(!pattern.test($("#user_id").val())){
 			$("#userid_error_message").html("Only numbers are allowed.!");
 			$("#userid_error_message").show();
 			error_userid = true;
