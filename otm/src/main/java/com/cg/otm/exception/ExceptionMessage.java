@@ -24,6 +24,7 @@ public class ExceptionMessage {
 	public static final String QUESTIONOPTIONSMESSAGE = "Question Options are not provided";
 	public static final String QUESTIONMARKSMESSAGE = "Question Marks are not provided";
 	public static final String QUESTIONANSWERMESSAGE = "Question Answer is not provided";
+	public static final String INVALIDLOGINMESSAGE = "Username or Password is incorrect";
 	
 	private ExceptionMessage() {
 		super();
