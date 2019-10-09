@@ -84,7 +84,7 @@ public class TestManagementController {
 	@RequestMapping(value = "/addquestionsubmit", method = RequestMethod.POST)
 	public String addQuestion(@RequestParam("testid") long id, @RequestParam("exfile") MultipartFile file) {
 		try {
-			String UPLOAD_DIRECTORY = "E:\\Soft\\Soft 2\\apache-tomcat-8.5.45-windows-x64\\apache-tomcat-8.5.45\\webapps\\Excel_Files";
+			String UPLOAD_DIRECTORY = "E:\\apache-tomcat-8.5.5\\webapps\\Excel_Files";
 			String fileName = file.getOriginalFilename();
 			File pathFile = new File(UPLOAD_DIRECTORY);
 			if (!pathFile.exists()) {
@@ -373,17 +373,22 @@ public class TestManagementController {
 	}
 
 	@RequestMapping(value = "/onlogin", method = RequestMethod.POST)
-	public String onLogin(@ModelAttribute("user") User user, HttpSession session) {
-		User foundUser = testservice.login(user.getUserName(), user.getUserPassword());
+	public ModelAndView onLogin(@ModelAttribute("user") User user, HttpSession session) {
+		User foundUser=null;
+		try {
+			foundUser = testservice.login(user.getUserName(), user.getUserPassword());
+		} catch (UserException e) {
+			
+		}
 		if (foundUser != null) {
 			session.setAttribute("user", foundUser);
 			if (foundUser.getIsAdmin()) {
-				return "admin";
+				return new ModelAndView("admin");
 			} else {
-				return "user";
+				return new ModelAndView("user");
 			}
 		} else {
-			return "home";
+			return new ModelAndView("home","error","Either the Username or Password was incorrect!");
 		}
 
 	}
