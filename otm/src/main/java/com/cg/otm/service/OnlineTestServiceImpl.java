@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.StringTokenizer;
 
@@ -13,6 +14,8 @@ import javax.transaction.Transactional;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,14 +26,29 @@ import com.cg.otm.dto.Question;
 import com.cg.otm.dto.User;
 import com.cg.otm.exception.ExceptionMessage;
 import com.cg.otm.exception.UserException;
+import com.cg.otm.repository.OnlineTestRepository;
+import com.cg.otm.repository.QuestionRepository;
+import com.cg.otm.repository.UserRepository;
 @Service("testservice")
 @Transactional
 public class OnlineTestServiceImpl implements OnlineTestService{
+	
+	private static final Logger logger = LoggerFactory.getLogger(OnlineTestServiceImpl.class);
+ 
 
 	@Autowired
 	OnlineTestDao testdao;
+
+
 	@Autowired
 	UserRepository userRepository;
+	
+	@Autowired
+	OnlineTestRepository onlineTestRepository;
+	
+	@Autowired
+	QuestionRepository questionRepository;
+
 	
 	//Method to register a student
 	@Override
@@ -68,27 +86,35 @@ public class OnlineTestServiceImpl implements OnlineTestService{
 		return question;
 	}
 
+	/* Method to assign a test to user
+    * Author <Priya>
+    */
 	@Override
 	public Boolean assignTest(Long userId, Long testId) throws UserException {
-		User user = testdao.searchUser(userId);
-		OnlineTest onlineTest = testdao.searchTest(testId);
+		User user = userRepository.findByUserId(userId);
+		OnlineTest onlineTest = onlineTestRepository.findByTestId(testId);
 		if (user == null) {
+			logger.error("The user does not exist");
 			throw new UserException(ExceptionMessage.USERMESSAGE);
 		}
 		if (user.getIsAdmin()) {
+			logger.error("Admin cannot be assigned a test");
 			throw new UserException(ExceptionMessage.ADMINMESSAGE);
 		}
 		if (onlineTest == null) {
+			logger.error("The test does not exist");
 			throw new UserException(ExceptionMessage.TESTMESSAGE);
 		}
 		if (onlineTest.getIsTestAssigned()) {
+			logger.info("The test is already assigned");
 			throw new UserException(ExceptionMessage.TESTASSIGNEDMESSAGE);
 		} else {
-			user.setUserTest(onlineTest);
-			onlineTest.setIsTestAssigned(true);
+			
+		user.setUserTest(onlineTest);
+		logger.info("Test is being assigned to user");
+		onlineTest.setIsTestAssigned(true);
 		}
-		testdao.updateTest(onlineTest);
-		testdao.updateUser(user);
+		
 		return true;
 	}
 
@@ -229,6 +255,7 @@ public class OnlineTestServiceImpl implements OnlineTestService{
 			throw new UserException(ExceptionMessage.USERMESSAGE); //User not updated
 		}
 		return returnedUser;										//User Updated
+
 	}
 
 	//Method to list all the users

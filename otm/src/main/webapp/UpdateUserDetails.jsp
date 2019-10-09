@@ -11,6 +11,7 @@
 <meta content="" name="keywords">
 <meta content="" name="description">
 <jsp:include page="include_script.jsp"></jsp:include>
+
 <style type="text/css">
 	.error {
 		color: red;
@@ -72,6 +73,7 @@ $(function(){
 	
 });
 </script>
+
 </head>
 
 <body>
@@ -96,6 +98,7 @@ $(function(){
 			</div>
 		</div>
 	</header>
+
 
 
 	<main id="main"> <br>
@@ -144,6 +147,7 @@ $(function(){
 
 
 	<!--==========================
+
     Footer
   ============================-->
 	<footer id="footer" style="position: fixed; bottom: 0px; width: 100%;">
@@ -157,6 +161,8 @@ $(function(){
 
 
 
+      
+</script>
 
 </body>
 </html>

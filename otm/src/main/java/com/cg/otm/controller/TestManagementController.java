@@ -12,6 +12,8 @@ import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -35,6 +37,7 @@ public class TestManagementController {
 	OnlineTestService testservice;
 
 	private static int num = 0;
+	Logger logger=LoggerFactory.getLogger(TestManagementController.class);
 
 	/*Mapping for the home page*/
 	@RequestMapping(value = "/", method = RequestMethod.GET)
@@ -362,13 +365,19 @@ public class TestManagementController {
 
 			userOne.setIsAdmin(originalUser.getIsAdmin());
 			testservice.updateProfile(userOne);
+			logger.info("User details updated");
 		} catch (UserException e) {
 			System.out.println(e.getMessage());
+			logger.warn("User details cannot be updated");
 		}
 		if (originalUser.getIsAdmin()) {
+			logger.info("This user is an admin");
 			return "admin";
+			
 		} else {
+			logger.info("This user is not  an admin");
 			return "user";
+			
 		}
 	}
 
