@@ -12,6 +12,18 @@
   <meta content="" name="description">
 
 	<jsp:include page="include_script.jsp"></jsp:include>
+		<script>
+    $(document).ready(function(){
+        $("#button").click(function(){
+            if($(".radio").is(':checked')){
+				$("#myform").submit();
+            }
+            else{
+				alert("Please select an option");
+            }
+        });
+    });
+</script>
 </head>
 
 <body>
@@ -45,7 +57,7 @@
           <h3 class="section-title">${heading}</h3>
           <p class="section-description">Below are the questions</p>
         </div>
-        <fo:form method="post" action="givetest" modelAttribute="Question">
+        <fo:form method="post" id="myform" action="givetest" modelAttribute="Question">
         <div class = "row">
         	<div class="col-lg-2">
         	</div>
@@ -54,27 +66,27 @@
          <div class = "row">
         	<div class="col-lg-2">
         	</div>
-        	<div class = "col-lg-7"><fo:radiobutton path="chosenAnswer" value="1" />${questions.questionOptions[0]}</div>
+        	<div class = "col-lg-7"><fo:radiobutton class="radio" path="chosenAnswer" value="1" />${questions.questionOptions[0]}</div>
         </div>
          <div class = "row">
         	<div class="col-lg-2">
         	</div>
-        	<div class = "col-lg-7"><fo:radiobutton path="chosenAnswer" value="2" />${questions.questionOptions[1]}</div>
+        	<div class = "col-lg-7"><fo:radiobutton class="radio" path="chosenAnswer" value="2" />${questions.questionOptions[1]}</div>
         </div>
          <div class = "row">
         	<div class="col-lg-2">
         	</div>
-        	<div class = "col-lg-7"><fo:radiobutton path="chosenAnswer" value="3" />${questions.questionOptions[2]}</div>
+        	<div class = "col-lg-7"><fo:radiobutton class="radio" path="chosenAnswer" value="3" />${questions.questionOptions[2]}</div>
         </div>
          <div class = "row">
         	<div class="col-lg-2">
         	</div>
-        	<div class = "col-lg-7"><fo:radiobutton path="chosenAnswer" value="4" />${questions.questionOptions[3]}</div>
+        	<div class = "col-lg-7"><fo:radiobutton class="radio" path="chosenAnswer" value="4" />${questions.questionOptions[3]}</div>
         </div>
         <div class = "row">
         	<div class="col-lg-5">
         	</div>
-        	<div class = "col-lg-7"><button type="submit" class = "btn btn-primary">Submit Test</button></div>
+        	<div class = "col-lg-7"><button type="button" id = "button" class = "btn btn-primary">Submit Test</button></div>
         </div>
       </fo:form>
       </div>
