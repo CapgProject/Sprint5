@@ -166,7 +166,7 @@ $(function(){
 			error_password = true;	
 		}
 	}
-	$("#updateform").submit(function(){
+	$("#updatedetails").submit(function(){
 		error_name = false;
 		error_password = false;
 		check_name();
