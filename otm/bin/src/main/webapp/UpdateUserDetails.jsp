@@ -11,8 +11,6 @@
   <meta content="" name="keywords">
   <meta content="" name="description">
 <jsp:include page="include_script.jsp"></jsp:include>
-
-
 </head>
 
 <body>
@@ -60,10 +58,8 @@
             User Name:
           </div>
           <div class="col-md-4 col-lg-4">
-            <input type="text" name="userName"  value="${Update.userName}" required="" />
-            
+            <input type="text" name="userName" value="${Update.userName}" />
           </div>
-         
         </div>
         <div class = "row">
           <div class="text-center col-md-6 col-lg-6">
@@ -105,8 +101,4 @@
 
 
 </body>
-
-
-
-</script>
 </html>	

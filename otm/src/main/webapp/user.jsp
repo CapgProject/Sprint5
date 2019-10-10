@@ -57,7 +57,7 @@
 			<div class="row" id="portfolio-wrapper">
 				<div class="col-lg-4 col-md-6 portfolio-item filter-test">
 					<a href="givetest"> <img
-						src='<c:url value = "/webjars/img/CRUDimg/givetest.jpg"/>' alt=""
+						src='<c:url value = "img/CRUDimg/givetest.jpg"/>' alt=""
 						style="height: 300px; width: 400px">
 						<div class="details">
 							<h4>Give Test</h4>
@@ -68,7 +68,7 @@
 
 				<div class="col-lg-4 col-md-6 portfolio-item filter-test">
 					<a href="getresult"> <img
-						src='<c:url value = "/webjars/img/CRUDimg/getresult.jpg"/>' alt=""
+						src='<c:url value = "img/CRUDimg/getresult.jpg"/>' alt=""
 						style="height: 250px; width: 380px">
 						<div class="details">
 							<h4>Get Result</h4>
@@ -78,7 +78,7 @@
 				</div>
 
 				<div class="col-lg-4 col-md-6 portfolio-item filter-profile">
-					<a href="updateuser"> <img src='<c:url value = "/webjars/img/CRUDimg/updateprofile.png"/>' alt=""
+					<a href="updateuser"> <img src='<c:url value = "img/CRUDimg/updateprofile.png"/>' alt=""
 						style="display: block; margin-left: auto; margin-right: auto; height: 200px; width: 300px">
 						<div class="details">
 							<h4>Update Profile</h4>

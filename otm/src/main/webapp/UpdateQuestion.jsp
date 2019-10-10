@@ -11,6 +11,9 @@
   <meta content="" name="keywords">
   <meta content="" name="description">
 <jsp:include page="include_script.jsp" />
+<script type="text/javascript"
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">	
+</script>
 </head>
 
 <body>
@@ -59,20 +62,22 @@
       <h3 class="section-title">Update Question</h3>
       <p class="section-description">Enter the question details to be Updated here</p>
       </div>
-      <form action="updatequestioninput" method="post">
+      <form action="updatequestioninput" method="post" id="form">
         <div class = "row">
           <div class="text-center col-md-6 col-lg-6">
             Enter the Question Id:
           </div>
           <div class="col-md-4 col-lg-4">
-            <input type="text" name="questionid" placeholder="Enter Question Id" class="form-control" >
+            <input type="text" name="questionid" id="questionid" placeholder="Enter Question Id" class="form-control" >
+			<span id="id_error" style="color:red"></span>
+            <span style="color:red">${error}</span>          
           </div>
         </div>
         <div class = "row">
           <div class="text-center col-md-6 col-lg-6">
           </div>
           <div class="col-md-4 col-lg-4">
-            <button type="submit" class = "btn btn-primary">Show details</button>
+            <input type="submit" value="Show details" class = "btn btn-primary">
           </div>
         </div>
         <br>
@@ -100,7 +105,42 @@
   <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 
 
-
+<script type="text/javascript">
+$(function () {
+	$("#id_error").hide();
+	
+	var error_id = false;
+	
+	$("#questionid").focusout(function () {
+		check_id();
+	});
+	
+	function check_id() {
+		var length = $("#questionid").val().length;
+		var pattern = new RegExp("^[0-9]+$");
+		if(length<1 || !pattern.test($("#questionid").val())){
+			$("#id_error").html("Please enter a number!");
+			$("#id_error").show();
+			error_id = true;
+		}
+		else{
+			$("#id_error").hide();
+		}
+	}
+	
+	$("#form").submit(function(){
+		error_id = false;
+		
+		check_id();
+		if(error_id == false){
+			return true;
+		}
+		else{
+			return false;
+		}
+	});
+});
+</script>
 
 </body>
 </html>

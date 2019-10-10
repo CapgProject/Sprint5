@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -37,8 +38,9 @@ public class TestManagementController {
 	@Autowired
 	OnlineTestService testservice;
 
+	private static final Logger logger = LoggerFactory.getLogger(TestManagementController.class);
+	
 	private static int num = 0;
-	Logger logger=LoggerFactory.getLogger(TestManagementController.class);
 
 	/*Mapping for the home page*/
 	@RequestMapping(value = "/", method = RequestMethod.GET)
@@ -48,32 +50,32 @@ public class TestManagementController {
 
 	/*Mapping for the page to display add test form*/
 	@RequestMapping(value = "/addtest", method = RequestMethod.GET)
-	public String showAddTest(HttpSession session) {
+	public String showAddTest(HttpSession session, @ModelAttribute("test") OnlineTest test) {
 		System.out.println(session.getAttribute("user"));
 		return "AddTest";
 	}
 
 	/*Mapping for the page to display after add test form is submitted*/
 	@RequestMapping(value = "/addtestsubmit", method = RequestMethod.POST)
-	public String addTest(@RequestParam("testName") String name,
-			@RequestParam("testDuration") @DateTimeFormat(pattern = "HH:mm:ss") LocalTime duration,
-			@RequestParam(name = "startTime") @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss") LocalDateTime startTime,
-			@RequestParam("endTime") @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss") LocalDateTime endTime) {
+	public String addTest(@ModelAttribute("test") OnlineTest test, Map<String, Object> model) {
 		try {
-			OnlineTest test = new OnlineTest();
+			OnlineTest testOne = new OnlineTest();
 			Set<Question> question = new HashSet<Question>();
-			test.setTestName(name);
-			test.setTestTotalMarks(new Double(0));
-			test.setTestDuration(duration);
-			test.setStartTime(startTime);
-			test.setEndTime(endTime);
-			test.setTestMarksScored(new Double(0));
-			test.setIsdeleted(false);
-			test.setIsTestAssigned(false);
-			test.setTestQuestions(question);
-			testservice.addTest(test);
+			testOne.setTestName(test.getTestName());
+			testOne.setTestTotalMarks(new Double(0));
+			testOne.setTestDuration(test.getTestDuration());
+			testOne.setStartTime(test.getStartTime());
+			testOne.setEndTime(test.getEndTime());
+			testOne.setTestMarksScored(new Double(0));
+			testOne.setIsdeleted(false);
+			testOne.setIsTestAssigned(false);
+			testOne.setTestQuestions(question);
+			testservice.addTest(testOne);
 		} catch (UserException e) {
-			System.out.println(e.getMessage());
+			logger.error(e.getMessage());
+			model.put("error", e.getMessage());
+			return "AddTest";
+
 		}
 		return "admin";
 	}
@@ -86,10 +88,13 @@ public class TestManagementController {
 
 	/*Mapping for the page to display after add question form is submitted*/
 	@RequestMapping(value = "/addquestionsubmit", method = RequestMethod.POST)
-	public String addQuestion(@RequestParam("testid") long id, @RequestParam("exfile") MultipartFile file) {
+	public String addQuestion(@RequestParam("testid") long id, @RequestParam("exfile") MultipartFile file, Map<String, Object> model) {
 		try {
-			String UPLOAD_DIRECTORY = "E:\\Soft\\Soft 2\\apache-tomcat-8.5.45-windows-x64\\apache-tomcat-8.5.45\\webapps\\Excel_Files";
+			String UPLOAD_DIRECTORY = "E:\\Soft\\Soft 2\\apache-tomcat-8.5.45\\webapps\\Excel_Files";
 			String fileName = file.getOriginalFilename();
+			String path = System.getProperty("catalina.home");
+			System.out.println("Hi");
+			System.out.println(path);
 			File pathFile = new File(UPLOAD_DIRECTORY);
 			if (!pathFile.exists()) {
 				pathFile.mkdir();
@@ -100,21 +105,34 @@ public class TestManagementController {
 			try {
 				file.transferTo(pathFile);
 			} catch (IOException e) {
-				System.out.println("error!");
+				logger.error(e.getMessage());
 			}
 			testservice.readFromExcel(id, fileName, time);
 		} catch (UserException | IOException e) {
-			System.out.println(e.getMessage());
+			logger.error(e.getMessage());
+			model.put("error", e.getMessage());
+			return "AddQuestion";
 		}
 		return "admin";
 	}
-
+	/*
+	 * Author: Piyush Daswani
+	 * Description: This Method is used to navigate back to the add user page
+	 * Input: link click
+	 * Return: add user page
+	 */
 	/*Mapping for the page to display add user form*/
 	@RequestMapping(value = "/adduser", method = RequestMethod.GET)
 	public String showAddUser(@ModelAttribute("user") User user) {
 		return "AddUser";
 	}
 
+	/*
+	 * Author: Piyush Daswani
+	 * Description: This Method is used to add the user to the database
+	 * Input: Username and Password
+	 * Return: homepage
+	 */
 	/*Mapping for the page to display after add user form is submitted*/
 	@RequestMapping(value = "/addusersubmit", method = RequestMethod.POST)
 	public String addUser(@ModelAttribute("user") User user) {
@@ -125,7 +143,7 @@ public class TestManagementController {
 			user.setUserTest(null);
 			testservice.registerUser(user);
 		} catch (UserException e) {
-			System.out.println(e.getMessage());
+			logger.error(e.getMessage());
 		}
 		return "home";
 	}
@@ -137,6 +155,12 @@ public class TestManagementController {
 		return new ModelAndView("ShowTest", "testdata", testList);
 	}
 
+	/*
+	 * Author: Piyush Daswani
+	 * Description: This Method is used to show all the users from the database
+	 * Input: link click
+	 * Return: List all users page
+	 */
 	/*Mapping for the table to display all users*/
 	@RequestMapping(value = "/showallusers", method = RequestMethod.GET)
 	public ModelAndView showUser() {
@@ -152,12 +176,14 @@ public class TestManagementController {
 
 	/*Mapping for the page after form is submitted*/
 	@RequestMapping(value = "removetestsubmit", method = RequestMethod.POST)
-	public String removeTest(@RequestParam("testid") long id) {
+	public String removeTest(@RequestParam("testid") long id, Map<String, Object> model) {
 		try {
 			OnlineTest deleteTest = testservice.searchTest(id);
 			testservice.deleteTest(deleteTest.getTestId());
 		} catch (UserException e) {
-			System.out.println(e.getMessage());
+			logger.error(e.getMessage());
+			model.put("error", e.getMessage());
+			return "RemoveTest";
 		}
 		return "admin";
 	}
@@ -170,16 +196,24 @@ public class TestManagementController {
 
 	/*Mapping for the page after form is submitted*/
 	@RequestMapping(value = "removequestionsubmit", method = RequestMethod.POST)
-	public String removeQuestion(@RequestParam("questionid") long id) {
+	public String removeQuestion(@RequestParam("questionid") long id, Map<String, Object> model) {
 		try {
 			Question question = testservice.searchQuestion(id);
 			testservice.deleteQuestion(question.getOnlinetest().getTestId(), question.getQuestionId());
 		} catch (UserException e) {
-			System.out.println(e.getMessage());
+			logger.error(e.getMessage());
+			model.put("error", e.getMessage());
+			return "RemoveQuestion";
 		}
 		return "admin";
 	}
 
+	/*
+	 * Author: Piyush Daswani
+	 * Description: This Method is used to show the first question of the test
+	 * Input: link click
+	 * Return: Give Test Page
+	 */
 	/*Mapping for the page where the user can give test and see the first question*/
 	@RequestMapping(value = "/givetest", method = RequestMethod.GET)
 	public ModelAndView showQuestion(HttpSession session, @ModelAttribute("Question") Question question) {
@@ -199,7 +233,12 @@ public class TestManagementController {
 			return mav;
 		}
 	}
-
+	/*
+	 * Author: Piyush Daswani
+	 * Description: This Method is used to take the answers that the user chose and saving them and showing the next question
+	 * Input: Chosen Answer
+	 * Return: Give test Page
+	 */
 	/*Mapping to display questions one at a time*/
 	@RequestMapping(value = "/givetest", method = RequestMethod.POST)
 	public ModelAndView submitQuestion(HttpSession session, @ModelAttribute("Question") Question question) {
@@ -222,7 +261,7 @@ public class TestManagementController {
 				return mav;
 			}
 		} catch (UserException e) {
-			e.printStackTrace();
+			logger.error(e.getMessage());
 			return new ModelAndView("user");
 		}
 	}
@@ -238,14 +277,24 @@ public class TestManagementController {
 			testservice.assignTest(userId, testId);
 		} catch (UserException e) {
 			model.put("error", e.getMessage());
-			//System.out.println(e.getMessage());
+			logger.error(e.getMessage());
 		}
 		return "admin";
 	}
 
+	/*
+	 * Author: Piyush Daswani
+	 * Description: This Method is used to get the result of the test for the logged in user
+	 * Input: link click
+	 * Return: get result page
+	 */
 	@RequestMapping(value = "/getresult", method = RequestMethod.GET)
 	public ModelAndView showGetResult(HttpSession session) {
 		User currentUser = (User) session.getAttribute("user");
+		if (currentUser.getUserTest() ==null) {
+			logger.error("No test assigned");
+			return new ModelAndView("GetResult", "result", 0.0);
+		}
 		OnlineTest test;
 		try {
 			test = testservice.searchTest(currentUser.getUserTest().getTestId());
@@ -255,7 +304,7 @@ public class TestManagementController {
 			
 		} catch (UserException e) {
 			// TODO Auto-generated catch block
-			System.out.println(e.getMessage());
+			logger.error(e.getMessage());
 			return new ModelAndView("GetResult", "result", 0.0);
 		}
 		
@@ -264,42 +313,43 @@ public class TestManagementController {
 	
 
 	@RequestMapping(value = "/updatetest", method = RequestMethod.GET)
-	public String showUpdateTest() {
+	public String showUpdateTest(@ModelAttribute("test") OnlineTest test) {
 		return "UpdateTest";
 	}
 
 	@RequestMapping(value = "/updatetestinput", method = RequestMethod.POST)
-	public ModelAndView updateTest(@RequestParam("testid") long id) {
-		OnlineTest test;
+	public ModelAndView updateTest(@RequestParam("testid") long id, @ModelAttribute("test") OnlineTest test, Map<String, Object> model) {
+		OnlineTest testOne;
 		try {
-			test = testservice.searchTest(id);
-			return new ModelAndView("UpdateTest", "Update", test);
+			testOne = testservice.searchTest(id);
+			return new ModelAndView("UpdateTest", "Update", testOne);
 		} catch (UserException e) {
-			System.out.println(e.getMessage());
+			logger.error(e.getMessage());
+			model.put("error", e.getMessage());
+			return new ModelAndView("UpdateTest");
 		}
-		return new ModelAndView("admin");
 	}
 
 	@RequestMapping(value = "/updatetestsubmit", method = RequestMethod.POST)
-	public String actualUpdate(@RequestParam("testId") long id, @RequestParam("testName") String name,
-			@RequestParam("testDuration") @DateTimeFormat(pattern = "HH:mm:ss") LocalTime duration,
-			@RequestParam(name = "startTime") @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss") LocalDateTime startTime,
-			@RequestParam("endTime") @DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss") LocalDateTime endTime) {
-		OnlineTest test = new OnlineTest();
+	public String actualUpdate(@RequestParam("testId") long id, @ModelAttribute("test") OnlineTest test, Map<String, Object> model) {
+		OnlineTest testOne = new OnlineTest();
 		Set<Question> questions = new HashSet<Question>();
-		test.setTestId(id);
-		test.setTestName(name);
-		test.setTestDuration(duration);
-		test.setStartTime(startTime);
-		test.setEndTime(endTime);
-		test.setIsdeleted(false);
-		test.setTestMarksScored(new Double(0));
-		test.setTestTotalMarks(new Double(0));
-		test.setTestQuestions(questions);
+		testOne.setTestId(id);
+		testOne.setTestName(test.getTestName());
+		testOne.setTestDuration(test.getTestDuration());
+		testOne.setStartTime(test.getStartTime());
+		testOne.setEndTime(test.getEndTime());
+		testOne.setIsdeleted(false);
+		testOne.setTestMarksScored(new Double(0));
+		testOne.setTestTotalMarks(new Double(0));
+		testOne.setTestQuestions(questions);
+		testOne.setIsTestAssigned(false);
 		try {
-			testservice.updateTest(id, test);
+			testservice.updateTest(id, testOne);
 		} catch (UserException e) {
-			System.out.println(e.getMessage());
+			logger.error(e.getMessage());
+			model.put("errorsubmit", e.getMessage());
+			return "UpdateTestDetails";
 		}
 		return "admin";
 	}
@@ -311,19 +361,20 @@ public class TestManagementController {
 
 	@RequestMapping(value = "/updatequestioninput", method = RequestMethod.POST)
 	public ModelAndView updateQuestion(@RequestParam("questionid") long id,
-			@ModelAttribute("question") Question question) {
+			@ModelAttribute("question") Question question, Map<String, Object> model) {
 		Question questionOne;
 		try {
 			questionOne = testservice.searchQuestion(id);
 			return new ModelAndView("UpdateQuestion", "Update", questionOne);
 		} catch (UserException e) {
-			System.out.println(e.getMessage());
+			logger.error(e.getMessage());
+			model.put("error", e.getMessage());
+			return new ModelAndView("UpdateQuestion");
 		}
-		return new ModelAndView("admin");
 	}
 
 	@RequestMapping(value = "/updatequestionsubmit", method = RequestMethod.POST)
-	public String actualUpdate(@RequestParam("testId") long testid, @ModelAttribute("question") Question question) {
+	public String actualUpdate(@RequestParam("testId") long testid, @ModelAttribute("question") Question question, Map<String, Object> model) {
 
 		OnlineTest test;
 		try {
@@ -339,8 +390,10 @@ public class TestManagementController {
 			questionOne.setMarksScored(new Double(0));
 			questionOne.setOnlinetest(test);
 			testservice.updateQuestion(testid, question.getQuestionId(), questionOne);
-		} catch (UserException e1) {
-			System.out.println(e1.getMessage());
+		} catch (UserException e) {
+			logger.error(e.getMessage());
+			model.put("errorsubmit", e.getMessage());
+			return "UpdateQuestionDetails";
 		}
 		return "admin";
 	}
@@ -371,7 +424,7 @@ public class TestManagementController {
 			logger.info("User details updated");
 		} catch (UserException e) {
 			model.put("error", e.getMessage());
-			logger.warn("User details cannot be updated");
+			logger.error(e.getMessage());
 		}
 		if (originalUser.getIsAdmin()) {
 			logger.info("This user is an admin");
@@ -384,50 +437,86 @@ public class TestManagementController {
 		}
 	}
 
+	/*
+	 * Author: Piyush Daswani
+	 * Description: This Method is used to login the user to the application
+	 * Input: Username and Password
+	 * Return: Student Page(Normal User), Admin Page(Admin), home page[with error](if wrong input)
+	 */
 	@RequestMapping(value = "/onlogin", method = RequestMethod.POST)
-	public String onLogin(@ModelAttribute("user") User user, HttpSession session) {
-		User foundUser = testservice.login(user.getUserName(), user.getUserPassword());
+	public ModelAndView onLogin(@ModelAttribute("user") User user, HttpSession session) {
+		User foundUser=null;
+		try {
+			foundUser = testservice.login(user.getUserName(), user.getUserPassword());
+		} catch (UserException e) {
+			logger.error(e.getMessage());
+		}
 		if (foundUser != null) {
 			session.setAttribute("user", foundUser);
 			if (foundUser.getIsAdmin()) {
-				return "admin";
+				return new ModelAndView("admin");
 			} else {
-				return "user";
+				return new ModelAndView("user");
 			}
 		} else {
-			return "home";
+			return new ModelAndView("home","error","Either the Username or Password was incorrect!");
 		}
 
 	}
-
+	/*
+	 * Author: Piyush Daswani
+	 * Description: This Method is used to logout the user from the application and invalidate its sessions
+	 * Input: button click
+	 * Return: home page
+	 */
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String onLogout(HttpSession session, @ModelAttribute("user") User user) {
 		session.invalidate();
 		return "home";
 	}
 
+	/*
+	 * Author: Piyush Daswani
+	 * Description: This Method is used to navigate back to the user page
+	 * Input: link click
+	 * Return: user page
+	 */
 	@RequestMapping(value = "user", method = RequestMethod.GET)
 	public String user() {
 		return "user";
 	}
-
+	/*
+	 * Author: Piyush Daswani
+	 * Description: This Method is used to navigate back to the admin page
+	 * Input: button click
+	 * Return: admin page
+	 */
 	@RequestMapping(value = "admin", method = RequestMethod.GET)
 	public String admin() {
 		return "admin";
 	}
-
+	
 	@RequestMapping(value = "/listquestion", method = RequestMethod.GET)
 	public String showListQuestion() {
 		return "ListQuestion";
 	}
 
 	@RequestMapping(value = "/listquestionsubmit", method = RequestMethod.POST)
-	public ModelAndView submitListQuestion(@RequestParam("testId") long testId) {
+	public ModelAndView submitListQuestion(@RequestParam("testId") long testId, Map<String, Object> model) {
 		try {
 			OnlineTest test = testservice.searchTest(testId);
-			return new ModelAndView("ListQuestion", "questiondata", test.getTestQuestions());
+			List<Question> list = new ArrayList<Question>();
+			Set<Question> questions = test.getTestQuestions();
+			questions.forEach(question->{
+				if(question.getIsDeleted()!=true) {
+					list.add(question);
+				}
+			});
+			return new ModelAndView("ListQuestion", "questiondata", list);
 		} catch (UserException e) {
-			return new ModelAndView("ListQuestion", "error", "Test doesn't exist");
+			logger.error(e.getMessage());
+			model.put("error", e.getMessage());
+			return new ModelAndView("ListQuestion");
 		}
 	}
 }

@@ -10,37 +10,7 @@
   <meta content="" name="keywords">
   <meta content="" name="description">
 
-	<!-- Font Awesome -->
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
-	<!-- Bootstrap core CSS -->
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-	<!-- Material Design Bootstrap -->
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/css/mdb.min.css" rel="stylesheet">
-
-	<!-- JQuery -->
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<!-- Bootstrap tooltips -->
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
-	<!-- Bootstrap core JavaScript -->
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
-	<!-- MDB core JavaScript -->
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/js/mdb.min.js"></script>
-  <!-- Favicons -->
-  <link href='<c:url value = "/webjars/img/favicon.png"/>' rel="icon">
-  <link href='<c:url value = "/webjars/img/apple-touch-icon.png"/>' rel="apple-touch-icon">
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Poppins:300,400,500,700" rel="stylesheet">
-
-  <!-- Bootstrap CSS File -->
-  <link href='<c:url value = "/webjars/lib/bootstrap/css/bootstrap.min.css"/>' rel="stylesheet">
-
-  <!-- Libraries CSS Files -->
-  <link href='<c:url value = "/webjars/lib/font-awesome/css/font-awesome.min.css"/>' rel="stylesheet">
-  <link href='<c:url value = "/webjars/lib/animate/animate.min.css"/>' rel="stylesheet">
-
-  <!-- Main Stylesheet File -->
-  <link href='<c:url value = "/webjars/css/style.css" />' rel="stylesheet">
+	<jsp:include page="include_script.jsp"></jsp:include>
 </head>
 
 <body>
@@ -112,7 +82,7 @@
         <div class="row" id="portfolio-wrapper">
           <div class="col-lg-4 col-md-6 portfolio-item filter-test">
             <a href="addtest">
-              <img src='<c:url value = "/webjars/img/CRUDimg/addtest.png"/>' alt="" style="height: 300px; width: 400px">
+              <img src='<c:url value = "img/CRUDimg/addtest.png"/>' alt="" style="height: 300px; width: 400px">
               <div class="details">
                 <h4>Add Test</h4>
                 <span>Click here to add a new Test</span>
@@ -122,7 +92,7 @@
 
           <div class="col-lg-4 col-md-6 portfolio-item filter-test">
             <a href="updatetest">
-              <img src='<c:url value = "/webjars/img/CRUDimg/updatetest.jpg"/>' alt="" style="height: 300px; width: 400px">
+              <img src='<c:url value = "img/CRUDimg/updatetest.jpg"/>' alt="" style="height: 300px; width: 400px">
               <div class="details">
                 <h4>Update Test</h4>
                 <span>Click here to update an already existing test</span>
@@ -132,7 +102,7 @@
 
           <div class="col-lg-4 col-md-6 portfolio-item filter-test">
             <a href="removetest">
-              <img src='<c:url value = "/webjars/img/CRUDimg/removetest.jpg"/>' alt="" style="height: 300px; width: 400px">
+              <img src='<c:url value = "img/CRUDimg/removetest.jpg"/>' alt="" style="height: 300px; width: 400px">
               <div class="details">
                 <h4>Remove Test</h4>
                 <span>Click here to remove an already existing test</span>
@@ -142,7 +112,7 @@
 
           <div class="col-lg-4 col-md-6 portfolio-item filter-question">
             <a href="addquestion">
-              <img src='<c:url value = "/webjars/img/CRUDimg/addquestion.jpg"/>'  alt=""style="height: 220px; width: 375px">
+              <img src='<c:url value = "img/CRUDimg/addquestion.jpg"/>'  alt=""style="height: 220px; width: 375px">
               <div class="details">
                 <h4>Add Question</h4>
                 <span>Click here to add a question to a test</span>
@@ -152,7 +122,7 @@
 
           <div class="col-lg-4 col-md-6 portfolio-item filter-question">
             <a href="updatequestion">
-              <img src='<c:url value = "/webjars/img/CRUDimg/updatequestion.png"/>' alt="" style="height: 200px; width: 400px">
+              <img src='<c:url value = "img/CRUDimg/updatequestion.png"/>' alt="" style="height: 200px; width: 400px">
               <div class="details">
                 <h4>Update Question</h4>
                 <span>Click here to update an already existing question in a test</span>
@@ -162,7 +132,7 @@
 
           <div class="col-lg-4 col-md-6 portfolio-item filter-question">
             <a href="removequestion">
-              <img src='<c:url value = "/webjars/img/CRUDimg/removequestion.jpg"/>' alt="" style="height: 200px; width: 400px">
+              <img src='<c:url value = "img/CRUDimg/removequestion.jpg"/>' alt="" style="height: 200px; width: 400px">
               <div class="details">
                 <h4>Remove Question</h4>
                 <span>Click here to remove a question from a test</span>
@@ -172,7 +142,7 @@
 
           <div class="col-lg-4 col-md-6 portfolio-item filter-assign">
             <a href="assigntest">
-              <img src='<c:url value = "/webjars/img/CRUDimg/assigntest.jpg"/>' alt="" style="height: 200px; width: 375px">
+              <img src='<c:url value = "img/CRUDimg/assigntest.jpg"/>' alt="" style="height: 200px; width: 375px">
               <div class="details">
                 <h4>Assign test</h4>
                 <span>Click here to assign a test to a user</span>
@@ -182,7 +152,7 @@
           
           <div class="col-lg-4 col-md-6 portfolio-item filter-profile">
             <a href="updateuser">
-              <img src='<c:url value = "/webjars/img/CRUDimg/updateprofile.png"/>' alt="" style="height: 200px; width: 350px">
+              <img src='<c:url value = "img/CRUDimg/updateprofile.png"/>' alt="" style="height: 200px; width: 350px">
               <div class="details">
                 <h4>Update Profile</h4>
                 <span>Click here to Update your profile</span>
@@ -192,7 +162,7 @@
 
           <div class="col-lg-4 col-md-6 portfolio-item filter-test">
             <a href="">
-              <img src='<c:url value = "/webjars/img/CRUDimg/listtest.jpg"/>' alt="" style="height: 200px; width: 400px">
+              <img src='<c:url value = "img/CRUDimg/listtest.jpg"/>' alt="" style="height: 200px; width: 400px">
               <div class="details">
                 <h4>List All Tests</h4>
                 <span>Click here to List down all tests</span>
@@ -267,21 +237,21 @@
 
   <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 	<!-- JavaScript Libraries -->
-  <script src='<c:url value = "/webjars/lib/jquery/jquery.min.js"/>' ></script>
-  <script src='<c:url value = "/webjars/lib/jquery/jquery-migrate.min.js"/>' ></script>
-  <script src='<c:url value = "/webjars/lib/bootstrap/js/bootstrap.bundle.min.js"/>' ></script>
-  <script src='<c:url value = "/webjars/lib/easing/easing.min.js"/>' ></script>
-  <script src='<c:url value = "/webjars/lib/wow/wow.min.js"/>' ></script>
-  <script src='<c:url value = "/webjars/lib/waypoints/waypoints.min.js"/>' ></script>
-  <script src='<c:url value = "/webjars/lib/counterup/counterup.min.js"/>' ></script>
-  <script src='<c:url value = "/webjars/lib/superfish/hoverIntent.js"/>' ></script>
-  <script src='<c:url value = "/webjars/lib/superfish/superfish.min.js"/>' ></script>
+  <script src='<c:url value = "lib/jquery/jquery.min.js"/>' ></script>
+  <script src='<c:url value = "lib/jquery/jquery-migrate.min.js"/>' ></script>
+  <script src='<c:url value = "lib/bootstrap/js/bootstrap.bundle.min.js"/>' ></script>
+  <script src='<c:url value = "lib/easing/easing.min.js"/>' ></script>
+  <script src='<c:url value = "lib/wow/wow.min.js"/>' ></script>
+  <script src='<c:url value = "lib/waypoints/waypoints.min.js"/>' ></script>
+  <script src='<c:url value = "lib/counterup/counterup.min.js"/>' ></script>
+  <script src='<c:url value = "lib/superfish/hoverIntent.js"/>' ></script>
+  <script src='<c:url value = "lib/superfish/superfish.min.js"/>' ></script>
 
   <!-- Contact Form JavaScript File -->
-  <script src='<c:url value = "/webjars/contactform/contactform.js" />' ></script>
+  <script src='<c:url value = "contactform/contactform.js" />' ></script>
 
   <!-- Template Main Javascript File -->
-  <script src='<c:url value = "/webjars/js/main.js" />'></script>
+  <script src='<c:url value = "js/main.js" />'></script>
 	
 
 

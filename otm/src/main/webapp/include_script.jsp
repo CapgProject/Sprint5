@@ -14,35 +14,35 @@
 	<!-- MDB core JavaScript -->
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.10/js/mdb.min.js"></script>
   <!-- Favicons -->
-  <link href="webjars/img/favicon.png" rel="icon">
-  <link href="webjars/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="img/favicon.png" rel="icon">
+  <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Poppins:300,400,500,700" rel="stylesheet">
 
   <!-- Bootstrap CSS File -->
-  <link href="webjars/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Libraries CSS Files -->
-  <link href="webjars/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-  <link href="webjars/lib/animate/animate.min.css" rel="stylesheet">
+  <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="lib/animate/animate.min.css" rel="stylesheet">
 
   <!-- Main Stylesheet File -->
-  <link href="webjars/css/style.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
   
    <!-- JavaScript Libraries -->
-  <script src="webjars/lib/jquery/jquery.min.js" ></script>
-  <script src="webjars/lib/jquery/jquery-migrate.min.js" ></script>
-  <script src="webjars/lib/bootstrap/js/bootstrap.bundle.min.js" ></script>
-  <script src="webjars/lib/easing/easing.min.js" ></script>
-  <script src="webjars/lib/wow/wow.min.js"></script>
-  <script src="webjars/lib/waypoints/waypoints.min.js" ></script>
-  <script src="webjars/lib/counterup/counterup.min.js"></script>
-  <script src="webjars/lib/superfish/hoverIntent.js" ></script>
-  <script src="webjars/lib/superfish/superfish.min.js" ></script>
+  <script src="lib/jquery/jquery.min.js" ></script>
+  <script src="lib/jquery/jquery-migrate.min.js" ></script>
+  <script src="lib/bootstrap/js/bootstrap.bundle.min.js" ></script>
+  <script src="lib/easing/easing.min.js" ></script>
+  <script src="lib/wow/wow.min.js"></script>
+  <script src="lib/waypoints/waypoints.min.js" ></script>
+  <script src="lib/counterup/counterup.min.js"></script>
+  <script src="lib/superfish/hoverIntent.js" ></script>
+  <script src="lib/superfish/superfish.min.js" ></script>
 
   <!-- Contact Form JavaScript File -->
-  <script src="webjars/contactform/contactform.js" ></script>
+  <script src="contactform/contactform.js" ></script>
 
   <!-- Template Main Javascript File -->
-  <script src="webjars/js/main.js"></script>
+  <script src="js/main.js"></script>

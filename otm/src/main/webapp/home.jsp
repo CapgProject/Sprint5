@@ -11,7 +11,121 @@
   <meta content="" name="keywords">
   <meta content="" name="description">
 	<jsp:include page="include_script.jsp"></jsp:include>
+<script type="text/javascript">
+$(function(){
 
+
+	var msg = '${error}';
+	if(msg != ''){
+		alert(msg);
+	}
+	
+	
+	$("#username_error_message").hide();
+	$("#password_error_message").hide();
+	var error_username = false;
+	var error_password = false;
+
+	$("#name").focusout(function(){
+		check_username();
+	});
+	$("#password").focusout(function(){
+		check_password();
+	});
+
+	function check_username(){
+		var username_length = $("#name").val().length;
+		if(username_length<5 || username_length>20)	{
+			$("#username_error_message").html("Should be 5-20 characters long");
+			$("#username_error_message").show();
+			error_username = true;
+		}
+		else{
+			$("#username_error_message").hide();	
+		}
+	}
+
+	function check_password(){
+		var pattern =new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/i);
+		if(pattern.test($("#password").val())){
+			$("#password_error_message").hide();
+		}
+		else{
+			$("#password_error_message").html("Invalid Password");
+			$("#password_error_message").show();
+			error_password = true;	
+		}
+	}
+
+	$("#login").submit(function(){
+		error_username = false;
+		error_password = false;
+		check_username();
+		check_password();
+		if(error_username == false && error_password == false){
+			return true;
+		}
+		else{
+			return false;
+		}
+	});
+
+	$("#username_error").hide();
+	$("#password_error").hide();
+	var error_username2 = false;
+	var error_password2 = false;
+
+	$("#username").focusout(function(){
+		check_username_register();
+	});
+	$("#userpassword").focusout(function(){
+		check_password_register();
+	});
+
+	function check_username_register(){
+		var username_length = $("#username").val().length;
+		if(username_length<5 || username_length>20)	{
+			$("#username_error").html("Should be 5-20 characters long");
+			$("#username_error").show();
+			error_username2 = true;
+		}
+		else{
+			$("#username_error").hide();	
+		}
+	}
+
+	function check_password_register(){
+		var pattern =new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/i);
+		if(pattern.test($("#userpassword").val())){
+			$("#password_error").hide();
+		}
+		else{
+			$("#password_error").html("Password should contain at least one upper case character, one lower case character, one numeric character, one special character and length should be at least eight characters");
+			$("#password_error").show();
+			error_password2 = true;	
+		}
+	}
+
+	$("#register").submit(function(){
+		error_username2 = false;
+		error_password2 = false;
+		check_username_register();
+		check_password_register();
+		if(error_username2 == false && error_password2 == false){
+			return true;
+		}
+		else{
+			return false;
+		}
+	});
+	
+});
+</script>
+<style type="text/css">
+.error{
+	color: red;
+}
+</style>
 </head>
 
 <body>
@@ -111,7 +225,7 @@
   aria-hidden="true">
   <div class="modal-dialog" role="document">
     <!--Content-->
-    <fo:form action="onlogin" method="post" modelAttribute="user">
+    <fo:form id="login" action="onlogin" method="post" modelAttribute="user">
     <div class="modal-content form-elegant">
       <!--Header-->
       <div class="modal-header text-center">
@@ -124,13 +238,15 @@
       <div class="modal-body mx-4">
         <!--Body-->
         <div class="md-form mb-5">
-          <fo:input type="text" path="userName" class="form-control validate" />
+          <fo:input id = "name" type="text" path="userName" class="form-control" />
           <label data-error="wrong" data-success="right" for="Form-email1">Your Username</label>
+          <span id = "username_error_message" class="error"></span>
         </div>
 
         <div class="md-form pb-3">
-          <fo:input type="password" path="userPassword" class="form-control validate" />
+          <fo:input id = "password" type="password" path="userPassword" class="form-control" />
           <label data-error="wrong" data-success="right" for="Form-pass1">Your password</label>
+          <span id = "password_error_message" class= "error"></span>
           <p class="font-small blue-text d-flex justify-content-end">Forgot <a href="#" class="blue-text ml-1">
               Password?</a></p>
         </div>
@@ -161,7 +277,7 @@
   aria-hidden="true">
   <div class="modal-dialog" role="document">
     <!--Content-->
-    <fo:form action="addusersubmit" method="post" modelAttribute="user">
+    <fo:form id = "register" action="addusersubmit" method="post" modelAttribute="user">
     <div class="modal-content form-elegant">
       <!--Header-->
       <div class="modal-header text-center">
@@ -174,13 +290,15 @@
       <div class="modal-body mx-4">
         <!--Body-->
         <div class="md-form mb-5">
-          <fo:input type="text" path="userName" class="form-control validate" />
+          <fo:input id="username" type="text" path="userName" class="form-control" />
           <label data-error="wrong" data-success="right" for="Form-email1">Your Username</label>
+          <span id = "username_error" class= "error"></span>
         </div>
 
         <div class="md-form pb-3">
-          <fo:input type="password" path="userPassword" class="form-control validate" />
+          <fo:input id="userpassword" type="password" path="userPassword" class="form-control" />
           <label data-error="wrong" data-success="right" for="Form-pass1">Your password</label>
+          <span id = "password_error" class= "error"></span>
         </div>
         <div class="text-center mb-3">
           <button type="submit" class="btn blue-gradient btn-block btn-rounded z-depth-1a">Register</button>

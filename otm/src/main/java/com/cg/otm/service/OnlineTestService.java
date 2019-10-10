@@ -13,7 +13,6 @@ public interface OnlineTestService {
 	public OnlineTest addTest(OnlineTest onlineTest) throws UserException;
 	public OnlineTest updateTest(Long testId, OnlineTest onlineTest) throws UserException;
 	public OnlineTest deleteTest(Long testId) throws UserException;
-	public Question addQuestion(Long testId, Question question) throws UserException;
 	public Question updateQuestion(Long testId, Long questionId, Question question) throws UserException;
 	public Question deleteQuestion(Long testId, Long questionId) throws UserException;
 	public User registerUser(User user) throws UserException;
@@ -28,7 +27,7 @@ public interface OnlineTestService {
 	public List<User> getUsers();
 	public List<OnlineTest> getTests();
 	public User updateProfile(User user) throws UserException;
-	public User login(String userName, String pass);
+	public User login(String userName, String pass) throws UserException;
 	public void readFromExcel(long id, String fileName, long time) throws IOException, UserException;
 }
 
