@@ -1,5 +1,7 @@
 package com.cg.otm.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.cg.otm.dto.User;

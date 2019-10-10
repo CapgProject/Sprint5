@@ -292,7 +292,7 @@ public class OnlineTestServiceImpl implements OnlineTestService{
 	
 	@Override
 	public void readFromExcel(long id, String fileName, long time) throws IOException, UserException {
-		String UPLOAD_DIRECTORY = "E:\\Soft\\Soft 2\\apache-tomcat-8.5.45\\webapps\\Excel_Files";
+		String UPLOAD_DIRECTORY = "E:";
 		File dataFile = new File(UPLOAD_DIRECTORY + "\\" + time + fileName);
 		FileInputStream fis = new FileInputStream(dataFile);
 		XSSFWorkbook workbook = new XSSFWorkbook(fis);

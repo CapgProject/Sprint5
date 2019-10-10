@@ -48,14 +48,23 @@ public class TestManagementController {
 		return "home";
 	}
 
-	/*Mapping for the page to display add test form*/
+	
+	/*
+	 * Author: Swanand Pande
+	 * Description: This is a mapping to display AddTest Page
+	 */
 	@RequestMapping(value = "/addtest", method = RequestMethod.GET)
 	public String showAddTest(HttpSession session, @ModelAttribute("test") OnlineTest test) {
 		System.out.println(session.getAttribute("user"));
 		return "AddTest";
 	}
 
-	/*Mapping for the page to display after add test form is submitted*/
+	/*
+	 * Author: Swanand Pande
+	 * Description: This method takes all the test details from admin and then set those details and add the test in database
+	 * Input: A test object having all details taken as input in AddTest page
+	 * Return: Return to admin page if test is added successfully and in case of any exception, stay on the AddTest page
+	 */
 	@RequestMapping(value = "/addtestsubmit", method = RequestMethod.POST)
 	public String addTest(@ModelAttribute("test") OnlineTest test, Map<String, Object> model) {
 		try {
@@ -80,17 +89,25 @@ public class TestManagementController {
 		return "admin";
 	}
 
-	/*Mapping for the page to display add question form*/
+	/*
+	 * Author: Swanand Pande
+	 * Description: This is a mapping to display AddQuestion Page
+	 */
 	@RequestMapping(value = "/addquestion", method = RequestMethod.GET)
 	public String showAddQuestion(@ModelAttribute("question") Question question) {
 		return "AddQuestion";
 	}
 
-	/*Mapping for the page to display after add question form is submitted*/
+	/*
+	 * Author: Swanand Pande
+	 * Description: This method takes test id as input and then takes the excel file and if file is properly validated then it is transferred to Excel_Files folder and then request is passed to service layer
+	 * Input: An excel file containing questions and the test id in which questions are to be added
+	 * Return: Return to admin page if questions are added successfully and in case of any exception, stay on the AddQuestion page
+	 */
 	@RequestMapping(value = "/addquestionsubmit", method = RequestMethod.POST)
 	public String addQuestion(@RequestParam("testid") long id, @RequestParam("exfile") MultipartFile file, Map<String, Object> model) {
 		try {
-			String UPLOAD_DIRECTORY = "E:\\Soft\\Soft 2\\apache-tomcat-8.5.45\\webapps\\Excel_Files";
+			String UPLOAD_DIRECTORY = "E:";
 			String fileName = file.getOriginalFilename();
 			String path = System.getProperty("catalina.home");
 			System.out.println("Hi");
