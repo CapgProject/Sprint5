@@ -272,10 +272,11 @@ public class TestManagementController {
 	}
 
 	@RequestMapping(value = "assigntestsubmit", method = RequestMethod.POST)
-	public String assignTest(@RequestParam("testid") long testId, @RequestParam("userid") long userId) {
+	public String assignTest(@RequestParam("testid") long testId, @RequestParam("userid") long userId,Map<String,Object> model) {
 		try {
 			testservice.assignTest(userId, testId);
 		} catch (UserException e) {
+			model.put("error", e.getMessage());
 			logger.error(e.getMessage());
 		}
 		return "admin";
@@ -399,6 +400,7 @@ public class TestManagementController {
 
 	@RequestMapping(value = "/updateuser", method = RequestMethod.GET)
 	public ModelAndView showUpdateUser(@ModelAttribute("user") User user, HttpSession session) {
+		
 		User originalUser = (User) session.getAttribute("user");
 		if (originalUser.getIsAdmin()) {
 			return new ModelAndView("UpdateAdminDetails", "Update", session.getAttribute("user"));
@@ -409,7 +411,7 @@ public class TestManagementController {
 	}
 
 	@RequestMapping(value = "/updateusersubmit", method = RequestMethod.POST)
-	public String actualUpdate(@ModelAttribute("user") User user, HttpSession session) {
+	public String actualUpdate(@ModelAttribute("user") User user, HttpSession session,Map<String,Object> model) {
 		User originalUser = (User) session.getAttribute("user");
 		try {
 			User userOne = testservice.searchUser(user.getUserId());
@@ -421,6 +423,7 @@ public class TestManagementController {
 			testservice.updateProfile(userOne);
 			logger.info("User details updated");
 		} catch (UserException e) {
+			model.put("error", e.getMessage());
 			logger.error(e.getMessage());
 		}
 		if (originalUser.getIsAdmin()) {

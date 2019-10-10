@@ -8,6 +8,8 @@ public class OtmApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(OtmApplication.class, args);
+		
+		System.out.println("Welcome to Test Management");
 	}
 
 }
