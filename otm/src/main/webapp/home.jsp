@@ -14,9 +14,7 @@
 <script type="text/javascript">
 $(function(){
 
-
-	var msg = '${error}';
-	if(msg != ''){
+	if(${param.error} != null){
 		alert(msg);
 	}
 	
@@ -26,7 +24,7 @@ $(function(){
 	var error_username = false;
 	var error_password = false;
 
-	$("#name").focusout(function(){
+	$("#username").focusout(function(){
 		check_username();
 	});
 	$("#password").focusout(function(){
@@ -34,7 +32,7 @@ $(function(){
 	});
 
 	function check_username(){
-		var username_length = $("#name").val().length;
+		var username_length = $("#username").val().length;
 		if(username_length<5 || username_length>20)	{
 			$("#username_error_message").html("Should be 5-20 characters long");
 			$("#username_error_message").show();
@@ -75,7 +73,7 @@ $(function(){
 	var error_username2 = false;
 	var error_password2 = false;
 
-	$("#username").focusout(function(){
+	$("#usernametwo").focusout(function(){
 		check_username_register();
 	});
 	$("#userpassword").focusout(function(){
@@ -83,7 +81,7 @@ $(function(){
 	});
 
 	function check_username_register(){
-		var username_length = $("#username").val().length;
+		var username_length = $("#usernametwo").val().length;
 		if(username_length<5 || username_length>20)	{
 			$("#username_error").html("Should be 5-20 characters long");
 			$("#username_error").show();
@@ -150,7 +148,7 @@ $(function(){
 
   <section id="hero" class = "home">
     <div class="hero-container">
-      <h1>Welcome to MyTest</h1>
+      <h1>Welcome to MyTest</h1><div>${param.error}</div>
       <h2>A platform to manage and give all your exams online</h2>
       <a href="" class="btn-get-started" data-toggle="modal" data-target="#RegisterForm">Register Now</a>
     </div>
@@ -225,7 +223,7 @@ $(function(){
   aria-hidden="true">
   <div class="modal-dialog" role="document">
     <!--Content-->
-    <fo:form id="login" action="onlogin" method="post" modelAttribute="user">
+    <fo:form id="login" action="/" method="post" modelAttribute="user">
     <div class="modal-content form-elegant">
       <!--Header-->
       <div class="modal-header text-center">
@@ -238,7 +236,7 @@ $(function(){
       <div class="modal-body mx-4">
         <!--Body-->
         <div class="md-form mb-5">
-          <fo:input id = "name" type="text" path="userName" class="form-control" />
+          <fo:input id = "username" type="text" path="userName" class="form-control" />
           <label data-error="wrong" data-success="right" for="Form-email1">Your Username</label>
           <span id = "username_error_message" class="error"></span>
         </div>
@@ -290,7 +288,7 @@ $(function(){
       <div class="modal-body mx-4">
         <!--Body-->
         <div class="md-form mb-5">
-          <fo:input id="username" type="text" path="userName" class="form-control" />
+          <fo:input id="usernametwo" type="text" path="userName" class="form-control" />
           <label data-error="wrong" data-success="right" for="Form-email1">Your Username</label>
           <span id = "username_error" class= "error"></span>
         </div>
