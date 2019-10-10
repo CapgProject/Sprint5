@@ -71,6 +71,7 @@
 						<fo:input type="text" path="testName"
 							placeholder="Enter Test Name" id="name" class="form-control" />
 						<span id="name_error" style="color: red"></span>
+						<span style="color:red">${error}</span>
 					</div>
 				</div>
 				<br>
@@ -91,6 +92,7 @@
 						<fo:input type="text" path="startTime"
 							placeholder="DD-MM-YYYY HH:MM:SS" id="startTime"
 							class="form-control" />
+							<span id="startTime_error" style="color: red"></span>
 					</div>
 				</div>
 				<br>
@@ -101,6 +103,7 @@
 						<fo:input type="text" path="endTime"
 							placeholder="DD-MM-YYYY HH:MM:SS" id="endTime"
 							class="form-control" />
+							<span id="endTime_error" style="color: red"></span>
 					</div>
 				</div>
 				<br>
@@ -158,9 +161,13 @@
 		$(function() {
 			$("#name_error").hide();
 			$("#duration_error").hide();
-
+			$("#startTime_error").hide();
+			$("#endTime_error").hide();
+			
 			var error_name = false;
 			var error_duration = false;
+			var error_startTime = false;
+			var error_endTime = false;
 			
 			$("#name").focusout(function() {
 				check_name();
@@ -168,6 +175,14 @@
 			
 			$("#duration").focusout(function() {
 				check_duration();
+			});
+			
+			$("#startTime").focusout(function() {
+				check_startTime();
+			});
+			
+			$("#endTime").focusout(function() {
+				check_endTime();
 			});
 
 			function check_name() {
@@ -191,8 +206,86 @@
 			}
 			
 			function check_duration() {
+				var length = $("#duration").val().length;
+				var pattern = new RegExp("^([0-9]{2}):([0-59]{2}):([0-59]{2})$");
 				
+				if(length < 8){
+					$("#duration_error").html("Duration field cannot be empty!");
+					$("#duration_error").show();
+					error_duration = true;
+				}
+				else{
+					if(!pattern.test($("#duration").val())){
+						$("#duration_error").html("Enter duration in 'HH:mm:ss' format only!");
+						$("#duration_error").show();
+						error_duration = true;
+					}
+					else{
+						$("#duration_error").hide();
+					}
+				}
 			}
+			
+			function check_startTime(){
+				var length = $("#startTime").val().length;
+				var pattern = new RegExp(/^(0[1-9]|1[0-9]|2[0-9]|3[01])-(0[1-9]|1[012])-([0-2][0-9][0-9][0-9])\s([0-1][0-9]|2[0-4]):([0-5][0-9]):([0-5][0-9])$/i);
+				
+				if(length < 8){
+					$("#startTime_error").html("start time field cannot be empty!");
+					$("#startTime_error").show();
+					error_startTime = true;
+				}
+				else{
+					if(!pattern.test($("#startTime").val())){
+						$("#startTime_error").html("Enter start time in 'dd-MM-yyyy HH:mm:ss' format only!");
+						$("#startTime_error").show();
+						error_startTime = true;
+					}
+					else{
+						$("#startTime_error").hide();
+					}
+				}
+			}
+			
+			function check_endTime(){
+				var length = $("#endTime").val().length;
+				var pattern = new RegExp(/^(0[1-9]|1[0-9]|2[0-9]|3[01])-(0[1-9]|1[012])-([0-2][0-9][0-9][0-9])\s([0-1][0-9]|2[0-4]):([0-5][0-9]):([0-5][0-9])$/i);
+				
+				if(length < 8){
+					$("#endTime_error").html("end time field cannot be empty!");
+					$("#endTime_error").show();
+					error_endTime = true;
+				}
+				else{
+					if(!pattern.test($("#endTime").val())){
+						$("#endTime_error").html("Enter end time in 'dd-MM-yyyy HH:mm:ss' format only!");
+						$("#endTime_error").show();
+						error_endTime = true;
+					}
+					else{
+						$("#endTime_error").hide();
+					}
+				}
+			}
+			
+			$("#testform").submit(function () {
+				error_name = false;
+				error_duration = false;
+				error_startTime = false;
+				error_endTime = false;
+				
+				check_name();
+				check_duration();
+				check_startTime();
+				check_endTime();
+				
+				if(error_name==false && error_duration==false && error_startTime==false && error_endTime==false){
+					return true;
+				}
+				else{
+					return false;
+				}
+			});
 		})
 	</script>
 </body>

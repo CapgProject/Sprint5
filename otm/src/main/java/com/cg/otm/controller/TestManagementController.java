@@ -57,7 +57,7 @@ public class TestManagementController {
 
 	/*Mapping for the page to display after add test form is submitted*/
 	@RequestMapping(value = "/addtestsubmit", method = RequestMethod.POST)
-	public String addTest(@ModelAttribute("test") OnlineTest test) {
+	public String addTest(@ModelAttribute("test") OnlineTest test, Map<String, Object> model) {
 		try {
 			OnlineTest testOne = new OnlineTest();
 			Set<Question> question = new HashSet<Question>();
@@ -72,7 +72,10 @@ public class TestManagementController {
 			testOne.setTestQuestions(question);
 			testservice.addTest(testOne);
 		} catch (UserException e) {
-			logger.error(e.getMessage());
+      logger.error(e.getMessage());
+			model.put("error", e.getMessage());
+			return "AddTest";
+
 		}
 		return "admin";
 	}
@@ -89,6 +92,9 @@ public class TestManagementController {
 		try {
 			String UPLOAD_DIRECTORY = "E:\\Soft\\Soft 2\\apache-tomcat-8.5.45\\webapps\\Excel_Files";
 			String fileName = file.getOriginalFilename();
+			String path = System.getProperty("catalina.home");
+			System.out.println("Hi");
+			System.out.println(path);
 			File pathFile = new File(UPLOAD_DIRECTORY);
 			if (!pathFile.exists()) {
 				pathFile.mkdir();
@@ -96,7 +102,6 @@ public class TestManagementController {
 
 			long time = new Date().getTime();
 			pathFile = new File(UPLOAD_DIRECTORY + "\\" + time + fileName);
-			System.out.println(pathFile);
 			try {
 				file.transferTo(pathFile);
 			} catch (IOException e) {
@@ -308,19 +313,20 @@ public class TestManagementController {
 	}
 
 	@RequestMapping(value = "/updatetestinput", method = RequestMethod.POST)
-	public ModelAndView updateTest(@RequestParam("testid") long id, @ModelAttribute("test") OnlineTest test) {
+	public ModelAndView updateTest(@RequestParam("testid") long id, @ModelAttribute("test") OnlineTest test, Map<String, Object> model) {
 		OnlineTest testOne;
 		try {
 			testOne = testservice.searchTest(id);
 			return new ModelAndView("UpdateTest", "Update", testOne);
 		} catch (UserException e) {
-			logger.error(e.getMessage());
+      logger.error(e.getMessage());
+			model.put("error", e.getMessage());
+			return new ModelAndView("UpdateTest");
 		}
-		return new ModelAndView("admin");
 	}
 
 	@RequestMapping(value = "/updatetestsubmit", method = RequestMethod.POST)
-	public String actualUpdate(@RequestParam("testId") long id, @ModelAttribute("test") OnlineTest test) {
+	public String actualUpdate(@RequestParam("testId") long id, @ModelAttribute("test") OnlineTest test, Map<String, Object> model) {
 		OnlineTest testOne = new OnlineTest();
 		Set<Question> questions = new HashSet<Question>();
 		testOne.setTestId(id);
@@ -336,7 +342,9 @@ public class TestManagementController {
 		try {
 			testservice.updateTest(id, testOne);
 		} catch (UserException e) {
-			logger.error(e.getMessage());
+      logger.error(e.getMessage());
+			model.put("errorsubmit", e.getMessage());
+			return "UpdateTestDetails";
 		}
 		return "admin";
 	}
