@@ -1,0 +1,18 @@
+2019-10-09 23:05:41,886 INFO com.zaxxer.hikari.HikariDataSource [Thread-10] HikariPool-2 - Shutdown initiated...
+2019-10-09 23:05:41,895 INFO com.zaxxer.hikari.HikariDataSource [Thread-10] HikariPool-2 - Shutdown completed.
+2019-10-09 23:05:42,540 INFO com.cg.otm.OtmApplication [restartedMain] Starting OtmApplication on DESKTOP-CR3KAV0 with PID 18064 (C:\Users\piyus\git\Sprint5\otm\target\classes started by Piyush in C:\Users\piyus\git\Sprint5\otm)
+2019-10-09 23:05:42,540 INFO com.cg.otm.OtmApplication [restartedMain] No active profile set, falling back to default profiles: default
+2019-10-09 23:05:43,439 INFO org.apache.catalina.core.StandardService [restartedMain] Starting service [Tomcat]
+2019-10-09 23:05:43,440 INFO org.apache.catalina.core.StandardEngine [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.26]
+2019-10-09 23:05:43,636 INFO org.apache.jasper.servlet.TldScanner [restartedMain] At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2019-10-09 23:05:43,639 INFO org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [restartedMain] Initializing Spring embedded WebApplicationContext
+2019-10-09 23:05:43,778 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-3 - Starting...
+2019-10-09 23:05:43,785 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-3 - Start completed.
+2019-10-09 23:05:43,800 INFO org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-10-09 23:05:43,859 INFO org.hibernate.dialect.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2019-10-09 23:05:44,379 INFO org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [restartedMain] HHH000397: Using ASTQueryTranslatorFactory
+2019-10-09 23:05:44,835 INFO com.cg.otm.OtmApplication [restartedMain] Started OtmApplication in 2.347 seconds (JVM running for 713.729)
+2019-10-09 23:05:48,295 INFO com.zaxxer.hikari.HikariDataSource [RMI TCP Connection(2)-127.0.0.1] HikariPool-3 - Shutdown initiated...
+2019-10-09 23:05:48,308 INFO com.zaxxer.hikari.HikariDataSource [RMI TCP Connection(2)-127.0.0.1] HikariPool-3 - Shutdown completed.

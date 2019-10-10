@@ -38,8 +38,9 @@ public class TestManagementController {
 	@Autowired
 	OnlineTestService testservice;
 
+	private static final Logger logger = LoggerFactory.getLogger(TestManagementController.class);
+	
 	private static int num = 0;
-	Logger logger=LoggerFactory.getLogger(TestManagementController.class);
 
 	/*Mapping for the home page*/
 	@RequestMapping(value = "/", method = RequestMethod.GET)
@@ -71,8 +72,10 @@ public class TestManagementController {
 			testOne.setTestQuestions(question);
 			testservice.addTest(testOne);
 		} catch (UserException e) {
+      logger.error(e.getMessage());
 			model.put("error", e.getMessage());
 			return "AddTest";
+
 		}
 		return "admin";
 	}
@@ -102,22 +105,34 @@ public class TestManagementController {
 			try {
 				file.transferTo(pathFile);
 			} catch (IOException e) {
-				System.out.println(e.getMessage());
+				logger.error(e.getMessage());
 			}
 			testservice.readFromExcel(id, fileName, time);
 		} catch (UserException | IOException e) {
+			logger.error(e.getMessage());
 			model.put("error", e.getMessage());
 			return "AddQuestion";
 		}
 		return "admin";
 	}
-
+	/*
+	 * Author: Piyush Daswani
+	 * Description: This Method is used to navigate back to the add user page
+	 * Input: link click
+	 * Return: add user page
+	 */
 	/*Mapping for the page to display add user form*/
 	@RequestMapping(value = "/adduser", method = RequestMethod.GET)
 	public String showAddUser(@ModelAttribute("user") User user) {
 		return "AddUser";
 	}
 
+	/*
+	 * Author: Piyush Daswani
+	 * Description: This Method is used to add the user to the database
+	 * Input: Username and Password
+	 * Return: homepage
+	 */
 	/*Mapping for the page to display after add user form is submitted*/
 	@RequestMapping(value = "/addusersubmit", method = RequestMethod.POST)
 	public String addUser(@ModelAttribute("user") User user) {
@@ -128,7 +143,7 @@ public class TestManagementController {
 			user.setUserTest(null);
 			testservice.registerUser(user);
 		} catch (UserException e) {
-			System.out.println(e.getMessage());
+			logger.error(e.getMessage());
 		}
 		return "home";
 	}
@@ -140,6 +155,12 @@ public class TestManagementController {
 		return new ModelAndView("ShowTest", "testdata", testList);
 	}
 
+	/*
+	 * Author: Piyush Daswani
+	 * Description: This Method is used to show all the users from the database
+	 * Input: link click
+	 * Return: List all users page
+	 */
 	/*Mapping for the table to display all users*/
 	@RequestMapping(value = "/showallusers", method = RequestMethod.GET)
 	public ModelAndView showUser() {
@@ -160,6 +181,7 @@ public class TestManagementController {
 			OnlineTest deleteTest = testservice.searchTest(id);
 			testservice.deleteTest(deleteTest.getTestId());
 		} catch (UserException e) {
+			logger.error(e.getMessage());
 			model.put("error", e.getMessage());
 			return "RemoveTest";
 		}
@@ -179,12 +201,19 @@ public class TestManagementController {
 			Question question = testservice.searchQuestion(id);
 			testservice.deleteQuestion(question.getOnlinetest().getTestId(), question.getQuestionId());
 		} catch (UserException e) {
+			logger.error(e.getMessage());
 			model.put("error", e.getMessage());
 			return "RemoveQuestion";
 		}
 		return "admin";
 	}
 
+	/*
+	 * Author: Piyush Daswani
+	 * Description: This Method is used to show the first question of the test
+	 * Input: link click
+	 * Return: Give Test Page
+	 */
 	/*Mapping for the page where the user can give test and see the first question*/
 	@RequestMapping(value = "/givetest", method = RequestMethod.GET)
 	public ModelAndView showQuestion(HttpSession session, @ModelAttribute("Question") Question question) {
@@ -204,7 +233,12 @@ public class TestManagementController {
 			return mav;
 		}
 	}
-
+	/*
+	 * Author: Piyush Daswani
+	 * Description: This Method is used to take the answers that the user chose and saving them and showing the next question
+	 * Input: Chosen Answer
+	 * Return: Give test Page
+	 */
 	/*Mapping to display questions one at a time*/
 	@RequestMapping(value = "/givetest", method = RequestMethod.POST)
 	public ModelAndView submitQuestion(HttpSession session, @ModelAttribute("Question") Question question) {
@@ -227,7 +261,7 @@ public class TestManagementController {
 				return mav;
 			}
 		} catch (UserException e) {
-			e.printStackTrace();
+			logger.error(e.getMessage());
 			return new ModelAndView("user");
 		}
 	}
@@ -242,11 +276,17 @@ public class TestManagementController {
 		try {
 			testservice.assignTest(userId, testId);
 		} catch (UserException e) {
-			System.out.println(e.getMessage());
+			logger.error(e.getMessage());
 		}
 		return "admin";
 	}
 
+	/*
+	 * Author: Piyush Daswani
+	 * Description: This Method is used to get the result of the test for the logged in user
+	 * Input: link click
+	 * Return: get result page
+	 */
 	@RequestMapping(value = "/getresult", method = RequestMethod.GET)
 	public ModelAndView showGetResult(HttpSession session) {
 		User currentUser = (User) session.getAttribute("user");
@@ -259,7 +299,7 @@ public class TestManagementController {
 			
 		} catch (UserException e) {
 			// TODO Auto-generated catch block
-			System.out.println(e.getMessage());
+			logger.error(e.getMessage());
 			return new ModelAndView("GetResult", "result", 0.0);
 		}
 		
@@ -279,6 +319,7 @@ public class TestManagementController {
 			testOne = testservice.searchTest(id);
 			return new ModelAndView("UpdateTest", "Update", testOne);
 		} catch (UserException e) {
+      logger.error(e.getMessage());
 			model.put("error", e.getMessage());
 			return new ModelAndView("UpdateTest");
 		}
@@ -301,6 +342,7 @@ public class TestManagementController {
 		try {
 			testservice.updateTest(id, testOne);
 		} catch (UserException e) {
+      logger.error(e.getMessage());
 			model.put("errorsubmit", e.getMessage());
 			return "UpdateTestDetails";
 		}
@@ -320,6 +362,7 @@ public class TestManagementController {
 			questionOne = testservice.searchQuestion(id);
 			return new ModelAndView("UpdateQuestion", "Update", questionOne);
 		} catch (UserException e) {
+			logger.error(e.getMessage());
 			model.put("error", e.getMessage());
 			return new ModelAndView("UpdateQuestion");
 		}
@@ -343,6 +386,7 @@ public class TestManagementController {
 			questionOne.setOnlinetest(test);
 			testservice.updateQuestion(testid, question.getQuestionId(), questionOne);
 		} catch (UserException e) {
+			logger.error(e.getMessage());
 			model.put("errorsubmit", e.getMessage());
 			return "UpdateQuestionDetails";
 		}
@@ -373,8 +417,7 @@ public class TestManagementController {
 			testservice.updateProfile(userOne);
 			logger.info("User details updated");
 		} catch (UserException e) {
-			System.out.println(e.getMessage());
-			logger.warn("User details cannot be updated");
+			logger.error(e.getMessage());
 		}
 		if (originalUser.getIsAdmin()) {
 			logger.info("This user is an admin");
@@ -387,13 +430,19 @@ public class TestManagementController {
 		}
 	}
 
+	/*
+	 * Author: Piyush Daswani
+	 * Description: This Method is used to login the user to the application
+	 * Input: Username and Password
+	 * Return: Student Page(Normal User), Admin Page(Admin), home page[with error](if wrong input)
+	 */
 	@RequestMapping(value = "/onlogin", method = RequestMethod.POST)
 	public ModelAndView onLogin(@ModelAttribute("user") User user, HttpSession session) {
 		User foundUser=null;
 		try {
 			foundUser = testservice.login(user.getUserName(), user.getUserPassword());
 		} catch (UserException e) {
-			
+			logger.error(e.getMessage());
 		}
 		if (foundUser != null) {
 			session.setAttribute("user", foundUser);
@@ -407,23 +456,39 @@ public class TestManagementController {
 		}
 
 	}
-
+	/*
+	 * Author: Piyush Daswani
+	 * Description: This Method is used to logout the user from the application and invalidate its sessions
+	 * Input: button click
+	 * Return: home page
+	 */
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String onLogout(HttpSession session, @ModelAttribute("user") User user) {
 		session.invalidate();
 		return "home";
 	}
 
+	/*
+	 * Author: Piyush Daswani
+	 * Description: This Method is used to navigate back to the user page
+	 * Input: link click
+	 * Return: user page
+	 */
 	@RequestMapping(value = "user", method = RequestMethod.GET)
 	public String user() {
 		return "user";
 	}
-
+	/*
+	 * Author: Piyush Daswani
+	 * Description: This Method is used to navigate back to the admin page
+	 * Input: button click
+	 * Return: admin page
+	 */
 	@RequestMapping(value = "admin", method = RequestMethod.GET)
 	public String admin() {
 		return "admin";
 	}
-
+	
 	@RequestMapping(value = "/listquestion", method = RequestMethod.GET)
 	public String showListQuestion() {
 		return "ListQuestion";
@@ -442,6 +507,7 @@ public class TestManagementController {
 			});
 			return new ModelAndView("ListQuestion", "questiondata", list);
 		} catch (UserException e) {
+			logger.error(e.getMessage());
 			model.put("error", e.getMessage());
 			return new ModelAndView("ListQuestion");
 		}
