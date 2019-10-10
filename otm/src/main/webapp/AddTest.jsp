@@ -207,7 +207,7 @@
 			
 			function check_duration() {
 				var length = $("#duration").val().length;
-				var pattern = new RegExp("^([0-9]{2}):([0-59]{2}):([0-59]{2})$");
+				var pattern = new RegExp(/^([0-9][0-9]):([0-5][0-9]):([0-5][0-9])$/i);
 				
 				if(length < 8){
 					$("#duration_error").html("Duration field cannot be empty!");

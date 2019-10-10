@@ -280,7 +280,7 @@ public class OnlineTestServiceImpl implements OnlineTestService{
 	public User login(String userName, String pass) throws UserException{
 		List<User> userList = userRepository.findByUserNameAndUserPassword(userName, pass);
 		if(userList.isEmpty()) {
-			throw new UserException();
+			throw new UserException(ExceptionMessage.INVALIDLOGINMESSAGE);
 		}
 		else {
 			return userList.get(0);

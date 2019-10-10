@@ -72,7 +72,7 @@ public class TestManagementController {
 			testOne.setTestQuestions(question);
 			testservice.addTest(testOne);
 		} catch (UserException e) {
-      logger.error(e.getMessage());
+			logger.error(e.getMessage());
 			model.put("error", e.getMessage());
 			return "AddTest";
 
@@ -290,6 +290,10 @@ public class TestManagementController {
 	@RequestMapping(value = "/getresult", method = RequestMethod.GET)
 	public ModelAndView showGetResult(HttpSession session) {
 		User currentUser = (User) session.getAttribute("user");
+		if (currentUser.getUserTest() ==null) {
+			logger.error("No test assigned");
+			return new ModelAndView("GetResult", "result", 0.0);
+		}
 		OnlineTest test;
 		try {
 			test = testservice.searchTest(currentUser.getUserTest().getTestId());
@@ -319,7 +323,7 @@ public class TestManagementController {
 			testOne = testservice.searchTest(id);
 			return new ModelAndView("UpdateTest", "Update", testOne);
 		} catch (UserException e) {
-      logger.error(e.getMessage());
+			logger.error(e.getMessage());
 			model.put("error", e.getMessage());
 			return new ModelAndView("UpdateTest");
 		}
@@ -342,7 +346,7 @@ public class TestManagementController {
 		try {
 			testservice.updateTest(id, testOne);
 		} catch (UserException e) {
-      logger.error(e.getMessage());
+			logger.error(e.getMessage());
 			model.put("errorsubmit", e.getMessage());
 			return "UpdateTestDetails";
 		}

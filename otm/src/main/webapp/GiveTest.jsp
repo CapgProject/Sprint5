@@ -35,10 +35,10 @@
 
 				<nav id="nav-menu-container">
 					<ul class="nav-menu" style="width: 100%;">
-						<li class="menu-active"><a href="#hero">Home</a></li>
+						<li class="menu-active"><a href="user">Home</a></li>
 						<li><a href="givetest">Give Test</a></li>
 						<li><a href="getresult">Get Result</a></li>
-						<li><a href="">Update Profile</a></li>
+						<li><a href="updateuser">Update Profile</a></li>
 					</ul>
 					<ul class="nav nav-menu nav-navbar nav-right">
 						<li><a class="button" href="logout"><i class="fa fa-sign-in"></i>&nbsp;Logout</a></li>
