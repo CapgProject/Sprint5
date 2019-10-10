@@ -237,7 +237,8 @@ public class TestManagementController {
 		try {
 			testservice.assignTest(userId, testId);
 		} catch (UserException e) {
-			System.out.println(e.getMessage());
+			model.put("error", e.getMessage());
+			//System.out.println(e.getMessage());
 		}
 		return "admin";
 	}
@@ -369,7 +370,7 @@ public class TestManagementController {
 			testservice.updateProfile(userOne);
 			logger.info("User details updated");
 		} catch (UserException e) {
-			//model.put("error", "User details can't be updated");
+			model.put("error", e.getMessage());
 			logger.warn("User details cannot be updated");
 		}
 		if (originalUser.getIsAdmin()) {

@@ -260,8 +260,7 @@ public class OnlineTestServiceImpl implements OnlineTestService{
 			
 			logger.error("The user does not exist");
 		    throw new UserException(ExceptionMessage.USERMESSAGE);
-		  // model.put("message","User does not exist");
-			
+		  
 		}
 		else {
 			logger.info("User details has been updated..!");

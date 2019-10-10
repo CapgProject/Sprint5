@@ -117,10 +117,6 @@
 
   <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 
-
-
-
-</body>
 <script type="text/javascript">
 $(function(){
 	$("#name_error_message").hide();
@@ -140,7 +136,7 @@ $(function(){
 		$("#name_error_message").hide();
 			
 		}
-		else if(pattern.test("#name")==''){
+		else if($("#name").val()==''){
 			$("#name_error_message").html("Should not be Empty");
 			$("#name_error_message").show();
 			error_name=true;
@@ -185,5 +181,9 @@ $(function(){
 	
 });
 </script>
+
+
+
+</body>
 
 </html>	
