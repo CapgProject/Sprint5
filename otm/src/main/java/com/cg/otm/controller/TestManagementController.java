@@ -15,6 +15,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -497,6 +499,19 @@ public class TestManagementController {
 	 */
 	@RequestMapping(value = "/user", method = RequestMethod.GET)
 	public String user(HttpSession session) {
+
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String username="",password="";
+		if(principal instanceof UserDetails) {
+			username = ((UserDetails)principal).getUsername();
+			password = ((UserDetails)principal).getPassword();
+		}
+		try {
+			User user = testservice.login(username, password);
+			session.setAttribute("user", user);
+		} catch (UserException e) {
+			logger.error(e.getMessage());
+		}
 		return "user";
 	}
 	/*
@@ -506,7 +521,19 @@ public class TestManagementController {
 	 * Return: admin page
 	 */
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
-	public String admin() {
+	public String admin(HttpSession session) {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String username="",password="";
+		if(principal instanceof UserDetails) {
+			username = ((UserDetails)principal).getUsername();
+			password = ((UserDetails)principal).getPassword();
+		}
+		try {
+			User user = testservice.login(username, password);
+			session.setAttribute("user", user);
+		} catch (UserException e) {
+			logger.error(e.getMessage());
+		}
 		return "admin";
 	}
 	
