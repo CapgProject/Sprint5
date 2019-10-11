@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,7 +40,7 @@ public class TestManagementController {
 	private static int num = 0;
 
 	/*Mapping for the home page*/
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = {"/", "/login"}, method = RequestMethod.GET)
 	public String displayHomePage(@ModelAttribute("user") User user) {
 		return "home";
 	}
@@ -494,8 +495,8 @@ public class TestManagementController {
 	 * Input: link click
 	 * Return: user page
 	 */
-	@RequestMapping(value = "user", method = RequestMethod.GET)
-	public String user() {
+	@RequestMapping(value = "/user", method = RequestMethod.GET)
+	public String user(HttpSession session) {
 		return "user";
 	}
 	/*
@@ -504,7 +505,7 @@ public class TestManagementController {
 	 * Input: button click
 	 * Return: admin page
 	 */
-	@RequestMapping(value = "admin", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin", method = RequestMethod.GET)
 	public String admin() {
 		return "admin";
 	}
