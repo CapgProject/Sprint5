@@ -226,23 +226,43 @@
 				}
 			}
 			
-			function check_startTime(){
+			function check_startTime() {
 				var length = $("#startTime").val().length;
-				var pattern = new RegExp(/^(0[1-9]|1[0-9]|2[0-9]|3[01])-(0[1-9]|1[012])-([0-2][0-9][0-9][0-9])\s([0-1][0-9]|2[0-4]):([0-5][0-9]):([0-5][0-9])$/i);
-				
-				if(length < 8){
-					$("#startTime_error").html("start time field cannot be empty!");
-					$("#startTime_error").show();
-					error_startTime = true;
-				}
-				else{
-					if(!pattern.test($("#startTime").val())){
+				var pattern = new RegExp(/^(0[1-9]|1[0-9]|2[0-9]|3[01])-(0[1-9]|1[012])-([0-2][0-9][0-9][0-9])\s([0-1][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])$/i);
+				var time = $("#startTime").val();
+				var array = time.split("-");
+				var valAtThree = array[2].split(" ");
+				var leapYear = (parseInt(valAtThree[0])%4 == 0 && parseInt(valAtThree[0])%100 != 0) || parseInt(valAtThree[0])%400 == 0;
+
+				if(!pattern.test($("#startTime").val())){
 						$("#startTime_error").html("Enter start time in 'dd-MM-yyyy HH:mm:ss' format only!");
 						$("#startTime_error").show();
 						error_startTime = true;
+				}
+				else{
+					if(array[1] == "04" || array[1] == "06" || array[1] == "09" ||array[1] == "11"){
+						if(array[0] == "31"){
+							$("#startTime_error").html("The given date is not present in given month!");
+							$("#startTime_error").show();
+							error_startTime = true;
+						}
 					}
 					else{
-						$("#startTime_error").hide();
+						if(array[1] == "02" && (array[0] == "30" || array[0] == "31")){
+							$("#startTime_error").html("The given date is not present in given month!");
+							$("#startTime_error").show();
+							error_startTime = true;
+						}
+						else{
+							if(array[1] == "02" && array[0] == "29" && !leapYear){
+								$("#startTime_error").html("The given date is not present in given month!");
+								$("#startTime_error").show();
+								error_startTime = true;
+							}
+							else{
+								$("#startTime_error").hide();
+							}
+						}
 					}
 				}
 			}
