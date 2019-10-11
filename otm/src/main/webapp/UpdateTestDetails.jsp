@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="fo" uri="http://www.springframework.org/tags/form" %>	
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,12 +12,12 @@
 </script>
 </head>
 <body>
-	<form action="updatetestsubmit" method="post" id="formsubmit">
+	<fo:form action="updatetestsubmit" method="post" id="formsubmit" modelAttribute="test">
 		<div class="row">
 			<div class="text-center col-md-6 col-lg-6">Test Id:</div>
 			<div class="col-md-4 col-lg-4">
-				<input class="form-control" type="text" name="testId"
-					value="${Update.testId}" readonly />
+				<fo:input class="form-control" type="text" path="testId"
+					value="${Update.testId}" readonly="true" />
 			</div>
 		</div>
 		<div class = "row">
@@ -24,7 +25,7 @@
             Test Name:
           </div>
           <div class="col-md-4 col-lg-4">
-            <input class = "form-control" type="text" name="testName" id="name"
+            <fo:input class = "form-control" type="text" id="name" path="testName"
 					value="${Update.testName}" />
 					<span id="name_error" style="color: red"></span> 
 					<span style="color: red">${errorsubmit}</span>
@@ -35,7 +36,7 @@
             Test Duration:
           </div>
           <div class="col-md-4 col-lg-4">
-            <input class = "form-control" type="text" name="testDuration" id="duration"
+            <fo:input class = "form-control" type="text" id="duration" path="testDuration"
 					value="${Update.testDuration}" />
 					<span id="duration_error" style="color: red"></span>
           </div>
@@ -45,7 +46,7 @@
             Test Start time:
           </div>
           <div class="col-md-4 col-lg-4">
-            <input class = "form-control" type="text" name="startTime" id="startTime"
+            <fo:input class = "form-control" type="text" id="startTime" path="startTime"
 					value="${Update.startTime}" />
 					<span id="startTime_error" style="color: red"></span>
           </div>
@@ -55,7 +56,7 @@
             Test End time:
           </div>
           <div class="col-md-4 col-lg-4">
-            <input class = "form-control" type="text" name="endTime" id="endTime"
+            <fo:input class = "form-control" type="text" id="endTime" path="endTime"
 					value="${Update.endTime}" />
 					<span id="endTime_error" style="color: red"></span>
           </div>
@@ -68,7 +69,7 @@
             <button type = "submit" class = "btn btn-primary">Update</button>
           </div>
         </div>
-	</form>
+	</fo:form>
 	
 	<script type="text/javascript">
 		$(function() {
@@ -120,7 +121,7 @@
 
 			function check_duration() {
 				var length = $("#duration").val().length;
-				var pattern = new RegExp("^([0-9]{2}):([0-59]{2}):([0-59]{2})$");
+				var pattern = new RegExp(/^([0-9][0-9]):([0-5][0-9]):([0-5][0-9])$/i);
 				
 				if(length < 8){
 					$("#duration_error").html("Duration field cannot be empty!");
@@ -141,7 +142,8 @@
 
 			function check_startTime() {
 				var length = $("#startTime").val().length;
-				var pattern = new RegExp(/^(0[1-9]|1[0-9]|2[0-9]|3[01])-(0[1-9]|1[012])-([0-2][0-9][0-9][0-9])\s([0-1][0-9]|2[0-4]):([0-5][0-9]):([0-5][0-9])$/i);
+				var pattern = new RegExp(/^(0[1-9]|1[0-9]|2[0-9]|3[01])-(0[1-9]|1[012])-([0-2][0-9][0-9][0-9])\s([0-1][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])$/i);
+				alert(length);
 				
 				if(length < 8){
 					$("#startTime_error").html("start time field cannot be empty!");
@@ -162,7 +164,7 @@
 
 			function check_endTime() {
 				var length = $("#endTime").val().length;
-				var pattern = new RegExp(/^(0[1-9]|1[0-9]|2[0-9]|3[01])-(0[1-9]|1[012])-([0-2][0-9][0-9][0-9])\s([0-1][0-9]|2[0-4]):([0-5][0-9]):([0-5][0-9])$/i);
+				var pattern = new RegExp(/^(0[1-9]|1[0-9]|2[0-9]|3[01])-(0[1-9]|1[012])-([0-2][0-9][0-9][0-9])\s([0-1][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])$/i);
 				
 				if(length < 8){
 					$("#endTime_error").html("end time field cannot be empty!");

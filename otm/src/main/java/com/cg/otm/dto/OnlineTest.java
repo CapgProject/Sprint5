@@ -28,7 +28,6 @@ public class OnlineTest {
 		@Column(name = "test_id")
 		private Long testId;
 		
-		@NotEmpty(message = "Test Name cannot be empty!")
 		@Column(name = "test_name")
 		private String testName;
 		
@@ -39,7 +38,6 @@ public class OnlineTest {
 		@OneToMany(mappedBy = "onlinetest", cascade=CascadeType.ALL, fetch = FetchType.EAGER)
 		private Set<Question> testQuestions;
 		
-		@NotNull(message = "Test Marks cannot be empty!")
 		@Column(name = "test_total_marks")
 		private Double testTotalMarks;
 		
