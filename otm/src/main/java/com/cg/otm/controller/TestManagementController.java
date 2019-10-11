@@ -2,9 +2,6 @@ package com.cg.otm.controller;
 
 import java.io.File;
 import java.io.IOException;
-
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -17,7 +14,9 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,7 +42,7 @@ public class TestManagementController {
 	private static int num = 0;
 
 	/*Mapping for the home page*/
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = {"/", "/login"}, method = RequestMethod.GET)
 	public String displayHomePage(@ModelAttribute("user") User user) {
 		return "home";
 	}
@@ -498,8 +497,21 @@ public class TestManagementController {
 	 * Input: link click
 	 * Return: user page
 	 */
-	@RequestMapping(value = "user", method = RequestMethod.GET)
-	public String user() {
+	@RequestMapping(value = "/user", method = RequestMethod.GET)
+	public String user(HttpSession session) {
+
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String username="",password="";
+		if(principal instanceof UserDetails) {
+			username = ((UserDetails)principal).getUsername();
+			password = ((UserDetails)principal).getPassword();
+		}
+		try {
+			User user = testservice.login(username, password);
+			session.setAttribute("user", user);
+		} catch (UserException e) {
+			logger.error(e.getMessage());
+		}
 		return "user";
 	}
 	/*
@@ -508,8 +520,20 @@ public class TestManagementController {
 	 * Input: button click
 	 * Return: admin page
 	 */
-	@RequestMapping(value = "admin", method = RequestMethod.GET)
-	public String admin() {
+	@RequestMapping(value = "/admin", method = RequestMethod.GET)
+	public String admin(HttpSession session) {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String username="",password="";
+		if(principal instanceof UserDetails) {
+			username = ((UserDetails)principal).getUsername();
+			password = ((UserDetails)principal).getPassword();
+		}
+		try {
+			User user = testservice.login(username, password);
+			session.setAttribute("user", user);
+		} catch (UserException e) {
+			logger.error(e.getMessage());
+		}
 		return "admin";
 	}
 	
