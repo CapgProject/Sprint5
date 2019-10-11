@@ -229,38 +229,45 @@
 			function check_startTime() {
 				var length = $("#startTime").val().length;
 				var pattern = new RegExp(/^(0[1-9]|1[0-9]|2[0-9]|3[01])-(0[1-9]|1[012])-([0-2][0-9][0-9][0-9])\s([0-1][0-9]|2[0-3]):([0-5][0-9]):([0-5][0-9])$/i);
-				var time = $("#startTime").val();
-				var array = time.split("-");
-				var valAtThree = array[2].split(" ");
-				var leapYear = (parseInt(valAtThree[0])%4 == 0 && parseInt(valAtThree[0])%100 != 0) || parseInt(valAtThree[0])%400 == 0;
+				var startTime = $("#startTime").val();
 
-				if(!pattern.test($("#startTime").val())){
+				if(length==0){
 						$("#startTime_error").html("Enter start time in 'dd-MM-yyyy HH:mm:ss' format only!");
 						$("#startTime_error").show();
 						error_startTime = true;
 				}
 				else{
-					if(array[1] == "04" || array[1] == "06" || array[1] == "09" ||array[1] == "11"){
-						if(array[0] == "31"){
-							$("#startTime_error").html("The given date is not present in given month!");
-							$("#startTime_error").show();
-							error_startTime = true;
-						}
+					if(!pattern.test($("#startTime").val())){
+						$("#startTime_error").html("Enter start time in 'dd-MM-yyyy HH:mm:ss' format only!");
+						$("#startTime_error").show();
+						error_startTime = true;
 					}
-					else{
-						if(array[1] == "02" && (array[0] == "30" || array[0] == "31")){
-							$("#startTime_error").html("The given date is not present in given month!");
-							$("#startTime_error").show();
-							error_startTime = true;
+					else{						
+						var array = startTime.split("-");
+						var valAtThree = array[2].split(" ");
+						if(array[1] == "04" || array[1] == "06" || array[1] == "09" ||array[1] == "11"){
+							if(array[0] == "31"){
+								$("#startTime_error").html("The entered date is not present in given month!");
+								$("#startTime_error").show();
+								error_startTime = true;
+							}
 						}
 						else{
-							if(array[1] == "02" && array[0] == "29" && !leapYear){
-								$("#startTime_error").html("The given date is not present in given month!");
+							if(array[1] == "02" && (array[0] == "30" || array[0] == "31")){
+								$("#startTime_error").html("The entered date is not present in given month!");
 								$("#startTime_error").show();
 								error_startTime = true;
 							}
 							else{
-								$("#startTime_error").hide();
+								var leapYear = (parseInt(valAtThree[0])%4 == 0 && parseInt(valAtThree[0])%100 != 0) || parseInt(valAtThree[0])%400 == 0;
+								if(array[1] == "02" && array[0] == "29" && !leapYear){
+									$("#startTime_error").html("The entered date is not present in given month!");
+									$("#startTime_error").show();
+									error_startTime = true;
+								}
+								else{
+									$("#startTime_error").hide();
+								}
 							}
 						}
 					}
@@ -269,21 +276,75 @@
 			
 			function check_endTime(){
 				var length = $("#endTime").val().length;
+				var startDateLength = $("#startTime").val().length;
 				var pattern = new RegExp(/^(0[1-9]|1[0-9]|2[0-9]|3[01])-(0[1-9]|1[012])-([0-2][0-9][0-9][0-9])\s([0-1][0-9]|2[0-4]):([0-5][0-9]):([0-5][0-9])$/i);
-				
-				if(length < 8){
-					$("#endTime_error").html("end time field cannot be empty!");
+				var endTime = $("#endTime").val();
+				var endDate = new Date($("#endTime").val());
+				var startDate = new Date($("#startTime").val());
+				var a = endTime.split(" ");
+				var d = Date.parseDate(a[0]);
+				var val1 = Date.parseDate(endDate);
+				var val2 = Date.parseDate(startTime);
+				alert(d);
+				alert(val2);
+				//alert(endDate);
+				//alert(startDate);
+				if(startDateLength == 0){
+					$("#endTime_error").html("Enter start date first!");
 					$("#endTime_error").show();
 					error_endTime = true;
 				}
 				else{
-					if(!pattern.test($("#endTime").val())){
-						$("#endTime_error").html("Enter end time in 'dd-MM-yyyy HH:mm:ss' format only!");
+					if(val2>val1){
+						$("#endTime_error").html("End time cannot be before start time!");
 						$("#endTime_error").show();
 						error_endTime = true;
 					}
 					else{
-						$("#endTime_error").hide();
+						if(length==0){
+							$("#endTime_error").html("End time field cannot be empty!");
+							$("#endTime_error").show();
+							error_endTime = true;
+						}
+						else{
+							if(!pattern.test($("#startTime").val())){
+								$("#endTime_error").html("Enter end time in 'dd-MM-yyyy HH:mm:ss' format only!");
+								$("#endTime_error").show();
+								error_endTime = true;
+							}
+							else{						
+								var array = endTime.split("-");
+								var valAtThree = array[2].split(" ");
+								if(array[1] == "04" || array[1] == "06" || array[1] == "09" ||array[1] == "11"){
+									if(array[0] == "31"){
+										$("#endTime_error").html("The entered date is not present in given month!");
+										$("#endTime_error").show();
+										error_endTime = true;
+									}
+									else{
+										$("#endTime_error").hide();
+									}
+								}
+								else{
+									if(array[1] == "02" && (array[0] == "30" || array[0] == "31")){
+										$("#endTime_error").html("The entered date is not present in given month!");
+										$("#endTime_error").show();
+										error_endTime = true;
+									}
+									else{
+										var leapYear = (parseInt(valAtThree[0])%4 == 0 && parseInt(valAtThree[0])%100 != 0) || parseInt(valAtThree[0])%400 == 0;
+										if(array[1] == "02" && array[0] == "29" && !leapYear){
+											$("#endTime_error").html("The entered date is not present in given month!");
+											$("#endTime_error").show();
+											error_endTime = true;
+										}
+										else{
+											$("#endTime_error").hide();
+										}
+									}
+								}
+							}
+						}
 					}
 				}
 			}
@@ -306,6 +367,7 @@
 					return false;
 				}
 			});
+		})
 		})
 	</script>
 </body>
