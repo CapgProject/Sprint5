@@ -26,7 +26,7 @@ public class MyUserDetails implements UserDetails{
 		else {
 			authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 		}
-		System.out.println(user);
+		System.out.println(authorities);
 	}
 	
 	@Override

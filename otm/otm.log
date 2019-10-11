@@ -797,3 +797,76 @@ java.lang.NullPointerException: null
 2019-10-10 23:58:26,347 INFO org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [http-nio-9091-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
 2019-10-10 23:59:46,696 INFO com.zaxxer.hikari.HikariDataSource [RMI TCP Connection(2)-127.0.0.1] HikariPool-1 - Shutdown initiated...
 2019-10-10 23:59:46,709 INFO com.zaxxer.hikari.HikariDataSource [RMI TCP Connection(2)-127.0.0.1] HikariPool-1 - Shutdown completed.
+2019-10-11 09:33:35,937 INFO com.cg.otm.OtmApplication [restartedMain] Starting OtmApplication on DESKTOP-0OD3OKN with PID 5068 (C:\Users\Admin\git\Sprint5\otm\target\classes started by Admin in C:\Users\Admin\git\Sprint5\otm)
+2019-10-11 09:33:35,939 DEBUG com.cg.otm.OtmApplication [restartedMain] Running with Spring Boot v2.1.9.RELEASE, Spring v5.1.10.RELEASE
+2019-10-11 09:33:35,940 INFO com.cg.otm.OtmApplication [restartedMain] No active profile set, falling back to default profiles: default
+2019-10-11 09:33:37,224 INFO org.apache.catalina.core.StandardService [restartedMain] Starting service [Tomcat]
+2019-10-11 09:33:37,225 INFO org.apache.catalina.core.StandardEngine [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.26]
+2019-10-11 09:33:37,456 INFO org.apache.jasper.servlet.TldScanner [restartedMain] At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2019-10-11 09:33:37,461 INFO org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [restartedMain] Initializing Spring embedded WebApplicationContext
+2019-10-11 09:33:37,595 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Starting...
+2019-10-11 09:33:37,699 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Start completed.
+2019-10-11 09:33:37,818 INFO org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-10-11 09:33:37,870 INFO org.hibernate.Version [restartedMain] HHH000412: Hibernate Core {5.3.12.Final}
+2019-10-11 09:33:37,871 INFO org.hibernate.cfg.Environment [restartedMain] HHH000206: hibernate.properties not found
+2019-10-11 09:33:37,975 INFO org.hibernate.annotations.common.Version [restartedMain] HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2019-10-11 09:33:38,095 INFO org.hibernate.dialect.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2019-10-11 09:33:39,387 INFO org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [restartedMain] HHH000397: Using ASTQueryTranslatorFactory
+2019-10-11 09:33:39,987 INFO com.cg.otm.OtmApplication [restartedMain] Started OtmApplication in 4.325 seconds (JVM running for 5.05)
+2019-10-11 09:33:59,844 INFO com.zaxxer.hikari.HikariDataSource [Thread-5] HikariPool-1 - Shutdown initiated...
+2019-10-11 09:33:59,854 INFO com.zaxxer.hikari.HikariDataSource [Thread-5] HikariPool-1 - Shutdown completed.
+2019-10-11 09:34:00,281 INFO com.cg.otm.OtmApplication [restartedMain] Starting OtmApplication on DESKTOP-0OD3OKN with PID 5068 (C:\Users\Admin\git\Sprint5\otm\target\classes started by Admin in C:\Users\Admin\git\Sprint5\otm)
+2019-10-11 09:34:00,288 DEBUG com.cg.otm.OtmApplication [restartedMain] Running with Spring Boot v2.1.9.RELEASE, Spring v5.1.10.RELEASE
+2019-10-11 09:34:00,290 INFO com.cg.otm.OtmApplication [restartedMain] No active profile set, falling back to default profiles: default
+2019-10-11 09:34:01,075 INFO org.apache.catalina.core.StandardService [restartedMain] Starting service [Tomcat]
+2019-10-11 09:34:01,075 INFO org.apache.catalina.core.StandardEngine [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.26]
+2019-10-11 09:34:01,214 INFO org.apache.jasper.servlet.TldScanner [restartedMain] At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2019-10-11 09:34:01,216 INFO org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [restartedMain] Initializing Spring embedded WebApplicationContext
+2019-10-11 09:34:01,360 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-2 - Starting...
+2019-10-11 09:34:01,367 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-2 - Start completed.
+2019-10-11 09:34:01,377 INFO org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-10-11 09:34:01,398 INFO org.hibernate.dialect.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2019-10-11 09:34:01,750 INFO org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [restartedMain] HHH000397: Using ASTQueryTranslatorFactory
+2019-10-11 09:34:01,959 INFO com.cg.otm.OtmApplication [restartedMain] Started OtmApplication in 1.749 seconds (JVM running for 27.02)
+2019-10-11 09:34:07,744 INFO org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [http-nio-9091-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-10-11 09:44:23,638 INFO com.zaxxer.hikari.HikariDataSource [Thread-10] HikariPool-2 - Shutdown initiated...
+2019-10-11 09:44:23,643 INFO com.zaxxer.hikari.HikariDataSource [Thread-10] HikariPool-2 - Shutdown completed.
+2019-10-11 09:44:23,915 INFO com.cg.otm.OtmApplication [restartedMain] Starting OtmApplication on DESKTOP-0OD3OKN with PID 5068 (C:\Users\Admin\git\Sprint5\otm\target\classes started by Admin in C:\Users\Admin\git\Sprint5\otm)
+2019-10-11 09:44:23,915 DEBUG com.cg.otm.OtmApplication [restartedMain] Running with Spring Boot v2.1.9.RELEASE, Spring v5.1.10.RELEASE
+2019-10-11 09:44:23,915 INFO com.cg.otm.OtmApplication [restartedMain] No active profile set, falling back to default profiles: default
+2019-10-11 09:44:24,280 INFO org.apache.catalina.core.StandardService [restartedMain] Starting service [Tomcat]
+2019-10-11 09:44:24,281 INFO org.apache.catalina.core.StandardEngine [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.26]
+2019-10-11 09:44:24,355 INFO org.apache.jasper.servlet.TldScanner [restartedMain] At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2019-10-11 09:44:24,356 INFO org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [restartedMain] Initializing Spring embedded WebApplicationContext
+2019-10-11 09:44:24,430 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-3 - Starting...
+2019-10-11 09:44:24,433 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-3 - Start completed.
+2019-10-11 09:44:24,441 INFO org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-10-11 09:44:24,459 INFO org.hibernate.dialect.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2019-10-11 09:44:24,770 INFO org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [restartedMain] HHH000397: Using ASTQueryTranslatorFactory
+2019-10-11 09:44:24,947 INFO com.cg.otm.OtmApplication [restartedMain] Started OtmApplication in 1.06 seconds (JVM running for 650.009)
+2019-10-11 09:44:27,502 INFO com.zaxxer.hikari.HikariDataSource [RMI TCP Connection(2)-127.0.0.1] HikariPool-3 - Shutdown initiated...
+2019-10-11 09:44:27,513 INFO com.zaxxer.hikari.HikariDataSource [RMI TCP Connection(2)-127.0.0.1] HikariPool-3 - Shutdown completed.
+2019-10-11 09:44:33,924 INFO com.cg.otm.OtmApplication [restartedMain] Starting OtmApplication on DESKTOP-0OD3OKN with PID 4876 (C:\Users\Admin\git\Sprint5\otm\target\classes started by Admin in C:\Users\Admin\git\Sprint5\otm)
+2019-10-11 09:44:33,926 DEBUG com.cg.otm.OtmApplication [restartedMain] Running with Spring Boot v2.1.9.RELEASE, Spring v5.1.10.RELEASE
+2019-10-11 09:44:33,927 INFO com.cg.otm.OtmApplication [restartedMain] No active profile set, falling back to default profiles: default
+2019-10-11 09:44:35,201 INFO org.apache.catalina.core.StandardService [restartedMain] Starting service [Tomcat]
+2019-10-11 09:44:35,202 INFO org.apache.catalina.core.StandardEngine [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.26]
+2019-10-11 09:44:35,418 INFO org.apache.jasper.servlet.TldScanner [restartedMain] At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2019-10-11 09:44:35,422 INFO org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [restartedMain] Initializing Spring embedded WebApplicationContext
+2019-10-11 09:44:35,565 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Starting...
+2019-10-11 09:44:35,667 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Start completed.
+2019-10-11 09:44:35,804 INFO org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-10-11 09:44:35,855 INFO org.hibernate.Version [restartedMain] HHH000412: Hibernate Core {5.3.12.Final}
+2019-10-11 09:44:35,856 INFO org.hibernate.cfg.Environment [restartedMain] HHH000206: hibernate.properties not found
+2019-10-11 09:44:35,957 INFO org.hibernate.annotations.common.Version [restartedMain] HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2019-10-11 09:44:36,078 INFO org.hibernate.dialect.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2019-10-11 09:44:37,245 INFO org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [restartedMain] HHH000397: Using ASTQueryTranslatorFactory
+2019-10-11 09:44:37,774 INFO com.cg.otm.OtmApplication [restartedMain] Started OtmApplication in 4.127 seconds (JVM running for 4.768)
