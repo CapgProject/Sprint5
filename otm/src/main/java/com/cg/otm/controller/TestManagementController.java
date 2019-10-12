@@ -44,7 +44,16 @@ public class TestManagementController {
 
 	/*Mapping for the home page*/
 	@RequestMapping(value = {"/", "/login"}, method = RequestMethod.GET)
-	public String displayHomePage(@ModelAttribute("user") User user) {
+	public String displayHomePage(@ModelAttribute("user") User user, HttpSession session) {
+		User loggeduser = (User) session.getAttribute("user");
+		if(loggeduser != null) {
+			if(loggeduser.getIsAdmin()) {
+				return "admin";
+			}
+			else {
+				return "user";
+			}
+		}
 		return "home";
 	}
 
