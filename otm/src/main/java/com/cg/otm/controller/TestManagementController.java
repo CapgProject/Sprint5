@@ -28,6 +28,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.cg.otm.dto.OnlineTest;
 import com.cg.otm.dto.Question;
 import com.cg.otm.dto.User;
+import com.cg.otm.exception.ExceptionMessage;
 import com.cg.otm.exception.UserException;
 import com.cg.otm.service.OnlineTestService;
 
@@ -151,17 +152,22 @@ public class TestManagementController {
 	 */
 	/*Mapping for the page to display after add user form is submitted*/
 	@RequestMapping(value = "/addusersubmit", method = RequestMethod.POST)
-	public String addUser(@ModelAttribute("user") User user) {
+	public ModelAndView addUser(@ModelAttribute("user") User user) {
 		try {
 			user.setUserTest(null);
 			user.setIsAdmin(false);
 			user.setIsDeleted(false);
 			user.setUserTest(null);
 			testservice.registerUser(user);
+			return new ModelAndView("home");
 		} catch (UserException e) {
 			logger.error(e.getMessage());
+			return new ModelAndView("home","error",e.getMessage());
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			return new ModelAndView("home","error", ExceptionMessage.USERNAMEALREADYUSEDMESSAGE);
 		}
-		return "home";
+		
 	}
 
 	/*Mapping for the table to display all tests*/
