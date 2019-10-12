@@ -44,11 +44,11 @@ public class OnlineTest {
 		@Column(name = "test_marks_scored")
 		private Double testMarksScored;
 		
-		@DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
+		@DateTimeFormat(pattern="MM-dd-yyyy HH:mm:ss")
 		@Column(name = "test_start_time")
 		private LocalDateTime startTime;
 		
-		@DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
+		@DateTimeFormat(pattern="MM-dd-yyyy HH:mm:ss")
 		@Column(name = "test_end_time")
 		private LocalDateTime endTime;
 		
