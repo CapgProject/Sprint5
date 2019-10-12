@@ -31,6 +31,7 @@ import com.cg.otm.dto.User;
 import com.cg.otm.exception.ExceptionMessage;
 import com.cg.otm.exception.UserException;
 import com.cg.otm.service.OnlineTestService;
+import com.cg.otm.view.PDFView;
 
 @Controller
 public class TestManagementController {
@@ -575,4 +576,10 @@ public class TestManagementController {
 			return new ModelAndView("ListQuestion");
 		}
 	}
+	
+	@RequestMapping(value = "/resultpdf", method = RequestMethod.GET)
+	public ModelAndView getResultPdf() {	
+		return new ModelAndView(new PDFView(),"Result","Result");
+	}
+	
 }

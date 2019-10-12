@@ -23,6 +23,7 @@
 
 			<div id="logo" class="pull-left" style="width: 100%">
 			</div>
+		</div>
 	</header>
 
 	<section id="hero" class="error404">
