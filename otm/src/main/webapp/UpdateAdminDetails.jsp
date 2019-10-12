@@ -77,6 +77,7 @@
           <div class="col-md-4 col-lg-4">
             <input id="name" type="text" name="userName" value="${Update.userName}" />
             <span id="name_error_message" class = "error" style="color:red"></span>
+            <span style="color:red">${error}</span>
           </div>
         </div>
         <div class = "row">
@@ -86,6 +87,7 @@
           <div class="col-md-4 col-lg-4">
             <input id="password" type="text" name="userPassword" value="${Update.userPassword}" />
             <span id="password_error_message" class = "error" style="color:red"></span>
+            <span style="color:red">${error}</span>
           </div>
         </div>
         <div class = "row">
@@ -97,7 +99,7 @@
         </div>
         <br>
         </fo:form>  
-        <span>${error}</span> 
+        
     </div>
     </section>
 
@@ -166,7 +168,7 @@ $(function(){
 			error_password = true;	
 		}
 	}
-	$("#updateform").submit(function(){
+	$("#updatedetails").submit(function(){
 		error_name = false;
 		error_password = false;
 		check_name();

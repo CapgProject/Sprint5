@@ -69,6 +69,7 @@
           <div class="col-md-4 col-lg-4">
             <input type="text" id="test_id" name="testid" placeholder="Enter Test Id" class="form-control" >
              <span class="error" id="testid_error_message" style="color:red"></span>
+             <span style="color:red">${error}</span>
           </div>
         </div>
         <div class = "row">
@@ -78,6 +79,7 @@
           <div class="col-md-4 col-lg-4">
             <input type="text" id="user_id" name="userid" placeholder="Enter User Id" class="form-control" >
             <span class="error" id="userid_error_message" style="color:red"></span>
+            <span style="color:red">${error}</span>
           </div>
         </div>
         <div class = "row">
