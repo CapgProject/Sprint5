@@ -20,7 +20,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cg.otm.dao.OnlineTestDao;
 import com.cg.otm.dto.OnlineTest;
 import com.cg.otm.dto.Question;
 import com.cg.otm.dto.User;
@@ -35,9 +34,6 @@ public class OnlineTestServiceImpl implements OnlineTestService{
 	
 	private static final Logger logger = LoggerFactory.getLogger(OnlineTestServiceImpl.class);
  
-
-	@Autowired
-	OnlineTestDao testdao;
 
 
 	@Autowired
@@ -54,11 +50,16 @@ public class OnlineTestServiceImpl implements OnlineTestService{
 	@Override
 	public User registerUser(User user) throws UserException {
 		//Adding the user into the database
-		User returnedUser = userRepository.save(user); 
-		if (returnedUser != null)
-			return user;													//User is added
-		else {
-			throw new UserException(ExceptionMessage.DATABASEMESSAGE);		//Not added
+		try {
+			User returnedUser = userRepository.save(user); 
+			if (returnedUser != null)
+				return user;													//User is added
+			else {
+				throw new UserException(ExceptionMessage.DATABASEMESSAGE);		//Not added
+			}
+		}catch(Exception e){
+			//logger.error(e.getMessage());
+			throw new UserException(ExceptionMessage.USERNAMEALREADYUSEDMESSAGE);
 		}
 	}
 
@@ -73,7 +74,7 @@ public class OnlineTestServiceImpl implements OnlineTestService{
 		} else {
 			question.setMarksScored(new Double(0.0));
 		}
-		testdao.updateQuestion(question);
+		questionRepository.save(question);
 		return true;
 	}
 
@@ -210,7 +211,7 @@ public class OnlineTestServiceImpl implements OnlineTestService{
 	public Double getResult(OnlineTest onlineTest) throws UserException {
 		Double score = calculateTotalMarks(onlineTest);
 		onlineTest.setIsTestAssigned(false);
-		testdao.updateTest(onlineTest);
+		onlineTestRepository.save(onlineTest);
 		return score;
 	}
 
@@ -221,7 +222,7 @@ public class OnlineTestServiceImpl implements OnlineTestService{
 			score = score + question.getMarksScored();
 		}
 		onlineTest.setTestMarksScored(score);
-		testdao.updateTest(onlineTest);
+		onlineTestRepository.save(onlineTest);
 		return score;
 	}
 

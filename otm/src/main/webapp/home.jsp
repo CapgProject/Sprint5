@@ -14,7 +14,7 @@
 <script type="text/javascript">
 	$(function() {
 
-		var msg = '${param.error}';
+		var msg = '${param.error}' + '${error}';
 		if (msg != '') {
 			alert(msg);
 		}

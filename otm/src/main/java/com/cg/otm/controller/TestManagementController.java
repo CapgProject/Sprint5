@@ -28,8 +28,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.cg.otm.dto.OnlineTest;
 import com.cg.otm.dto.Question;
 import com.cg.otm.dto.User;
+import com.cg.otm.exception.ExceptionMessage;
 import com.cg.otm.exception.UserException;
 import com.cg.otm.service.OnlineTestService;
+import com.cg.otm.view.PDFView;
 
 @Controller
 public class TestManagementController {
@@ -43,7 +45,16 @@ public class TestManagementController {
 
 	/*Mapping for the home page*/
 	@RequestMapping(value = {"/", "/login"}, method = RequestMethod.GET)
-	public String displayHomePage(@ModelAttribute("user") User user) {
+	public String displayHomePage(@ModelAttribute("user") User user, HttpSession session) {
+		User loggeduser = (User) session.getAttribute("user");
+		if(loggeduser != null) {
+			if(loggeduser.getIsAdmin()) {
+				return "admin";
+			}
+			else {
+				return "user";
+			}
+		}
 		return "home";
 	}
 
@@ -151,17 +162,22 @@ public class TestManagementController {
 	 */
 	/*Mapping for the page to display after add user form is submitted*/
 	@RequestMapping(value = "/addusersubmit", method = RequestMethod.POST)
-	public String addUser(@ModelAttribute("user") User user) {
+	public ModelAndView addUser(@ModelAttribute("user") User user) {
 		try {
 			user.setUserTest(null);
 			user.setIsAdmin(false);
 			user.setIsDeleted(false);
 			user.setUserTest(null);
 			testservice.registerUser(user);
+			return new ModelAndView("home");
 		} catch (UserException e) {
 			logger.error(e.getMessage());
+			return new ModelAndView("home","error",e.getMessage());
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+			return new ModelAndView("home","error", ExceptionMessage.USERNAMEALREADYUSEDMESSAGE);
 		}
-		return "home";
+		
 	}
 
 	/*Mapping for the table to display all tests*/
@@ -560,4 +576,10 @@ public class TestManagementController {
 			return new ModelAndView("ListQuestion");
 		}
 	}
+	
+	@RequestMapping(value = "/resultpdf", method = RequestMethod.GET)
+	public ModelAndView getResultPdf() {	
+		return new ModelAndView(new PDFView(),"Result","Result");
+	}
+	
 }

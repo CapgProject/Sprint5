@@ -40,7 +40,7 @@ public class SpringWebSecurity extends WebSecurityConfigurerAdapter {
 						"/removequestion", "/assigntestsubmit", "/assigntest", "/updatetestsubmit", "/updatetest",
 						"/updatetestinput", "/updatequestion", "/updatequestioninput", "/updatequestionsubmit",
 						"/listquestion", "/listquestionsubmit")
-				.hasRole("ADMIN").antMatchers("/user", "/givetest", "/getresult").hasRole("USER")
+				.hasRole("ADMIN").antMatchers("/user", "/givetest", "/getresult","/resultpdf").hasRole("USER")
 				.antMatchers("/updateusersubmit", "/updateuser", "/", "/login").permitAll()
 				.and().formLogin().loginPage("/login").successHandler(myAuthenticationSuccessHandler())
 				.and().logout()

@@ -149,7 +149,10 @@ h1, h2, h3, h4, h5, h6 {
   background: url(../img/admin.jpg) top center;
     background-size: cover;
 }
-
+.error404{
+	background: url(../img/errorback.jpg) top center;
+    background-size: cover;
+}
 .result {
 	background: url(../img/getResult.jpg) top center;
 	background-size: cover;
