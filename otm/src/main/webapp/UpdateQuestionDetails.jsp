@@ -99,21 +99,14 @@
 
 			function check_title() {
 				var length = $("#questiontitle").val().length;
-				var pattern = new RegExp("^[A-Z][A-Za-z 0-9_-]*$");
 				if (length < 6) {
 					$("#title_error").html(
 							"Title should be greater than 6 characters!");
 					$("#title_error").show();
 					error_title = true;
-				} else {
-					if (!pattern.test($("#questiontitle").val())) {
-						$("#title_error").html(
-								"First character should be a capital letter!");
-						$("#title_error").show();
-						error_title = true;
-					} else {
-						$("#title_error").hide();
-					}
+				} 
+				else {
+					$("#title_error").hide();
 				}
 			}
 
@@ -142,7 +135,7 @@
 
 			function check_answer() {
 				var length = $("#questionanswer").val().length;
-				var pattern = new RegExp("^[1-4]");	
+				var pattern = new RegExp(/^[1-4]$/i);	
 				if(length < 1){
 					$("#answer_error").html("Answer field cannot be empty!");
 					$("#answer_error").show();
