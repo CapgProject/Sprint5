@@ -121,14 +121,14 @@ public class TestManagementController {
 			String fileName = file.getOriginalFilename();
 			String path = System.getProperty("catalina.home");
 			File pathFile = new File(UPLOAD_DIRECTORY);
-			if (!pathFile.exists()) {
+			if (!pathFile.exists()) {  //If the given path does not exist then create the directory
 				pathFile.mkdir();
 			}
 
 			long time = new Date().getTime();
-			pathFile = new File(UPLOAD_DIRECTORY + "\\" + time + fileName);
+			pathFile = new File(UPLOAD_DIRECTORY + "\\" + time + fileName);   //appending time to filename so that files cannot have same name
 			try {
-				file.transferTo(pathFile);
+				file.transferTo(pathFile);  //Transfer the file to the given path
 			} catch (IOException e) {
 				logger.error(e.getMessage());
 			}
@@ -178,7 +178,13 @@ public class TestManagementController {
 
 	}
 
+
 	/* Mapping for the table to display all tests */
+
+	 * Author: Swanand Pande
+	 * Description: This is a mapping to display ShowTest Page where the admin can see all the tests which are not deleted and not assigned
+	 */
+
 	@RequestMapping(value = "/showalltests", method = RequestMethod.GET)
 	public ModelAndView showTest() {
 		List<OnlineTest> testList = testservice.getTests();
@@ -199,13 +205,29 @@ public class TestManagementController {
 		return new ModelAndView("ShowUser", "userdata", userList);
 	}
 
+
 	/* Mapping for the form to take input of test to be deleted */
+
+	/*
+	 * Author: Swanand Pande
+	 * Description: This is a mapping to display RemoveTest Page
+	 */
+
 	@RequestMapping(value = "/removetest", method = RequestMethod.GET)
 	public String showRemoveTest() {
 		return "RemoveTest";
 	}
 
+
 	/* Mapping for the page after form is submitted */
+
+	/*
+	 * Author: Swanand Pande
+	 * Description: This method searches the test with given test Id and if the test is found then delete the test
+	 * Input: Test Id of the test to be deleted
+	 * Return: Return to admin page if test is deleted successfully and in case of any exception, stay on the RemoveTest page
+	 */
+
 	@RequestMapping(value = "removetestsubmit", method = RequestMethod.POST)
 	public String removeTest(@RequestParam("testid") long id, Map<String, Object> model) {
 		try {
@@ -221,13 +243,24 @@ public class TestManagementController {
 		return "admin";
 	}
 
-	/* Mapping for the form to take input of question to be deleted */
+
+	/*
+	 * Author: Swanand Pande
+	 * Description: This is a mapping to display RemoveQuestion Page
+	 */
 	@RequestMapping(value = "/removequestion", method = RequestMethod.GET)
 	public String showRemoveQuestion() {
 		return "RemoveQuestion";
 	}
 
-	/* Mapping for the page after form is submitted */
+
+	/*
+	 * Author: Swanand Pande
+	 * Description: This method searches the question with given question Id and if the question is found then delete the question
+	 * Input: Question Id of the question to be deleted
+	 * Return: Return to admin page if question is deleted successfully and in case of any exception, stay on the RemoveQuestion page
+	 */
+
 	@RequestMapping(value = "removequestionsubmit", method = RequestMethod.POST)
 	public String removeQuestion(@RequestParam("questionid") long id, Map<String, Object> model) {
 		try {
@@ -366,11 +399,22 @@ public class TestManagementController {
 
 	}
 
+
+	/*
+	 * Author: Swanand Pande
+	 * Description: This is a mapping to display UpdateTest Page
+	 */
 	@RequestMapping(value = "/updatetest", method = RequestMethod.GET)
 	public String showUpdateTest(@ModelAttribute("test") OnlineTest test) {
 		return "UpdateTest";
 	}
 
+	/*
+	 * Author: Swanand Pande
+	 * Description: This method searches the test with given test Id and if the test is found then return the test details and show the UpdateTestDetails page included in UpdateTest page
+	 * Input: Test Id of the test to be deleted
+	 * Return: Stay on UpdateTest page which includes UpdateTestDetails if test is found else show exception message and stay on UpdateTest page
+	 */
 	@RequestMapping(value = "/updatetestinput", method = RequestMethod.POST)
 	public ModelAndView updateTest(@RequestParam("testid") long id, @ModelAttribute("test") OnlineTest test,
 			Map<String, Object> model) {
@@ -387,6 +431,12 @@ public class TestManagementController {
 		}
 	}
 
+	/*
+	 * Author: Swanand Pande
+	 * Description: This method sets the updated details in a test object and passes the details to service layer
+	 * Input: Test Id of the test to be updated and the object containing updated test details
+	 * Return: Return to admin page if test is updated successfully and in case of any exception, stay on the UpdateTestDetails page
+	 */
 	@RequestMapping(value = "/updatetestsubmit", method = RequestMethod.POST)
 	public String actualUpdate(@RequestParam("testId") long id, @ModelAttribute("test") OnlineTest test,
 			Map<String, Object> model) {
@@ -414,11 +464,21 @@ public class TestManagementController {
 		return "admin";
 	}
 
+	/*
+	 * Author: Swanand Pande
+	 * Description: This is a mapping to display UpdateQuestion Page
+	 */
 	@RequestMapping(value = "/updatequestion", method = RequestMethod.GET)
 	public String showUpdateQuestion(@ModelAttribute("question") Question question) {
 		return "UpdateQuestion";
 	}
 
+	/*
+	 * Author: Swanand Pande
+	 * Description: This method searches the question with given question Id and if the question is found then return the question details and show the UpdateQuestionDetails page included in UpdateQuestion page
+	 * Input: Question Id of the question to be updated
+	 * Return: Stay on UpdateQuestion page which includes UpdateQuestionDetails if question is found else show exception message and stay on UpdateQuestion page
+	 */
 	@RequestMapping(value = "/updatequestioninput", method = RequestMethod.POST)
 	public ModelAndView updateQuestion(@RequestParam("questionid") long id,
 			@ModelAttribute("question") Question question, Map<String, Object> model) {
@@ -433,6 +493,12 @@ public class TestManagementController {
 		}
 	}
 
+	/*
+	 * Author: Swanand Pande
+	 * Description: This method sets the updated details in a question object and passes the details to service layer
+	 * Input: Test Id of the test which contains the question to be updated and the object containing updated question details
+	 * Return: Return to admin page if question is updated successfully and in case of any exception, stay on the UpdateQuestionDetails page
+	 */
 	@RequestMapping(value = "/updatequestionsubmit", method = RequestMethod.POST)
 	public String actualUpdate(@RequestParam("testId") long testid, @ModelAttribute("question") Question question,
 			Map<String, Object> model) {
@@ -585,11 +651,22 @@ public class TestManagementController {
 		return "admin";
 	}
 
+	/*
+	 * Author: Swanand Pande
+	 * Description: This is a mapping to display ListQuestion Page
+	 */
+
 	@RequestMapping(value = "/listquestion", method = RequestMethod.GET)
 	public String showListQuestion() {
 		return "ListQuestion";
 	}
 
+	/*
+	 * Author: Swanand Pande
+	 * Description: This method displays all the questions which are present in a given test
+	 * Input: Test Id of the test whose questions are to be returned
+	 * Return: Stay on the ListQuestion page in case of any exception
+	 */
 	@RequestMapping(value = "/listquestionsubmit", method = RequestMethod.POST)
 	public ModelAndView submitListQuestion(@RequestParam("testId") long testId, Map<String, Object> model) {
 		try {
