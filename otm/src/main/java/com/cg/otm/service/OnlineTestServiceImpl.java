@@ -4,9 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-
 import java.util.Set;
 import java.util.StringTokenizer;
 
@@ -45,8 +42,12 @@ public class OnlineTestServiceImpl implements OnlineTestService{
 	@Autowired
 	QuestionRepository questionRepository;
 
-	
-	//Method to register a student
+	/*
+	 * Author: Piyush Daswani 
+	 * Description: This Method is used to add the user to the database 
+	 * Input: user object
+	 * Return: added object
+	 */
 	@Override
 	public User registerUser(User user) throws UserException {
 		//Adding the user into the database
@@ -243,6 +244,12 @@ public class OnlineTestServiceImpl implements OnlineTestService{
 			throw new UserException(ExceptionMessage.TESTMESSAGE);
 	}
 
+	/*
+	 * Author: Piyush Daswani 
+	 * Description: This Method is used to get result from user
+	 * Input: test object
+	 * Return: result object
+	 */
 	@Override
 	public Double getResult(OnlineTest onlineTest) throws UserException {
 		Double score = calculateTotalMarks(onlineTest);
@@ -251,6 +258,12 @@ public class OnlineTestServiceImpl implements OnlineTestService{
 		return score;
 	}
 
+	/*
+	 * Author: Piyush Daswani 
+	 * Description: This Method is used to calculate the total marks 
+	 * Input: test object
+	 * Return: score
+	 */
 	@Override
 	public Double calculateTotalMarks(OnlineTest onlineTest) throws UserException {
 		Double score = new Double(0.0);
@@ -262,6 +275,12 @@ public class OnlineTestServiceImpl implements OnlineTestService{
 		return score;
 	}
 
+	/*
+	 * Author: Piyush Daswani 
+	 * Description: This Method is used to search the user from the database 
+	 * Input: user id
+	 * Return: found object
+	 */
 	//Method to get User object using the ID
 	@Override
 	public User searchUser(Long userId) throws UserException {
@@ -290,6 +309,12 @@ public class OnlineTestServiceImpl implements OnlineTestService{
 		}
 	}
 
+	/*
+	 * Author: Piyush Daswani 
+	 * Description: This Method is used to update the user to the database 
+	 * Input: user object
+	 * Return: updated object
+	 */
 	//Update User Method
 	@Override
 	public User updateProfile(User user) throws UserException {
@@ -301,6 +326,12 @@ public class OnlineTestServiceImpl implements OnlineTestService{
 
 	}
 
+	/*
+	 * Author: Piyush Daswani 
+	 * Description: This Method is used to list the user from the database 
+	 * Input:
+	 * Return: List of user objects
+	 */
 	//Method to list all the users
 	@Override
 	public List<User> getUsers() {
@@ -333,6 +364,12 @@ public class OnlineTestServiceImpl implements OnlineTestService{
 		}
 	}
 	
+	/*
+	 * Author: Piyush Daswani 
+	 * Description: This Method is used to return the user by username and password 
+	 * Input: username and password
+	 * Return: user object
+	 */
 	@Override
 	public User login(String userName, String pass) throws UserException{
 		List<User> userList = userRepository.findByUserNameAndUserPassword(userName, pass);

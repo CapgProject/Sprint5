@@ -143,18 +143,21 @@ public class TestManagementController {
 	}
 
 	/*
-	 * Author: Piyush Daswani Description: This Method is used to navigate back to
-	 * the add user page Input: link click Return: add user page
+	 * Author: Piyush Daswani 
+	 * Description: This Method is used to navigate back to the add user page 
+	 * Input: link click 
+	 * Return: add user page
 	 */
-	/* Mapping for the page to display add user form */
 	@RequestMapping(value = "/adduser", method = RequestMethod.GET)
 	public String showAddUser(@ModelAttribute("user") User user) {
 		return "AddUser";
 	}
 
 	/*
-	 * Author: Piyush Daswani Description: This Method is used to add the user to
-	 * the database Input: Username and Password Return: homepage
+	 * Author: Piyush Daswani 
+	 * Description: This Method is used to add the user to the database 
+	 * Input: Username and Password 
+	 * Return: homepage
 	 */
 	/* Mapping for the page to display after add user form is submitted */
 	@RequestMapping(value = "/addusersubmit", method = RequestMethod.POST)
@@ -179,8 +182,8 @@ public class TestManagementController {
 	}
 
 
-	/* Mapping for the table to display all tests */
 
+	/*
 	 * Author: Swanand Pande
 	 * Description: This is a mapping to display ShowTest Page where the admin can see all the tests which are not deleted and not assigned
 	 */
