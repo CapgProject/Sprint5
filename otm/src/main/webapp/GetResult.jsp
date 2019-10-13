@@ -42,6 +42,7 @@
 		<div class="hero-container">
 			<h1>Your Result is ${result} marks</h1>
 			<h2>Hope you enjoyed your experience with MyConnect</h2>
+			<a href="resultpdf" class="btn-get-started">Download Result</a>
 		</div>
 	</section>
 	<!-- #hero -->
