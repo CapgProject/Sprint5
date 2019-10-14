@@ -26,6 +26,7 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 @Entity
 @EntityListeners({AuditingEntityListener.class})
@@ -37,29 +38,27 @@ public class OnlineTest {
 		@Column(name = "test_id")
 		private Long testId;
 		
-		@NotEmpty(message = "Test Name cannot be empty!")
 		@Column(name = "test_name")
 		private String testName;
 		
-		@DateTimeFormat(pattern = "HH:mm:ss")
+		@DateTimeFormat(pattern="HH:mm:ss")
 		@Column(name = "test_duration")
 		private LocalTime testDuration;
 		
 		@OneToMany(mappedBy = "onlinetest", cascade=CascadeType.ALL, fetch = FetchType.EAGER)
 		private Set<Question> testQuestions;
 		
-		@NotNull(message = "Test Marks cannot be empty!")
 		@Column(name = "test_total_marks")
 		private Double testTotalMarks;
 		
 		@Column(name = "test_marks_scored")
 		private Double testMarksScored;
 		
-		@DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
+		@DateTimeFormat(iso=ISO.DATE_TIME)
 		@Column(name = "test_start_time")
 		private LocalDateTime startTime;
 		
-		@DateTimeFormat(pattern = "dd-MM-yyyy HH:mm:ss")
+		@DateTimeFormat(iso=ISO.DATE_TIME)
 		@Column(name = "test_end_time")
 		private LocalDateTime endTime;
 		

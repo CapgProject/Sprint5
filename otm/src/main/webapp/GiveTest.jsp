@@ -57,6 +57,7 @@
           <h3 class="section-title">${heading}</h3>
           <p class="section-description">Below are the questions</p>
         </div>
+        <a:if test="${questions != null}">
         <fo:form method="post" id="myform" action="givetest" modelAttribute="Question">
         <div class = "row">
         	<div class="col-lg-2">
@@ -89,6 +90,7 @@
         	<div class = "col-lg-7"><button type="button" id = "button" class = "btn btn-primary">Submit Test</button></div>
         </div>
       </fo:form>
+      </a:if>
       </div>
       
     </section>
@@ -99,7 +101,7 @@
   <!--==========================
     Footer
   ============================-->
-  <footer id="footer">
+  <footer id="footer" style="position:fixed; bottom:0px">
     <div class="footer-top">
       <div class="container">
 

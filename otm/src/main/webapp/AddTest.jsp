@@ -89,8 +89,7 @@
 					<div class="text-center col-md-6 col-lg-6">Enter the Test
 						Start time:</div>
 					<div class="col-md-4 col-lg-4">
-						<fo:input type="text" path="startTime"
-							placeholder="DD-MM-YYYY HH:MM:SS" id="startTime"
+						<fo:input type="datetime-local" path="startTime" id="startTime" 
 							class="form-control" />
 							<span id="startTime_error" style="color: red"></span>
 					</div>
@@ -100,8 +99,7 @@
 					<div class="text-center    col-md-6 col-lg-6">Enter the Test
 						End time:</div>
 					<div class="col-md-4 col-lg-4">
-						<fo:input type="text" path="endTime"
-							placeholder="DD-MM-YYYY HH:MM:SS" id="endTime"
+						<fo:input type="datetime-local" path="endTime" id="endTime"
 							class="form-control" />
 							<span id="endTime_error" style="color: red"></span>
 					</div>
@@ -209,7 +207,7 @@
 				var length = $("#duration").val().length;
 				var pattern = new RegExp(/^([0-9][0-9]):([0-5][0-9]):([0-5][0-9])$/i);
 				
-				if(length < 8){
+				if(length == 0){
 					$("#duration_error").html("Duration field cannot be empty!");
 					$("#duration_error").show();
 					error_duration = true;
@@ -222,48 +220,52 @@
 					}
 					else{
 						$("#duration_error").hide();
-					}
+					} 
 				}
 			}
 			
-			function check_startTime(){
+			function check_startTime() {
 				var length = $("#startTime").val().length;
-				var pattern = new RegExp(/^(0[1-9]|1[0-9]|2[0-9]|3[01])-(0[1-9]|1[012])-([0-2][0-9][0-9][0-9])\s([0-1][0-9]|2[0-4]):([0-5][0-9]):([0-5][0-9])$/i);
-				
-				if(length < 8){
-					$("#startTime_error").html("start time field cannot be empty!");
-					$("#startTime_error").show();
-					error_startTime = true;
-				}
-				else{
-					if(!pattern.test($("#startTime").val())){
-						$("#startTime_error").html("Enter start time in 'dd-MM-yyyy HH:mm:ss' format only!");
+				var startTime = $("#startTime").val();
+
+				if(length==0){
+						$("#startTime_error").html("Start time field cannot be empty!");
 						$("#startTime_error").show();
 						error_startTime = true;
-					}
-					else{
-						$("#startTime_error").hide();
-					}
+				}
+				else{
+					$("#startTime_error").hide();
 				}
 			}
 			
 			function check_endTime(){
 				var length = $("#endTime").val().length;
-				var pattern = new RegExp(/^(0[1-9]|1[0-9]|2[0-9]|3[01])-(0[1-9]|1[012])-([0-2][0-9][0-9][0-9])\s([0-1][0-9]|2[0-4]):([0-5][0-9]):([0-5][0-9])$/i);
+				var endTime = $("#endTime").val();
+				var startTime = $("#startTime").val();
+				var endDate = Date.parse(endTime);
+				var startDate = Date.parse(startTime);
+				var currentDate = new Date();
 				
-				if(length < 8){
-					$("#endTime_error").html("end time field cannot be empty!");
-					$("#endTime_error").show();
-					error_endTime = true;
+				if(startDate>endDate){
+						$("#endTime_error").html("End time cannot be before start time!");
+						$("#endTime_error").show();
+						error_endTime = true;
 				}
 				else{
-					if(!pattern.test($("#endTime").val())){
-						$("#endTime_error").html("Enter end time in 'dd-MM-yyyy HH:mm:ss' format only!");
+					if(currentDate>endDate){
+						$("#endTime_error").html("End time cannot be in the past!");
 						$("#endTime_error").show();
 						error_endTime = true;
 					}
 					else{
-						$("#endTime_error").hide();
+						if(length==0){
+							$("#endTime_error").html("End time field cannot be empty!");
+							$("#endTime_error").show();
+							error_endTime = true;
+						}
+						else{
+							$("#endTime_error").hide();
+						}
 					}
 				}
 			}

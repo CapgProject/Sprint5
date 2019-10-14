@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="fo" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -9,7 +10,7 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <meta content="" name="keywords">
 <meta content="" name="description">
-<jsp:include page="include_script.jsp" />
+<jsp:include page="include_script.jsp"></jsp:include>
 <style type="text/css">
 
 </style>
@@ -21,33 +22,17 @@
 		<div class="container">
 
 			<div id="logo" class="pull-left" style="width: 100%">
-
-				<nav id="nav-menu-container">
-					<ul class="nav-menu" style="width: 100%;">
-						<li class="menu-active"><a href="#hero">Home</a></li>
-						<li><a href="givetest">Give Test</a></li>
-						<li><a href="getresult">Get Result</a></li>
-						<li><a href="updateuser">Update Profile</a></li>
-					</ul>
-					<ul class="nav nav-menu nav-navbar nav-right">
-						<li><a class="button" href="logout"><i
-								class="fa fa-sign-in"></i>&nbsp;Logout</a></li>
-					</ul>
-				</nav>
 			</div>
-		</div>
 	</header>
 
-	<section id="hero" class="result">
+	<section id="hero" class="error404">
 		<div class="hero-container">
-			<h1>Your Result is ${result} marks</h1>
-			<h2>Hope you enjoyed your experience with MyConnect</h2>
-			<a href="resultpdf" class="btn-get-started">Download Result</a>
+			<h1>Error 404</h1>
+			<h2>The Page you are looking for might have been removed or had its name changed or is temporarily unavailable</h2>
+			<a href="/" class="btn-get-started">Back To Homepage</a>
 		</div>
 	</section>
 	<!-- #hero -->
-
-
 
 
 	<!--==========================
@@ -61,8 +46,6 @@
 	<!-- #footer -->
 
 	<a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
-
-
 
 </body>
 </html>

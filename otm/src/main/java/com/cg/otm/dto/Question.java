@@ -32,23 +32,18 @@ public class Question {
 		@Column(name = "question_id")
 		private Long questionId;
 		
-		@NotEmpty(message = "Question options cannot be empty!")
 		@Column(name = "question_options")
 		private String[] questionOptions;
 		
-		@NotEmpty(message = "Question Title cannot be empty!")
 		@Column(name = "question_title")		
 		private String questionTitle;
 		
-		@NotNull(message = "Question Answer cannot be empty!")
 		@Column(name = "question_correct_answer")
 		private Integer questionAnswer;
 		
-		@NotNull(message = "Question Marks cannot be empty!")
 		@Column(name = "question_marks")
 		private Double questionMarks;
 		
-		@NotNull(message = "Correct Answer cannot be empty!")
 		@Column(name = "question_chosen_answer")
 		private Integer chosenAnswer;
 		

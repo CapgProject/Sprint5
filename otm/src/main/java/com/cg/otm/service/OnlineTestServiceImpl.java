@@ -4,9 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-
 import java.util.Set;
 import java.util.StringTokenizer;
 
@@ -20,7 +17,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cg.otm.dao.OnlineTestDao;
 import com.cg.otm.dto.OnlineTest;
 import com.cg.otm.dto.Question;
 import com.cg.otm.dto.User;
@@ -36,9 +32,6 @@ public class OnlineTestServiceImpl implements OnlineTestService{
 	private static final Logger logger = LoggerFactory.getLogger(OnlineTestServiceImpl.class);
  
 
-	@Autowired
-	OnlineTestDao testdao;
-
 
 	@Autowired
 	UserRepository userRepository;
@@ -49,16 +42,25 @@ public class OnlineTestServiceImpl implements OnlineTestService{
 	@Autowired
 	QuestionRepository questionRepository;
 
-	
-	//Method to register a student
+	/*
+	 * Author: Piyush Daswani 
+	 * Description: This Method is used to add the user to the database 
+	 * Input: user object
+	 * Return: added object
+	 */
 	@Override
 	public User registerUser(User user) throws UserException {
 		//Adding the user into the database
-		User returnedUser = userRepository.save(user); 
-		if (returnedUser != null)
-			return user;													//User is added
-		else {
-			throw new UserException(ExceptionMessage.DATABASEMESSAGE);		//Not added
+		try {
+			User returnedUser = userRepository.save(user); 
+			if (returnedUser != null)
+				return user;													//User is added
+			else {
+				throw new UserException(ExceptionMessage.DATABASEMESSAGE);		//Not added
+			}
+		}catch(Exception e){
+			//logger.error(e.getMessage());
+			throw new UserException(ExceptionMessage.USERNAMEALREADYUSEDMESSAGE);
 		}
 	}
 
@@ -73,10 +75,16 @@ public class OnlineTestServiceImpl implements OnlineTestService{
 		} else {
 			question.setMarksScored(new Double(0.0));
 		}
-		testdao.updateQuestion(question);
+		questionRepository.save(question);
 		return true;
 	}
 
+	/*
+	 * Author: Swanand Pande
+	 * Description: This method finds the question with given id and if found return it else if not found or if test does not contain that question then display appropriate message 
+	 * Input: Question Id and the Test object which contains the question
+	 * Return: Return the desired question object
+	 */
 	@Override
 	public Question showQuestion(OnlineTest onlineTest, Long questionId) throws UserException {
 		Question question = questionRepository.findByQuestionId(questionId);
@@ -118,6 +126,12 @@ public class OnlineTestServiceImpl implements OnlineTestService{
 		return true;
 	}
 
+	/*
+	 * Author: Swanand Pande
+	 * Description: This method adds the object in database and if it could not add then message is displayed
+	 * Input: Test object to be added
+	 * Return: Return the test object added
+	 */
 	@Override
 	public OnlineTest addTest(OnlineTest onlineTest) throws UserException {
 		OnlineTest returnedTest = onlineTestRepository.save(onlineTest);
@@ -127,6 +141,12 @@ public class OnlineTestServiceImpl implements OnlineTestService{
 		return returnedTest;
 	}
 
+	/*
+	 * Author: Swanand Pande
+	 * Description: This method finds the test by the given id and sets the updated details in a object and save it in database
+	 * Input: Test Id of the test to be updated and the test object containing updated test details
+	 * Return: Return the updated test object
+	 */
 	@Override
 	public OnlineTest updateTest(Long testId, OnlineTest onlineTest) throws UserException {
 		OnlineTest temp = onlineTestRepository.findByTestId(testId);
@@ -147,6 +167,12 @@ public class OnlineTestServiceImpl implements OnlineTestService{
 			throw new UserException(ExceptionMessage.TESTMESSAGE);
 	}
 
+	/*
+	 * Author: Swanand Pande
+	 * Description: This method finds the test and if found sets the isDeleted flag as true
+	 * Input: Test Id of the test to be deleted
+	 * Return: Return the object of deleted test
+	 */
 	@Override
 	public OnlineTest deleteTest(Long testId) throws UserException {
 		OnlineTest returnedTest = onlineTestRepository.findByTestId(testId);
@@ -158,6 +184,12 @@ public class OnlineTestServiceImpl implements OnlineTestService{
 		return returnedTest;
 	}
 
+	/*
+	 * Author: Swanand Pande
+	 * Description: This method finds the test and then checks if it contains the question, if found then update the question details else display appropriate message
+	 * Input: Test Id of the test containing question, question id of question to be updated and the updated question details in a object
+	 * Return: Return the updated question object
+	 */
 	@Override
 	public Question updateQuestion(Long testId, Long questionId, Question question) throws UserException {
 		OnlineTest temp = onlineTestRepository.findByTestId(testId);
@@ -189,6 +221,12 @@ public class OnlineTestServiceImpl implements OnlineTestService{
 			throw new UserException(ExceptionMessage.TESTMESSAGE);
 	}
 
+	/*
+	 * Author: Swanand Pande
+	 * Description: This method finds the test and if it contains the question then set question isDeleted flag as true and subtract question marks from the test total marks
+	 * Input: Test Id of the test containing question and question id of question to be deleted
+	 * Return: Return the deleted question object
+	 */
 	@Override
 	public Question deleteQuestion(Long testId, Long questionId) throws UserException {
 		OnlineTest temp = onlineTestRepository.findByTestId(testId);
@@ -206,14 +244,26 @@ public class OnlineTestServiceImpl implements OnlineTestService{
 			throw new UserException(ExceptionMessage.TESTMESSAGE);
 	}
 
+	/*
+	 * Author: Piyush Daswani 
+	 * Description: This Method is used to get result from user
+	 * Input: test object
+	 * Return: result object
+	 */
 	@Override
 	public Double getResult(OnlineTest onlineTest) throws UserException {
 		Double score = calculateTotalMarks(onlineTest);
 		onlineTest.setIsTestAssigned(false);
-		testdao.updateTest(onlineTest);
+		onlineTestRepository.save(onlineTest);
 		return score;
 	}
 
+	/*
+	 * Author: Piyush Daswani 
+	 * Description: This Method is used to calculate the total marks 
+	 * Input: test object
+	 * Return: score
+	 */
 	@Override
 	public Double calculateTotalMarks(OnlineTest onlineTest) throws UserException {
 		Double score = new Double(0.0);
@@ -221,10 +271,16 @@ public class OnlineTestServiceImpl implements OnlineTestService{
 			score = score + question.getMarksScored();
 		}
 		onlineTest.setTestMarksScored(score);
-		testdao.updateTest(onlineTest);
+		onlineTestRepository.save(onlineTest);
 		return score;
 	}
 
+	/*
+	 * Author: Piyush Daswani 
+	 * Description: This Method is used to search the user from the database 
+	 * Input: user id
+	 * Return: found object
+	 */
 	//Method to get User object using the ID
 	@Override
 	public User searchUser(Long userId) throws UserException {
@@ -237,6 +293,12 @@ public class OnlineTestServiceImpl implements OnlineTestService{
 
 	}
 
+	/*
+	 * Author: Swanand Pande
+	 * Description: This method finds the test with given id and if not found then display appropriate message
+	 * Input: Test Id of the test to be searched
+	 * Return: Return the found test object
+	 */
 	@Override
 	public OnlineTest searchTest(Long testId) throws UserException {
 		OnlineTest returnedTest = onlineTestRepository.findByTestId(testId);
@@ -247,6 +309,12 @@ public class OnlineTestServiceImpl implements OnlineTestService{
 		}
 	}
 
+	/*
+	 * Author: Piyush Daswani 
+	 * Description: This Method is used to update the user to the database 
+	 * Input: user object
+	 * Return: updated object
+	 */
 	//Update User Method
 	@Override
 	public User updateProfile(User user) throws UserException {
@@ -258,17 +326,34 @@ public class OnlineTestServiceImpl implements OnlineTestService{
 
 	}
 
+	/*
+	 * Author: Piyush Daswani 
+	 * Description: This Method is used to list the user from the database 
+	 * Input:
+	 * Return: List of user objects
+	 */
 	//Method to list all the users
 	@Override
 	public List<User> getUsers() {
 		return userRepository.findAll();							//Listing all the users
 	}
 
+	/*
+	 * Author: Swanand Pande
+	 * Description: This method returns all tests which are not deleted and not assigned
+	 * Return: Return list of tests
+	 */
 	@Override
 	public List<OnlineTest> getTests() {
 		return onlineTestRepository.findAllNotAssignedAndNotDeleted();
 	}
 
+	/*
+	 * Author: Swanand Pande
+	 * Description: This method finds the question with given id and if not found then displays appropriate message
+	 * Input: Question Id of the question to be found
+	 * Return: Return the question object found
+	 */
 	@Override
 	public Question searchQuestion(Long questionId) throws UserException {
 		Question question = questionRepository.findByQuestionId(questionId);
@@ -279,6 +364,12 @@ public class OnlineTestServiceImpl implements OnlineTestService{
 		}
 	}
 	
+	/*
+	 * Author: Piyush Daswani 
+	 * Description: This Method is used to return the user by username and password 
+	 * Input: username and password
+	 * Return: user object
+	 */
 	@Override
 	public User login(String userName, String pass) throws UserException{
 		List<User> userList = userRepository.findByUserNameAndUserPassword(userName, pass);
@@ -290,45 +381,50 @@ public class OnlineTestServiceImpl implements OnlineTestService{
 		}
 	}
 	
+	/*
+	 * Author: Swanand Pande
+	 * Description: This method reads the question details from an excel file and adds the questions to the database
+	 * Input: Test id in which questions are to be added, filename of excel and time to be appended to filename
+	 */
 	@Override
 	public void readFromExcel(long id, String fileName, long time) throws IOException, UserException {
 		String UPLOAD_DIRECTORY = "E:";
 		File dataFile = new File(UPLOAD_DIRECTORY + "\\" + time + fileName);
 		FileInputStream fis = new FileInputStream(dataFile);
 		XSSFWorkbook workbook = new XSSFWorkbook(fis);
-		XSSFSheet sheet = workbook.getSheetAt(0);
+		XSSFSheet sheet = workbook.getSheetAt(0);  //Read the first sheet
 		Row row;
 		Double testMarks = 0.0;
 		for (int i = 1; i <= sheet.getLastRowNum(); i++) {
 			row = (Row) sheet.getRow(i);
 			String title;
-			if (row.getCell(0) == null) {
-				throw new UserException(ExceptionMessage.QUESTIONTITLEMESSAGE);
+			if (row.getCell(0) == null) { 
+				throw new UserException(ExceptionMessage.QUESTIONTITLEMESSAGE);   //If Title is not present
 			} else {
 				title = row.getCell(0).toString();
 			}
 			String marks;
 			if (row.getCell(1) == null) {
-				throw new UserException(ExceptionMessage.QUESTIONMARKSMESSAGE);
+				throw new UserException(ExceptionMessage.QUESTIONMARKSMESSAGE);   //If Marks is not present
 			} else {
 				marks = row.getCell(1).toString();
 				testMarks = testMarks + Double.parseDouble(marks);
 			}
 			String options;
 			if (row.getCell(2) == null) {
-				throw new UserException(ExceptionMessage.QUESTIONOPTIONSMESSAGE);
+				throw new UserException(ExceptionMessage.QUESTIONOPTIONSMESSAGE);    //If Options is not present
 			} else {
 				options = row.getCell(2).toString();
 			}
 			String answer;
 			if (row.getCell(3) == null) {
-				throw new UserException(ExceptionMessage.QUESTIONANSWERMESSAGE);
+				throw new UserException(ExceptionMessage.QUESTIONANSWERMESSAGE);       //If Answer is not present
 			} else {
 				answer = row.getCell(3).toString();
 			}
 
 			Question question = new Question();
-			OnlineTest test = onlineTestRepository.findByTestId(id);
+			OnlineTest test = onlineTestRepository.findByTestId(id);   //Find the test
 			if(test == null) {
 				throw new UserException(ExceptionMessage.TESTNOTFOUNDMESSAGE);
 			}
@@ -336,9 +432,9 @@ public class OnlineTestServiceImpl implements OnlineTestService{
 			String option[] = new String[4];
 			question.setQuestionTitle(title);
 			question.setQuestionMarks(Double.parseDouble(marks));
-			StringTokenizer token = new StringTokenizer(options, ",");
+			StringTokenizer token = new StringTokenizer(options, ",");  
 			int k = 0;
-			while (token.hasMoreTokens()) {
+			while (token.hasMoreTokens()) {        //separate the options by splitting with comma
 				option[k] = token.nextToken();
 				k++;
 			}
