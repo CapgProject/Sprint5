@@ -59,8 +59,9 @@
     <section id="portfolio">
       <div class="container wow fadeInUp">
       <div class="section-header">
-      <h3 class="section-title">Add Question</h3>
+      <h3 class="section-title">Add Question </h3>
       <p class="section-description">Enter the Question details to be Added here</p>
+      <!-- <p class="section-description">${pageContext.request.contextPath}</p> -->
       </div>
       <fo:form action="addquestionsubmit" method="POST"
 			modelAttribute="question" enctype="multipart/form-data" id="form">

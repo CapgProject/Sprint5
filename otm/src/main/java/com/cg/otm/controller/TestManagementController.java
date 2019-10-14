@@ -1,5 +1,8 @@
 package com.cg.otm.controller;
-
+/*
+ * Author - Piyush, Swanand, Priya
+ * Description - Main controller handling all the mappings
+ */
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -9,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -113,10 +117,11 @@ public class TestManagementController {
 	 * Return: Return to admin page if questions are added successfully and in case of any exception, stay on the AddQuestion page
 	 */
 	@RequestMapping(value = "/addquestionsubmit", method = RequestMethod.POST)
-	public String addQuestion(@RequestParam("testid") long id, @RequestParam("exfile") MultipartFile file,
+	public String addQuestion(@RequestParam("testid") long id, @RequestParam("exfile") MultipartFile file,HttpServletRequest request,
 			Map<String, Object> model) {
 		try {
 			logger.info("Entered Add Question");
+			System.out.println(request.getContextPath());
 			String UPLOAD_DIRECTORY = "E:";
 			String fileName = file.getOriginalFilename();
 			String path = System.getProperty("catalina.home");

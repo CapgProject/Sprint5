@@ -1,5 +1,8 @@
 package com.cg.otm.controller;
-
+/*
+ * Author - Piyush
+ * Description - Handle custom error pages
+ */
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.boot.web.servlet.error.ErrorController;

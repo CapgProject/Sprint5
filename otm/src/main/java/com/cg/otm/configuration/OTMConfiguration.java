@@ -1,5 +1,8 @@
 package com.cg.otm.configuration;
-
+/*
+ * Author - Priya
+ * Description - Awaring the program about audit trail
+ */
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;

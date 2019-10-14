@@ -1,5 +1,8 @@
 package com.cg.otm.dto;
-
+/*
+ * Author - Piyush
+ * Description - Class for saving userdetails used in spring security
+ */
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;

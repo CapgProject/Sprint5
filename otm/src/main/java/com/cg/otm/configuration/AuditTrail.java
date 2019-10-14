@@ -1,5 +1,8 @@
 package com.cg.otm.configuration;
-
+/*
+ * Author - Priya
+ * Description - Audit Trail
+ */
 import java.util.Optional;
 
 import org.springframework.data.domain.AuditorAware;

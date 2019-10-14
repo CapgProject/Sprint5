@@ -1,5 +1,8 @@
 package com.cg.otm.service;
-
+/*
+ * Author - Piyush
+ * Description - Getting username and password from database for authentication
+ */
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
