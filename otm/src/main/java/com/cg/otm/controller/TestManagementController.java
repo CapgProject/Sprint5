@@ -346,11 +346,25 @@ public class TestManagementController {
 			return new ModelAndView("user");
 		}
 	}
+	
+	/*
+	 * Author: Priya Kumari
+	 * Description: This Method is used to navigate to the AssignTest Page 
+	 * Input: link click
+	 * Return: AssignTest Page
+	 */
 
 	@RequestMapping(value = "assigntest", method = RequestMethod.GET)
 	public String showAssignTest() {
 		return "AssignTest";
 	}
+	
+	/*
+	 * Author: Priya Kumari
+	 * Description: This Method is used to assign a test to the user
+	 * Input: userId, testId
+	 * Return: Admin Page
+	 */
 
 	@RequestMapping(value = "assigntestsubmit", method = RequestMethod.POST)
 	public String assignTest(@RequestParam("testid") long testId, @RequestParam("userid") long userId,
@@ -529,6 +543,14 @@ public class TestManagementController {
 		}
 		return "admin";
 	}
+	
+	
+	/*
+	 * Author: Priya Kumari
+	 * Description: This Method is used to navigate to UpdateAdminDetails or UpdateUserDetails Page
+	 * Input: link click
+	 * Return: UpdateAdminDetails Page or UpdateUserDetails Page
+	 */
 
 	@RequestMapping(value = "/updateuser", method = RequestMethod.GET)
 	public ModelAndView showUpdateUser(@ModelAttribute("user") User user, HttpSession session) {
@@ -541,6 +563,13 @@ public class TestManagementController {
 		}
 	}
 
+	
+	/*
+	 * Author: Priya Kumari
+	 * Description: This Method is used to update the details of the user.
+	 * Input: username, userpassword
+	 * Return: Admin Page or User Page
+	 */
 	@RequestMapping(value = "/updateusersubmit", method = RequestMethod.POST)
 	public String actualUpdate(@ModelAttribute("user") User user, HttpSession session, Map<String, Object> model) {
 		User originalUser = (User) session.getAttribute("user");
