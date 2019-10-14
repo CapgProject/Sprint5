@@ -292,26 +292,26 @@ public class TestManagementController {
 	public ModelAndView showQuestion(HttpSession session, @ModelAttribute("Question") Question question) {
 		logger.info("Entered Give test method");
 		User currentUser = (User) session.getAttribute("user");
-		ModelAndView mav = new ModelAndView("GiveTest");
+		ModelAndView modelAndView = new ModelAndView("GiveTest");
 
 		if (currentUser.getUserTest() == null) {
-			mav.addObject("heading", "No Test Assigned Yet");
+			modelAndView.addObject("heading", "No Test Assigned Yet");
 			logger.info("No Test was assigned");
-			return mav;
+			return modelAndView;
 		} else {
-			mav.addObject("heading", currentUser.getUserTest().getTestName());
+			modelAndView.addObject("heading", currentUser.getUserTest().getTestName());
 			if (num < currentUser.getUserTest().getTestQuestions().toArray().length) {
 				if (currentUser.getUserTest().getTestQuestions().toArray().length < num) {
 					return new ModelAndView("user");
 				}
-				mav.addObject("questions", currentUser.getUserTest().getTestQuestions().toArray()[num]);
+				modelAndView.addObject("questions", currentUser.getUserTest().getTestQuestions().toArray()[num]);
 				num++;
 				logger.info("Dispayed 1st question successflly");
-				return mav;
+				return modelAndView;
 			} else {
 				num = 0;
 				logger.info("Test didn't contain any questions");
-				return mav;
+				return modelAndView;
 			}
 		}
 	}
@@ -326,20 +326,21 @@ public class TestManagementController {
 	@RequestMapping(value = "/givetest", method = RequestMethod.POST)
 	public ModelAndView submitQuestion(HttpSession session, @ModelAttribute("Question") Question question) {
 		User currentUser = (User) session.getAttribute("user");
-		ModelAndView mav = new ModelAndView("GiveTest");
+		ModelAndView modelAndView = new ModelAndView("GiveTest");
 		Question quest = (Question) currentUser.getUserTest().getTestQuestions().toArray()[num - 1];
 		quest.setChosenAnswer(question.getChosenAnswer());
+		testservice.updateQuestion(currentUser.getUserTest().getTestId(), quest.getQuestionId(), quest);
 		try {
-			mav.addObject("heading", currentUser.getUserTest().getTestName());
+			modelAndView.addObject("heading", currentUser.getUserTest().getTestName());
 			if (num >= currentUser.getUserTest().getTestQuestions().toArray().length) {
 				num = 0;
 				logger.info("All Questions were displayed");
 				return new ModelAndView("user");
 			} else {
-				mav.addObject("questions", currentUser.getUserTest().getTestQuestions().toArray()[num]);
+				modelAndView.addObject("questions", currentUser.getUserTest().getTestQuestions().toArray()[num]);
 				num++;
 				logger.info("Next Question was displayed");
-				return mav;
+				return modelAndView;
 			}
 		} catch (UserException e) {
 			logger.error(e.getMessage());
@@ -390,7 +391,7 @@ public class TestManagementController {
 	public ModelAndView showGetResult(HttpSession session) {
 		
 		try{
-			logger.error("Entered Show result method");
+			logger.info("Entered Show result method");
 			User currentUser = (User) session.getAttribute("user");
 		if (currentUser.getUserTest() == null) {
 			logger.error("No test assigned");

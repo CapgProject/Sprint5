@@ -1,0 +1,168 @@
+2019-10-14 09:13:30,951 INFO com.cg.otm.OtmApplication [restartedMain] Starting OtmApplication on DESKTOP-0OD3OKN with PID 5952 (C:\Users\Admin\git\Sprint5\otm\target\classes started by Admin in C:\Users\Admin\git\Sprint5\otm)
+2019-10-14 09:13:30,955 DEBUG com.cg.otm.OtmApplication [restartedMain] Running with Spring Boot v2.1.9.RELEASE, Spring v5.1.10.RELEASE
+2019-10-14 09:13:30,957 INFO com.cg.otm.OtmApplication [restartedMain] No active profile set, falling back to default profiles: default
+2019-10-14 09:13:32,349 INFO org.apache.catalina.core.StandardService [restartedMain] Starting service [Tomcat]
+2019-10-14 09:13:32,350 INFO org.apache.catalina.core.StandardEngine [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.26]
+2019-10-14 09:13:32,618 INFO org.apache.jasper.servlet.TldScanner [restartedMain] At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2019-10-14 09:13:32,623 INFO org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [restartedMain] Initializing Spring embedded WebApplicationContext
+2019-10-14 09:13:32,764 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Starting...
+2019-10-14 09:13:32,873 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Start completed.
+2019-10-14 09:13:32,995 INFO org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-10-14 09:13:33,045 INFO org.hibernate.Version [restartedMain] HHH000412: Hibernate Core {5.3.12.Final}
+2019-10-14 09:13:33,047 INFO org.hibernate.cfg.Environment [restartedMain] HHH000206: hibernate.properties not found
+2019-10-14 09:13:33,154 INFO org.hibernate.annotations.common.Version [restartedMain] HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2019-10-14 09:13:33,310 INFO org.hibernate.dialect.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2019-10-14 09:13:34,199 INFO org.hibernate.tool.schema.internal.SchemaCreatorImpl [restartedMain] HHH000476: Executing import script 'org.hibernate.tool.schema.internal.exec.ScriptSourceInputNonExistentImpl@3d446443'
+2019-10-14 09:13:34,629 INFO org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [restartedMain] HHH000397: Using ASTQueryTranslatorFactory
+2019-10-14 09:13:35,248 INFO com.cg.otm.OtmApplication [restartedMain] Started OtmApplication in 4.726 seconds (JVM running for 5.364)
+2019-10-14 09:13:44,051 INFO org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [http-nio-9091-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-10-14 09:13:53,157 INFO com.cg.otm.controller.TestManagementController [http-nio-9091-exec-4] Entered Register User
+2019-10-14 09:13:53,334 INFO com.cg.otm.controller.TestManagementController [http-nio-9091-exec-4] Registered User Successfully
+2019-10-14 09:13:58,959 INFO com.cg.otm.controller.TestManagementController [http-nio-9091-exec-7] Entered Register User
+2019-10-14 09:13:59,039 WARN org.hibernate.engine.jdbc.spi.SqlExceptionHelper [http-nio-9091-exec-7] SQL Error: 1062, SQLState: 23000
+2019-10-14 09:13:59,040 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper [http-nio-9091-exec-7] Duplicate entry 'Piyush' for key 'UK_lqjrcobrh9jc8wpcar64q1bfh'
+2019-10-14 09:13:59,049 ERROR com.cg.otm.controller.TestManagementController [http-nio-9091-exec-7] Username has already been used
+2019-10-14 09:14:06,179 INFO com.cg.otm.controller.TestManagementController [http-nio-9091-exec-2] Entered Register User
+2019-10-14 09:14:06,184 INFO com.cg.otm.controller.TestManagementController [http-nio-9091-exec-2] Registered User Successfully
+2019-10-14 09:14:17,739 INFO com.cg.otm.controller.TestManagementController [http-nio-9091-exec-2] Entered Register User
+2019-10-14 09:14:17,745 INFO com.cg.otm.controller.TestManagementController [http-nio-9091-exec-2] Registered User Successfully
+2019-10-14 09:18:11,630 INFO com.zaxxer.hikari.HikariDataSource [Thread-5] HikariPool-1 - Shutdown initiated...
+2019-10-14 09:18:11,640 INFO com.zaxxer.hikari.HikariDataSource [Thread-5] HikariPool-1 - Shutdown completed.
+2019-10-14 09:18:11,991 INFO com.cg.otm.OtmApplication [restartedMain] Starting OtmApplication on DESKTOP-0OD3OKN with PID 5952 (C:\Users\Admin\git\Sprint5\otm\target\classes started by Admin in C:\Users\Admin\git\Sprint5\otm)
+2019-10-14 09:18:11,992 DEBUG com.cg.otm.OtmApplication [restartedMain] Running with Spring Boot v2.1.9.RELEASE, Spring v5.1.10.RELEASE
+2019-10-14 09:18:11,992 INFO com.cg.otm.OtmApplication [restartedMain] No active profile set, falling back to default profiles: default
+2019-10-14 09:18:33,405 INFO com.cg.otm.OtmApplication [restartedMain] Starting OtmApplication on DESKTOP-0OD3OKN with PID 4964 (C:\Users\Admin\git\Sprint5\otm\target\classes started by Admin in C:\Users\Admin\git\Sprint5\otm)
+2019-10-14 09:18:33,407 DEBUG com.cg.otm.OtmApplication [restartedMain] Running with Spring Boot v2.1.9.RELEASE, Spring v5.1.10.RELEASE
+2019-10-14 09:18:33,407 INFO com.cg.otm.OtmApplication [restartedMain] No active profile set, falling back to default profiles: default
+2019-10-14 09:18:34,715 INFO org.apache.catalina.core.StandardService [restartedMain] Starting service [Tomcat]
+2019-10-14 09:18:34,716 INFO org.apache.catalina.core.StandardEngine [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.26]
+2019-10-14 09:18:36,228 INFO org.apache.jasper.servlet.TldScanner [restartedMain] At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2019-10-14 09:18:36,234 INFO org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [restartedMain] Initializing Spring embedded WebApplicationContext
+2019-10-14 09:18:36,401 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Starting...
+2019-10-14 09:18:37,408 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Start completed.
+2019-10-14 09:18:37,527 INFO org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-10-14 09:18:37,578 INFO org.hibernate.Version [restartedMain] HHH000412: Hibernate Core {5.3.12.Final}
+2019-10-14 09:18:37,580 INFO org.hibernate.cfg.Environment [restartedMain] HHH000206: hibernate.properties not found
+2019-10-14 09:18:37,682 INFO org.hibernate.annotations.common.Version [restartedMain] HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2019-10-14 09:18:37,804 INFO org.hibernate.dialect.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2019-10-14 09:18:38,634 INFO org.hibernate.tool.schema.internal.SchemaCreatorImpl [restartedMain] HHH000476: Executing import script 'org.hibernate.tool.schema.internal.exec.ScriptSourceInputNonExistentImpl@405bbe5f'
+2019-10-14 09:18:39,025 INFO org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [restartedMain] HHH000397: Using ASTQueryTranslatorFactory
+2019-10-14 09:18:39,644 INFO com.cg.otm.OtmApplication [restartedMain] Started OtmApplication in 6.535 seconds (JVM running for 14.845)
+2019-10-14 09:18:46,016 INFO org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [http-nio-9091-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-10-14 09:18:52,594 INFO com.cg.otm.controller.TestManagementController [http-nio-9091-exec-7] Entered Register User
+2019-10-14 09:18:52,687 INFO com.cg.otm.controller.TestManagementController [http-nio-9091-exec-7] Registered User Successfully
+2019-10-14 09:19:30,394 INFO com.cg.otm.controller.TestManagementController [http-nio-9091-exec-9] Entered Register User
+2019-10-14 09:19:30,400 INFO com.cg.otm.controller.TestManagementController [http-nio-9091-exec-9] Registered User Successfully
+2019-10-14 09:19:39,128 INFO com.cg.otm.controller.TestManagementController [http-nio-9091-exec-6] Entered Register User
+2019-10-14 09:19:39,135 INFO com.cg.otm.controller.TestManagementController [http-nio-9091-exec-6] Registered User Successfully
+2019-10-14 09:20:01,448 INFO com.cg.otm.controller.TestManagementController [http-nio-9091-exec-1] Entered Register User
+2019-10-14 09:20:01,454 INFO com.cg.otm.controller.TestManagementController [http-nio-9091-exec-1] Registered User Successfully
+2019-10-14 09:20:53,896 INFO com.cg.otm.controller.TestManagementController [http-nio-9091-exec-8] Entered Test add method
+2019-10-14 09:20:53,922 INFO com.cg.otm.controller.TestManagementController [http-nio-9091-exec-8] Test added successfully
+2019-10-14 09:21:21,208 INFO com.cg.otm.controller.TestManagementController [http-nio-9091-exec-4] Entered Add Question
+2019-10-14 09:21:21,679 INFO com.cg.otm.controller.TestManagementController [http-nio-9091-exec-4] Questions Added successfully
+2019-10-14 09:21:36,971 INFO com.cg.otm.controller.TestManagementController [http-nio-9091-exec-7] Entered Test assign method
+2019-10-14 09:21:36,987 INFO com.cg.otm.service.OnlineTestServiceImpl [http-nio-9091-exec-7] Test is being assigned to user
+2019-10-14 09:21:36,993 INFO com.cg.otm.controller.TestManagementController [http-nio-9091-exec-7] Test Assigned
+2019-10-14 09:21:57,798 INFO com.cg.otm.controller.TestManagementController [http-nio-9091-exec-3] Entered Give test method
+2019-10-14 09:21:57,799 INFO com.cg.otm.controller.TestManagementController [http-nio-9091-exec-3] Dispayed 1st question successflly
+2019-10-14 09:22:03,073 INFO com.cg.otm.controller.TestManagementController [http-nio-9091-exec-2] Next Question was displayed
+2019-10-14 09:22:08,657 INFO com.cg.otm.controller.TestManagementController [http-nio-9091-exec-8] Next Question was displayed
+2019-10-14 09:22:11,416 INFO com.cg.otm.controller.TestManagementController [http-nio-9091-exec-10] All Questions were displayed
+2019-10-14 09:22:13,600 ERROR com.cg.otm.controller.TestManagementController [http-nio-9091-exec-10] Entered Show result method
+2019-10-14 09:22:13,608 INFO com.cg.otm.controller.TestManagementController [http-nio-9091-exec-10] Successfully displayed result
+2019-10-14 09:22:41,120 INFO com.cg.otm.controller.TestManagementController [http-nio-9091-exec-3] Entered Give test method
+2019-10-14 09:22:41,122 INFO com.cg.otm.controller.TestManagementController [http-nio-9091-exec-3] Dispayed 1st question successflly
+2019-10-14 09:22:46,656 INFO com.cg.otm.controller.TestManagementController [http-nio-9091-exec-5] Next Question was displayed
+2019-10-14 09:22:52,088 INFO com.cg.otm.controller.TestManagementController [http-nio-9091-exec-7] Next Question was displayed
+2019-10-14 09:22:54,503 INFO com.cg.otm.controller.TestManagementController [http-nio-9091-exec-10] All Questions were displayed
+2019-10-14 09:24:00,755 INFO com.zaxxer.hikari.HikariDataSource [Thread-5] HikariPool-1 - Shutdown initiated...
+2019-10-14 09:24:00,767 INFO com.zaxxer.hikari.HikariDataSource [Thread-5] HikariPool-1 - Shutdown completed.
+2019-10-14 09:24:01,082 INFO com.cg.otm.OtmApplication [restartedMain] Starting OtmApplication on DESKTOP-0OD3OKN with PID 4964 (C:\Users\Admin\git\Sprint5\otm\target\classes started by Admin in C:\Users\Admin\git\Sprint5\otm)
+2019-10-14 09:24:01,082 DEBUG com.cg.otm.OtmApplication [restartedMain] Running with Spring Boot v2.1.9.RELEASE, Spring v5.1.10.RELEASE
+2019-10-14 09:24:01,082 INFO com.cg.otm.OtmApplication [restartedMain] No active profile set, falling back to default profiles: default
+2019-10-14 09:24:01,453 INFO org.apache.catalina.core.StandardService [restartedMain] Starting service [Tomcat]
+2019-10-14 09:24:01,453 INFO org.apache.catalina.core.StandardEngine [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.26]
+2019-10-14 09:24:01,562 INFO org.apache.jasper.servlet.TldScanner [restartedMain] At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2019-10-14 09:24:01,565 INFO org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [restartedMain] Initializing Spring embedded WebApplicationContext
+2019-10-14 09:24:01,615 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-2 - Starting...
+2019-10-14 09:24:01,619 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-2 - Start completed.
+2019-10-14 09:24:01,627 INFO org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-10-14 09:24:01,646 INFO org.hibernate.dialect.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2019-10-14 09:24:01,948 INFO org.hibernate.tool.schema.internal.SchemaCreatorImpl [restartedMain] HHH000476: Executing import script 'org.hibernate.tool.schema.internal.exec.ScriptSourceInputNonExistentImpl@405bbe5f'
+2019-10-14 09:24:02,043 INFO org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [restartedMain] HHH000397: Using ASTQueryTranslatorFactory
+2019-10-14 09:24:02,226 INFO com.cg.otm.OtmApplication [restartedMain] Started OtmApplication in 1.171 seconds (JVM running for 337.428)
+2019-10-14 09:24:15,125 INFO com.zaxxer.hikari.HikariDataSource [RMI TCP Connection(2)-127.0.0.1] HikariPool-2 - Shutdown initiated...
+2019-10-14 09:24:15,136 INFO com.zaxxer.hikari.HikariDataSource [RMI TCP Connection(2)-127.0.0.1] HikariPool-2 - Shutdown completed.
+2019-10-14 09:25:37,209 INFO com.cg.otm.OtmApplication [restartedMain] Starting OtmApplication on DESKTOP-0OD3OKN with PID 3896 (C:\Users\Admin\git\Sprint5\otm\target\classes started by Admin in C:\Users\Admin\git\Sprint5\otm)
+2019-10-14 09:25:37,212 DEBUG com.cg.otm.OtmApplication [restartedMain] Running with Spring Boot v2.1.9.RELEASE, Spring v5.1.10.RELEASE
+2019-10-14 09:25:37,212 INFO com.cg.otm.OtmApplication [restartedMain] No active profile set, falling back to default profiles: default
+2019-10-14 09:25:38,544 INFO org.apache.catalina.core.StandardService [restartedMain] Starting service [Tomcat]
+2019-10-14 09:25:38,545 INFO org.apache.catalina.core.StandardEngine [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.26]
+2019-10-14 09:25:38,813 INFO org.apache.jasper.servlet.TldScanner [restartedMain] At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2019-10-14 09:25:38,819 INFO org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [restartedMain] Initializing Spring embedded WebApplicationContext
+2019-10-14 09:25:38,972 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Starting...
+2019-10-14 09:25:39,075 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Start completed.
+2019-10-14 09:25:39,198 INFO org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-10-14 09:25:39,247 INFO org.hibernate.Version [restartedMain] HHH000412: Hibernate Core {5.3.12.Final}
+2019-10-14 09:25:39,248 INFO org.hibernate.cfg.Environment [restartedMain] HHH000206: hibernate.properties not found
+2019-10-14 09:25:39,352 INFO org.hibernate.annotations.common.Version [restartedMain] HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2019-10-14 09:25:39,476 INFO org.hibernate.dialect.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2019-10-14 09:25:40,272 INFO org.hibernate.tool.schema.internal.SchemaCreatorImpl [restartedMain] HHH000476: Executing import script 'org.hibernate.tool.schema.internal.exec.ScriptSourceInputNonExistentImpl@2946eafd'
+2019-10-14 09:25:40,675 INFO org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [restartedMain] HHH000397: Using ASTQueryTranslatorFactory
+2019-10-14 09:25:41,284 INFO com.cg.otm.OtmApplication [restartedMain] Started OtmApplication in 4.357 seconds (JVM running for 4.962)
+2019-10-14 09:25:54,097 INFO com.zaxxer.hikari.HikariDataSource [Thread-5] HikariPool-1 - Shutdown initiated...
+2019-10-14 09:25:54,103 INFO com.zaxxer.hikari.HikariDataSource [Thread-5] HikariPool-1 - Shutdown completed.
+2019-10-14 09:25:54,651 INFO com.cg.otm.OtmApplication [restartedMain] Starting OtmApplication on DESKTOP-0OD3OKN with PID 3896 (C:\Users\Admin\git\Sprint5\otm\target\classes started by Admin in C:\Users\Admin\git\Sprint5\otm)
+2019-10-14 09:25:54,652 DEBUG com.cg.otm.OtmApplication [restartedMain] Running with Spring Boot v2.1.9.RELEASE, Spring v5.1.10.RELEASE
+2019-10-14 09:25:54,652 INFO com.cg.otm.OtmApplication [restartedMain] No active profile set, falling back to default profiles: default
+2019-10-14 09:25:55,035 INFO org.apache.catalina.core.StandardService [restartedMain] Starting service [Tomcat]
+2019-10-14 09:25:55,035 INFO org.apache.catalina.core.StandardEngine [restartedMain] Starting Servlet engine: [Apache Tomcat/9.0.26]
+2019-10-14 09:25:55,165 INFO org.apache.jasper.servlet.TldScanner [restartedMain] At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2019-10-14 09:25:55,168 INFO org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [restartedMain] Initializing Spring embedded WebApplicationContext
+2019-10-14 09:25:55,233 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-2 - Starting...
+2019-10-14 09:25:55,236 INFO com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-2 - Start completed.
+2019-10-14 09:25:55,245 INFO org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-10-14 09:25:55,265 INFO org.hibernate.dialect.Dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2019-10-14 09:25:55,657 INFO org.hibernate.hql.internal.QueryTranslatorFactoryInitiator [restartedMain] HHH000397: Using ASTQueryTranslatorFactory
+2019-10-14 09:25:55,858 INFO com.cg.otm.OtmApplication [restartedMain] Started OtmApplication in 1.235 seconds (JVM running for 19.536)
+2019-10-14 09:26:00,915 INFO org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [http-nio-9091-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-10-14 09:26:08,511 INFO com.cg.otm.controller.TestManagementController [http-nio-9091-exec-3] Entered Register User
+2019-10-14 09:26:08,604 INFO com.cg.otm.controller.TestManagementController [http-nio-9091-exec-3] Registered User Successfully
+2019-10-14 09:26:12,483 INFO com.cg.otm.controller.TestManagementController [http-nio-9091-exec-5] Entered Register User
+2019-10-14 09:26:12,501 WARN org.hibernate.engine.jdbc.spi.SqlExceptionHelper [http-nio-9091-exec-5] SQL Error: 1062, SQLState: 23000
+2019-10-14 09:26:12,502 ERROR org.hibernate.engine.jdbc.spi.SqlExceptionHelper [http-nio-9091-exec-5] Duplicate entry 'Admin' for key 'UK_lqjrcobrh9jc8wpcar64q1bfh'
+2019-10-14 09:26:12,512 ERROR com.cg.otm.controller.TestManagementController [http-nio-9091-exec-5] Username has already been used
+2019-10-14 09:26:21,318 INFO com.cg.otm.controller.TestManagementController [http-nio-9091-exec-9] Entered Register User
+2019-10-14 09:26:21,322 INFO com.cg.otm.controller.TestManagementController [http-nio-9091-exec-9] Registered User Successfully
+2019-10-14 09:27:11,793 INFO com.cg.otm.controller.TestManagementController [http-nio-9091-exec-7] Entered Test add method
+2019-10-14 09:27:11,816 INFO com.cg.otm.controller.TestManagementController [http-nio-9091-exec-7] Test added successfully
+2019-10-14 09:27:20,524 INFO com.cg.otm.controller.TestManagementController [http-nio-9091-exec-10] Entered Test assign method
+2019-10-14 09:27:20,542 INFO com.cg.otm.service.OnlineTestServiceImpl [http-nio-9091-exec-10] Test is being assigned to user
+2019-10-14 09:27:20,551 INFO com.cg.otm.controller.TestManagementController [http-nio-9091-exec-10] Test Assigned
+2019-10-14 09:27:31,433 INFO com.cg.otm.controller.TestManagementController [http-nio-9091-exec-4] Entered Add Question
+2019-10-14 09:27:31,770 INFO com.cg.otm.controller.TestManagementController [http-nio-9091-exec-4] Questions Added successfully
+2019-10-14 09:27:41,263 INFO com.cg.otm.controller.TestManagementController [http-nio-9091-exec-3] Entered Give test method
+2019-10-14 09:27:41,264 INFO com.cg.otm.controller.TestManagementController [http-nio-9091-exec-3] Dispayed 1st question successflly
+2019-10-14 09:27:44,368 INFO com.cg.otm.controller.TestManagementController [http-nio-9091-exec-9] Next Question was displayed
+2019-10-14 09:27:59,403 INFO com.cg.otm.controller.TestManagementController [http-nio-9091-exec-7] Next Question was displayed
+2019-10-14 09:28:01,736 INFO com.cg.otm.controller.TestManagementController [http-nio-9091-exec-3] All Questions were displayed
+2019-10-14 09:28:03,262 ERROR com.cg.otm.controller.TestManagementController [http-nio-9091-exec-8] Entered Show result method
+2019-10-14 09:28:03,270 INFO com.cg.otm.controller.TestManagementController [http-nio-9091-exec-8] Successfully displayed result
+2019-10-14 09:28:08,064 DEBUG com.cg.otm.view.PDFView [http-nio-9091-exec-4] View [PDFView], model {test=OnlineTest [testId=1, testName=Java, testDuration=10:00, testQuestions=[Question [questionId=1, questionOptions=[c, java, c#, python], questionTitle=Which is OOPL?, questionAnswer=2, questionMarks=5.0, chosenAnswer=2, marksScored=0.0, testId=], Question [questionId=2, questionOptions=[c, java, c#, python], questionTitle=Which is SPL?, questionAnswer=1, questionMarks=5.0, chosenAnswer=1, marksScored=0.0, testId=], Question [questionId=3, questionOptions=[a, b, C, d], questionTitle=Which is PL?, questionAnswer=3, questionMarks=5.0, chosenAnswer=3, marksScored=0.0, testId=]], testTotalMarks=15.0, testMarksScored=0.0, startTime=2019-10-20T00:00, endTime=2020-10-20T00:00, isTestAssigned=true], org.springframework.validation.BindingResult.test=org.springframework.validation.BeanPropertyBindingResult: 0 errors}
+2019-10-14 09:31:47,875 ERROR com.cg.otm.controller.TestManagementController [http-nio-9091-exec-5] Entered Show result method
+2019-10-14 09:31:47,883 INFO com.cg.otm.controller.TestManagementController [http-nio-9091-exec-5] Successfully displayed result
+2019-10-14 09:31:56,535 INFO com.cg.otm.controller.TestManagementController [http-nio-9091-exec-2] Entered Give test method
+2019-10-14 09:31:56,536 INFO com.cg.otm.controller.TestManagementController [http-nio-9091-exec-2] Dispayed 1st question successflly
+2019-10-14 09:32:25,605 INFO com.zaxxer.hikari.HikariDataSource [RMI TCP Connection(2)-127.0.0.1] HikariPool-2 - Shutdown initiated...
+2019-10-14 09:32:25,610 INFO com.zaxxer.hikari.HikariDataSource [RMI TCP Connection(2)-127.0.0.1] HikariPool-2 - Shutdown completed.
